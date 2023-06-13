@@ -29,10 +29,22 @@ public class Anclado implements Serializable {
     @Column(name = "id_anclado")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @ManyToOne
     @JoinColumn(name = "id_admor", nullable = false)
     private Admor admor;
+
+    public Anclado() {
+    }
+
+    public Anclado(Long id, Admor admor) {
+        this.id = id;
+        this.admor = admor;
+    }
+
+    public Anclado(Admor admor) {
+        this.admor = admor;
+    }
 
     public Long getId() {
         return id;
@@ -40,6 +52,14 @@ public class Anclado implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Admor getAdmor() {
+        return admor;
+    }
+
+    public void setAdmor(Admor admor) {
+        this.admor = admor;
     }
 
     @Override
@@ -66,5 +86,5 @@ public class Anclado implements Serializable {
     public String toString() {
         return "org.hired.objetosNegocio.Anclado[ id=" + id + " ]";
     }
-    
+
 }

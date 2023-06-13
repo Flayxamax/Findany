@@ -53,20 +53,50 @@ public abstract class Usuario implements Serializable {
 
     @Column(name = "ciudad", nullable = false, length = 50)
     private String ciudad;
-    
+
     @Column(name = "fecha_nacimiento", nullable = false)
     @Temporal(value = TemporalType.DATE)
     private Date fechaNacimiento;
 
     @Column(name = "genero", nullable = false)
     private Sexo genero;
-    
+
     @ManyToOne
     @JoinColumn(name = "id_municipio", nullable = false)
     private Municipio municipio;
-    
+
     @OneToMany(mappedBy = "comun", targetEntity = Comun.class)
     private List<Comun> comun;
+
+    public Usuario() {
+    }
+
+    public Usuario(Long id, String nombreCompleto, String correo, String contrasena, String telefono, String avatar, String ciudad, Date fechaNacimiento, Sexo genero, Municipio municipio, List<Comun> comun) {
+        this.id = id;
+        this.nombreCompleto = nombreCompleto;
+        this.correo = correo;
+        this.contrasena = contrasena;
+        this.telefono = telefono;
+        this.avatar = avatar;
+        this.ciudad = ciudad;
+        this.fechaNacimiento = fechaNacimiento;
+        this.genero = genero;
+        this.municipio = municipio;
+        this.comun = comun;
+    }
+
+    public Usuario(String nombreCompleto, String correo, String contrasena, String telefono, String avatar, String ciudad, Date fechaNacimiento, Sexo genero, Municipio municipio, List<Comun> comun) {
+        this.nombreCompleto = nombreCompleto;
+        this.correo = correo;
+        this.contrasena = contrasena;
+        this.telefono = telefono;
+        this.avatar = avatar;
+        this.ciudad = ciudad;
+        this.fechaNacimiento = fechaNacimiento;
+        this.genero = genero;
+        this.municipio = municipio;
+        this.comun = comun;
+    }
 
     public Long getId() {
         return id;
@@ -74,6 +104,86 @@ public abstract class Usuario implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getNombreCompleto() {
+        return nombreCompleto;
+    }
+
+    public void setNombreCompleto(String nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
+    }
+
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public Sexo getGenero() {
+        return genero;
+    }
+
+    public void setGenero(Sexo genero) {
+        this.genero = genero;
+    }
+
+    public Municipio getMunicipio() {
+        return municipio;
+    }
+
+    public void setMunicipio(Municipio municipio) {
+        this.municipio = municipio;
+    }
+
+    public List<Comun> getComun() {
+        return comun;
+    }
+
+    public void setComun(List<Comun> comun) {
+        this.comun = comun;
     }
 
     @Override

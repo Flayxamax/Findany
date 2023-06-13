@@ -31,13 +31,27 @@ public class Comun implements Serializable {
     @Column(name = "id_comun")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @OneToMany(mappedBy = "comentario", targetEntity = Comentario.class)
     private List<Comentario> comentario;
-    
+
     @ManyToOne
     @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario usuario;
+
+    public Comun() {
+    }
+
+    public Comun(Long id, List<Comentario> comentario, Usuario usuario) {
+        this.id = id;
+        this.comentario = comentario;
+        this.usuario = usuario;
+    }
+
+    public Comun(List<Comentario> comentario, Usuario usuario) {
+        this.comentario = comentario;
+        this.usuario = usuario;
+    }
 
     public Long getId() {
         return id;
@@ -45,6 +59,22 @@ public class Comun implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<Comentario> getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(List<Comentario> comentario) {
+        this.comentario = comentario;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     @Override
@@ -71,5 +101,5 @@ public class Comun implements Serializable {
     public String toString() {
         return "org.hired.objetosNegocio.Comun[ id=" + id + " ]";
     }
-    
+
 }

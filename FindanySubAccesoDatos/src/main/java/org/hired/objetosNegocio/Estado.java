@@ -34,12 +34,42 @@ public class Estado implements Serializable {
     @OneToMany(mappedBy = "municipio", targetEntity = Municipio.class)
     private List<Municipio> municipio;
 
+    public Estado() {
+    }
+
+    public Estado(Long id, String nombre, List<Municipio> municipio) {
+        this.id = id;
+        this.nombre = nombre;
+        this.municipio = municipio;
+    }
+
+    public Estado(String nombre, List<Municipio> municipio) {
+        this.nombre = nombre;
+        this.municipio = municipio;
+    }
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public List<Municipio> getMunicipio() {
+        return municipio;
+    }
+
+    public void setMunicipio(List<Municipio> municipio) {
+        this.municipio = municipio;
     }
 
     @Override

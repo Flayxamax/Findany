@@ -30,25 +30,45 @@ public class Comentario implements Serializable {
     @Column(name = "id_comentario")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @Column(name = "fecha_hora", nullable = false)
     @Temporal(value = TemporalType.TIMESTAMP)
     private LocalDateTime fechaHora;
-    
+
     @Column(name = "contenido", nullable = false, length = 200)
     private String contenido;
-    
+
     @ManyToOne
     @JoinColumn(name = "id_normal", nullable = false)
     private Normal normal;
-    
+
     @ManyToOne
     @JoinColumn(name = "id_comentario", nullable = false)
     private Comentario comentario;
-    
+
     @ManyToOne
     @JoinColumn(name = "id_comun", nullable = false)
     private Comun comun;
+
+    public Comentario() {
+    }
+
+    public Comentario(Long id, LocalDateTime fechaHora, String contenido, Normal normal, Comentario comentario, Comun comun) {
+        this.id = id;
+        this.fechaHora = fechaHora;
+        this.contenido = contenido;
+        this.normal = normal;
+        this.comentario = comentario;
+        this.comun = comun;
+    }
+
+    public Comentario(LocalDateTime fechaHora, String contenido, Normal normal, Comentario comentario, Comun comun) {
+        this.fechaHora = fechaHora;
+        this.contenido = contenido;
+        this.normal = normal;
+        this.comentario = comentario;
+        this.comun = comun;
+    }
 
     public Long getId() {
         return id;
@@ -56,6 +76,46 @@ public class Comentario implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public LocalDateTime getFechaHora() {
+        return fechaHora;
+    }
+
+    public void setFechaHora(LocalDateTime fechaHora) {
+        this.fechaHora = fechaHora;
+    }
+
+    public String getContenido() {
+        return contenido;
+    }
+
+    public void setContenido(String contenido) {
+        this.contenido = contenido;
+    }
+
+    public Normal getNormal() {
+        return normal;
+    }
+
+    public void setNormal(Normal normal) {
+        this.normal = normal;
+    }
+
+    public Comentario getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(Comentario comentario) {
+        this.comentario = comentario;
+    }
+
+    public Comun getComun() {
+        return comun;
+    }
+
+    public void setComun(Comun comun) {
+        this.comun = comun;
     }
 
     @Override
@@ -82,5 +142,5 @@ public class Comentario implements Serializable {
     public String toString() {
         return "org.hired.objetosNegocio.Comentario[ id=" + id + " ]";
     }
-    
+
 }

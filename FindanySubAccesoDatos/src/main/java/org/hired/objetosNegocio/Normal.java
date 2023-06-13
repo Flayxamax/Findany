@@ -22,16 +22,28 @@ import javax.persistence.Table;
 @Entity
 @PrimaryKeyJoinColumn(name = "id_usuario_normal")
 @Table(name = "usuario_normal")
-public class Normal extends Usuario{
+public class Normal extends Usuario {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_normal", nullable = false)
     private Long id;
-    
+
     @OneToMany(mappedBy = "comentario", targetEntity = Comentario.class)
     private List<Comentario> comentario;
+
+    public Normal() {
+    }
+
+    public Normal(Long id, List<Comentario> comentario) {
+        this.id = id;
+        this.comentario = comentario;
+    }
+
+    public Normal(List<Comentario> comentario) {
+        this.comentario = comentario;
+    }
 
     public Long getId() {
         return id;
@@ -39,6 +51,14 @@ public class Normal extends Usuario{
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<Comentario> getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(List<Comentario> comentario) {
+        this.comentario = comentario;
     }
 
     @Override
@@ -65,5 +85,5 @@ public class Normal extends Usuario{
     public String toString() {
         return "org.hired.objetosNegocio.Normal[ id=" + id + " ]";
     }
-    
+
 }
