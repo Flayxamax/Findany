@@ -3,7 +3,6 @@ body {
     padding: 0;
     font-family: 'Ubuntu', sans-serif;
 }
-
 .container {
     display: grid;
     grid-template-columns: auto auto auto;
@@ -36,6 +35,26 @@ body {
 .container div.header-searchbar {
     grid-column-start: 2;
     grid-column-end: 3;
+    margin-top: 4%;
+}
+
+.search {
+    display: flex;
+    font-size: medium;
+    border: 2px solid #dfdede;
+}
+
+.search input{
+    padding: 5px;
+    width: 100%;
+}
+
+.search button {
+    background-color: #28a745;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
 }
 
 .container div.header-join {
@@ -86,16 +105,16 @@ body {
     grid-row-start: 5;
 }
 
-.titulo{
+.titulo {
     display: block;
 }
 
-.imagen{
+.imagen {
     display: block;
     margin-top: 20px;
 }
 
-.titulo-text{
+.titulo-text {
     margin-bottom: 20px;
     border: 2px solid #dfdede;
     border-radius: 5px;
@@ -108,7 +127,7 @@ body {
 
 }
 
-.textarea{
+.textarea {
     margin-bottom: 20px;
     border: 2px solid #dfdede;
     border-radius: 5px;
@@ -119,11 +138,12 @@ body {
     font-family: 'Ubuntu', sans-serif;
 }
 
-.main-data label, .main-content label{
+.main-data label,
+.main-content label {
     margin-bottom: 20px;
 }
 
-.checkbox{
+.checkbox {
     vertical-align: middle;
     transform: scale(1.5);
     margin: 0 20px;
@@ -205,7 +225,7 @@ body {
     margin-right: 5px;
 }
 
-.footer-contacto-separator{
+.footer-contacto-separator {
     border-color: white;
     margin-right: 85%;
 }

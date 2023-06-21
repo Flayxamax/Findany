@@ -18,6 +18,10 @@
                 <img src="img/findanylogo.svg" alt="logo" class="imagen-logo">
             </div>
             <div class="header-searchbar">
+                <form action="results.html" method="GET" class="search">
+                    <input type="text" name="search" class="search" placeholder="Buscar...">
+                    <button type="submit" class="search">🔍︎</button>
+                </form>
             </div>
             <div class="header-join">
                 <p class="header-user">Usuario</p>
@@ -30,7 +34,7 @@
                     <h2>- CREAR PUBLICACIÓN -</h2>
                 </div>
             </div>
-            <form class="main-form">
+            <form class="main-form" method="get">
                 <div class="main-data">
                     <label for="titulo" class="titulo">Título</label>
                     <input type="text" id="titulo" class="titulo-text" placeholder="Un título interesante"
