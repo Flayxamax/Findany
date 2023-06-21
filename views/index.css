@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .container {
@@ -63,6 +63,12 @@ body {
     grid-column-start: 1;
     grid-column-end: 4;
     grid-row-start: 3;
+    margin-left: 8%;
+    margin-right: 8%;
+}
+
+.container .centro{
+    font-size: 25px;
 }
 
 .container div.main-video {
@@ -77,7 +83,8 @@ body {
     grid-column-end: 4;
     grid-row-start: 4;
     text-align: justify;
-    margin-right: 70px;
+    
+    margin-right: 150px;
     font-size: 25px;
 }
 
@@ -152,15 +159,27 @@ div.main-video {
     width: 50%;
 }
 
+.contacto {
+    padding-left: 2%;
+    color: white;
+}
+
 .contacto-lista {
-    list-style-type: none;
-    padding: 0;
+    padding: 10;
 }
 
 .contacto-lista li {
+    list-style: none;
+    color: white;
     margin-bottom: 10px;
 }
 
 .contacto-lista li img {
+    width: 1%;
     margin-right: 5px;
+}
+
+.footer-contacto-separator{
+    border-color: white;
+    margin-right: 85%;
 }
