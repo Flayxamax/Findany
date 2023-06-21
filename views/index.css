@@ -183,3 +183,7 @@ div.main-video {
     border-color: white;
     margin-right: 85%;
 }
+
+footer {
+    align-self: end;
+}
