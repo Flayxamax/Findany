@@ -31,26 +31,26 @@
         <div class="main">
             <div class="main-ad">
                 <div class="arriba">
-                    <h2>- CREAR PUBLICACIÓN -</h2>
+                    <h2>- EDITAR PUBLICACIÓN -</h2>
                 </div>
             </div>
             <form class="main-form" method="get">
                 <div class="main-data">
                     <label for="titulo" class="titulo">Título</label>
                     <input type="text" id="titulo" class="titulo-text" placeholder="Un título interesante"
-                        required="required">
+                        value="Buenos días a todos!!!!" required>
                     <label for="imagen" class="imagen">Imagen</label>
-                    <input type="file" id="imagen-input" accept="image/*"  onchange="previewImage(event)" class="titulo-text">
+                    <input type="file" id="iamgen" class="titulo-text">
                     <label for="anclado">Anclado</label>
                     <input type="checkbox" id="anclado" class="checkbox">
                 </div>
                 <div class="main-content">
                     <label for="contenido" class="titulo">Contenido</label>
                     <textarea id="contenido" class="textarea" placeholder="Tu contenido aquí" rows="20"
-                        required="required"></textarea>
+                        required>Me gusta madrugar porque así puedo ser la primera persona en darte los buenos días.</textarea>
                 </div>
                 <div class="main-img">
-                    <img id="preview-image" src="img/default.png" alt="Vista previa de la imagen" class="img-post">
+                    <img src="img/img-post.jpg" class="img-post">
                 </div>
                 <div class="main-submit">
                     <button class="form-login-button">Publicar</button>
@@ -72,7 +72,5 @@
         </footer>
     </div>
 </body>
-
-<script src="prev-img.js"></script>
 
 </html>
