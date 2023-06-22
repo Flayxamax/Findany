@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es-en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Findany | $titulo-post</title>
+    <link rel="stylesheet" href="post.css">
+    <link rel="icon" type="image/png" href="img/f.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="header-logo">
+                <img src="img/findanylogo.svg" alt="logo" class="imagen-logo">
+            </div>
+            <div class="header-searchbar">
+                <form action="results.html" method="GET" class="search">
+                    <input type="text" name="search" class="search" placeholder="Buscar...">
+                    <button type="submit" class="search">🔍︎</button>
+                </form>
+            </div>
+            <div class="header-join">
+                <p class="header-user">Usuario</p>
+            </div>
+        </header>
+
+        <div class="main">
+            <div class="main-ad">
+                <div class="arriba">
+                    <h2>$TITULO-POST</h2>
+                </div>
+                <hr>
+            </div>
+
+            <div class="main-post-info">
+                <div class="main-post-info-user">
+                    <a href="$usuario.html">
+                        <h3 class="user-name">$usuario-nombre</h3>
+                    </a>
+                </div>
+                <div class="main-post-info-date">
+                    <h3 class="user-date-post">$post-fecha</h3>
+                </div>
+                <hr>
+            </div>
+
+            <div class="main-post-content">
+                <p>$postContenidoLorem ip esteban</p>
+            </div>
+
+            <div class="main-post-img">
+                <img src="img/anuncio.jpg" alt="logo" class="imagen-logo">
+                <hr>
+            </div>
+
+            <div class="main-post-createcomment">
+                <form class="main-form" action="comentarPost.jsp" method="post">
+                    <div class="main-content">
+                        <label for="contenido" class="titulo">Comentar post</label>
+                        <textarea id="contenido" class="textarea" placeholder="Tu comentario aquí" rows="5"
+                            required="required"></textarea>
+                    </div>
+                    <div class="main-submit">
+                        <button class="form-login-button">Publicar</button>
+                    </div>
+                </form>
+                <hr>
+            </div>
+
+            <div class="main-post-comment">
+                <div class="main-post-comment-img">
+                    <img src="img/usuario.png" alt="imgUser" class="img-user">
+                </div>
+                <div class="main-post-comment-info">
+                    <div class="main-post-comment-user">
+                        <h4 class="user-name">$user-nombre</h4>
+                    </div>
+                    <div class="main-post-comment-content">
+                        <p>$comentarioContenidoLorem ip esteban</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <footer>
+            <div class="footer-contacto">
+                <h3 class="contacto">CONTACTO</h3>
+                <ul class="contacto-lista">
+                    <li><img src="img/casa.png"> 644-220-9588</li>
+                    <hr class="footer-contacto-separator">
+                    <li><img src="img/celular.png"> 644-460-9376</li>
+                    <hr class="footer-contacto-separator">
+                    <li><img src="img/correo.png"> duran.esteban.cbtis37@gmail.com</li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>
