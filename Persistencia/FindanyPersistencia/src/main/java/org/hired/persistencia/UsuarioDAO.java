@@ -12,10 +12,10 @@ import static com.mongodb.client.model.Updates.set;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import org.bson.conversions.Bson;
-import org.hired.dominio.Estado;
-import org.hired.dominio.Municipio;
-import org.hired.dominio.Usuario;
 import org.hired.exception.PersistenciaException;
+import org.hired.findanyobjetosnegocio.Estado;
+import org.hired.findanyobjetosnegocio.Municipio;
+import org.hired.findanyobjetosnegocio.Usuario;
 import org.hired.interfaces.IUsuarioDAO;
 
 /**
@@ -41,7 +41,7 @@ public class UsuarioDAO implements IUsuarioDAO {
     @Override
     public void registrarUsuario(Usuario usuario, Municipio municipio, Estado estado) throws PersistenciaException {
         try {
-            MongoCollection<Usuario> coleccion = ConexionMongoDB.getCollection(NOMBRE_COLECCION, Usuario.class);
+            MongoCollection<Usuario> coleccion = ConexionMongoDB.getInstancia().getBaseDatos().getCollection(NOMBRE_COLECCION, Usuario.class);
             usuario.setContrasena(encriptarContrasenia(usuario.getContrasena()));
             usuario.setMunicipio(municipio);
             municipio.setEstado(estado);
@@ -54,7 +54,7 @@ public class UsuarioDAO implements IUsuarioDAO {
     @Override
     public void actualizarUsuario(Usuario usuario, Municipio municipio, Estado estado) throws PersistenciaException {
         try {
-            MongoCollection<Usuario> coleccion = ConexionMongoDB.getCollection(NOMBRE_COLECCION, Usuario.class);
+            MongoCollection<Usuario> coleccion = ConexionMongoDB.getInstancia().getBaseDatos().getCollection(NOMBRE_COLECCION, Usuario.class);
             Bson filtro = eq("_id", usuario.getId());
             coleccion.replaceOne(filtro, usuario);
 
@@ -98,7 +98,7 @@ public class UsuarioDAO implements IUsuarioDAO {
 
     public boolean autentificarUsuario(String correo, String contrasena) throws PersistenciaException {
         try {
-            MongoCollection<Usuario> coleccion = ConexionMongoDB.getCollection(NOMBRE_COLECCION, Usuario.class);
+            MongoCollection<Usuario> coleccion = ConexionMongoDB.getInstancia().getBaseDatos().getCollection(NOMBRE_COLECCION, Usuario.class);
             Bson filtro = Filters.and(Filters.eq("correo", correo), Filters.eq("contrasena", encriptarContrasenia(contrasena)));
             Usuario usuario = coleccion.find(filtro).first();
             return usuario != null;

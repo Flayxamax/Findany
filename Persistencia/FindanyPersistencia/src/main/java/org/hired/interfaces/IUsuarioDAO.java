@@ -4,10 +4,10 @@
  */
 package org.hired.interfaces;
 
-import org.hired.dominio.Estado;
-import org.hired.dominio.Municipio;
-import org.hired.dominio.Usuario;
 import org.hired.exception.PersistenciaException;
+import org.hired.findanyobjetosnegocio.Estado;
+import org.hired.findanyobjetosnegocio.Municipio;
+import org.hired.findanyobjetosnegocio.Usuario;
 
 /**
  *
