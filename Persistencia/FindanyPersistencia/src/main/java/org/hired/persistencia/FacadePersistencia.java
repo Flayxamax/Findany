@@ -5,6 +5,9 @@
 package org.hired.persistencia;
 
 import org.hired.exception.PersistenciaException;
+import org.hired.findanyobjetosnegocio.Estado;
+import org.hired.findanyobjetosnegocio.Municipio;
+import org.hired.findanyobjetosnegocio.Usuario;
 import org.hired.interfaces.IUsuarioDAO;
 
 /**
