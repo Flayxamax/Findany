@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Findany</title>
-    <link rel="stylesheet" href="create-post.css">
+    <link rel="stylesheet" href="view-user.css">
     <link rel="icon" type="image/png" href="img/f.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,33 +29,22 @@
         </header>
 
         <div class="main">
-            <div class="main-ad">
-                <div class="arriba">
-                    <h2>- CREAR PUBLICACIÓN -</h2>
-                </div>
-            </div>
-            <form class="main-form" method="get">
-                <div class="main-data">
-                    <label for="titulo" class="titulo">Título</label>
-                    <input type="text" id="titulo" class="titulo-text" placeholder="Un título interesante"
-                        required="required">
-                    <label for="imagen" class="imagen">Imagen</label>
-                    <input type="file" id="imagen" accept="image/*"  onchange="previewImage(event)" class="titulo-text">
-                    <label for="anclado">Anclado</label>
-                    <input type="checkbox" id="anclado" class="checkbox">
-                </div>
-                <div class="main-content">
-                    <label for="contenido" class="titulo">Contenido</label>
-                    <textarea id="contenido" class="textarea" placeholder="Tu contenido aquí" rows="20"
-                        required="required"></textarea>
-                </div>
+            <div class="main-content" method="post">
                 <div class="main-img">
                     <img id="preview-image" src="img/default.png" alt="Vista previa de la imagen" class="img-post">
                 </div>
-                <div class="main-submit">
-                    <button class="form-login-button">Publicar</button>
+                <div class="main-datos">
+                    <p><strong>Misael Marchena</strong></p>
+                    <p>Correo: misael.marchena233418@potros.itson.edu.mx</p>
+                    <p>Teléfono: 6441234567</p>
+                    <p>Dirección: Ciudad Obregón, Cajeme, Sonora.</p>
+                    <p>Fecha de nacimiento: 29 de febrero 2004</p>
+                    <p>Género: Masculino</p>
                 </div>
-            </form>
+                <div class="main-submit">
+                    <button class="edit-button">Editar información</button>
+                </div>
+            </div>
         </div>
 
         <footer>
@@ -74,5 +63,6 @@
 </body>
 
 <script src="prev-img.js"></script>
+<script src="change-tab.js"></script>
 
 </html>
