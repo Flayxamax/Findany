@@ -26,7 +26,7 @@
                 <div class="main-register">
                     <h3>Crea una cuenta</h3>
                     <hr>
-                    <form action="crearCuenta.jsp" method="POST">
+                    <form action="" method="POST" enctype="multipart/form-data">
                         <div class="main-form-group">
                             <label>Nombre completo*
                                 <input type="text" name="nombre" placeholder="Ingrese su nombre completo" required>
@@ -39,7 +39,7 @@
                         </div>
                         <div class="main-form-group">
                             <label>Telefono*
-                                <input type="tel" name="tel" placeholder="Ingrese su telefono" required>
+                                <input type="text" name="tel" placeholder="Ingrese su telefono" required>
                             </label>
                         </div>
                         <div class="main-form-group">
@@ -91,7 +91,7 @@
                         <div class="main-form-group">
                             <div class="form-fotoPerfil">
                                 <label for="seleccionarArchivo">Subir foto de perfil</label>
-                                <input type="file" id="seleccionarArchivo">
+                                <input type="file" id="seleccionarArchivo" name="avatarArchivo" accept="image/png, image/jpeg">
                             </div>
                         </div>
                         <button type="submit" class="form-login-button">Crea mi cuenta</button>

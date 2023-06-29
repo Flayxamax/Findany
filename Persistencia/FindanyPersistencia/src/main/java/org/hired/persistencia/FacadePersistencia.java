@@ -30,8 +30,8 @@ public class FacadePersistencia {
         this.municipioDAO = FactoryPersistencia.getMunicipioDAO();
     }
 
-    public void registrarUsuario(Usuario usuario, Municipio municipio, ObjectId estado) throws PersistenciaException {
-        this.usuarioDAO.registrarUsuario(usuario, municipio, estado);
+    public Usuario registrarUsuario(Usuario usuario, Municipio municipio, ObjectId estado) throws PersistenciaException {
+        return this.usuarioDAO.registrarUsuario(usuario, municipio, estado);
     }
 
     public void actualizarUsuario(Usuario usuario, Municipio municipio, ObjectId estado) throws PersistenciaException {

@@ -16,7 +16,7 @@ import org.hired.findanyobjetosnegocio.Usuario;
  */
 public interface IUsuarioDAO {
 
-    public void registrarUsuario(Usuario usuario, Municipio municipio, ObjectId estado) throws PersistenciaException;
+    public Usuario registrarUsuario(Usuario usuario, Municipio municipio, ObjectId estado) throws PersistenciaException;
 
     public void actualizarUsuario(Usuario usuario, Municipio municipio, ObjectId estado) throws PersistenciaException;
     

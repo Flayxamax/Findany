@@ -4,6 +4,12 @@
  */
 package org.hired.impl;
 
+import org.bson.types.ObjectId;
+import org.hired.exception.NegocioException;
+import org.hired.exception.PersistenciaException;
+import org.hired.findanyobjetosnegocio.Municipio;
+import org.hired.findanyobjetosnegocio.Usuario;
+import org.hired.interfaces.ICrearUsuarioBO;
 import org.hired.interfaces.IUsuarioDAO;
 import org.hired.persistencia.FactoryPersistencia;
 
@@ -11,7 +17,7 @@ import org.hired.persistencia.FactoryPersistencia;
  *
  * @author ildex
  */
-public class CrearUsuarioBO {
+public class CrearUsuarioBO implements ICrearUsuarioBO {
 
     FactoryPersistencia persistencia;
     IUsuarioDAO usuarioDAO = persistencia.getUsuarioDAO();
@@ -19,6 +25,13 @@ public class CrearUsuarioBO {
     public CrearUsuarioBO() {
         this.persistencia = new FactoryPersistencia();
     }
-    
-    
+
+    public Usuario crearUsuario(Usuario usuario, Municipio municipio, ObjectId estado) throws NegocioException {
+        try {
+            Usuario usuarioGuardado = this.usuarioDAO.registrarUsuario(usuario, municipio, estado);
+            return usuarioGuardado;
+        } catch (PersistenciaException e) {
+            throw new NegocioException(e);
+        }
+    }
 }

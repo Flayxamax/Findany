@@ -40,13 +40,14 @@ public class UsuarioDAO implements IUsuarioDAO {
     }
 
     @Override
-    public void registrarUsuario(Usuario usuario, Municipio municipio, ObjectId estado) throws PersistenciaException {
+    public Usuario registrarUsuario(Usuario usuario, Municipio municipio, ObjectId estado) throws PersistenciaException {
         try {
             MongoCollection<Usuario> coleccion = ConexionMongoDB.getInstancia().getBaseDatos().getCollection(NOMBRE_COLECCION, Usuario.class);
             usuario.setContrasena(encriptarContrasenia(usuario.getContrasena()));
             usuario.setMunicipio(municipio);
             municipio.setEstado(estado);
             coleccion.insertOne(usuario);
+            return usuario;
         } catch (MongoException e) {
             throw new PersistenciaException("Error al registrar usuario: " + e.getLocalizedMessage());
         }
