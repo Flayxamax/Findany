@@ -8,20 +8,21 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * Clase utilizada para validar textos de entrada
  *
- * @author ildex
+ * @author Findany
  */
 public class Validadores {
 
     /**
-     * Método que valida que el nombre contenga de 3 a 40 caracteres, siendo
-     * estos: letras, espacios y guiones.
+     * Verifica si una cadena cumple con el patrón de un nombre.
      *
-     * @param s Cadena de texto.
-     * @return coincidencia entre los validadores y la cadena de texto.
+     * @param s la cadena a verificar
+     * @return true si la cadena cumple con el patrón de nombre, false en caso
+     * contrario
      */
     public boolean esNombre(String s) {
-        String patron = "(([a-z]|[A-Z])|([ '-]([a-z]|[A-Z]))){3,40}";
+        String patron = "(?!.*\\s{4})[A-Za-z]{1,25}(?:\\s[A-Za-z]{1,25}){0,3}";
 
         Pattern p = Pattern.compile(patron);
 
@@ -31,14 +32,65 @@ public class Validadores {
     }
 
     /**
-     * Método que valida que el teléfono contenga de 1 a 10 caracteres, siendo
-     * estos números.
+     * Verifica si una cadena cumple con el patrón de un correo electrónico.
      *
-     * @param s Cadena de texto.
-     * @return coincidencia entre los validadores y la cadena de texto.
+     * @param s la cadena a verificar
+     * @return true si la cadena cumple con el patrón de correo electrónico,
+     * false en caso contrario
+     */
+    public boolean esCorreo(String s) {
+        String patron = "[^\\s@]{1,50}@[^\\s@]+\\.[^\\s@]";
+
+        Pattern p = Pattern.compile(patron);
+
+        Matcher matcher = p.matcher(s);
+
+        return matcher.matches();
+    }
+
+    /**
+     * Verifica si una cadena cumple con el patrón de una contraseña.
+     *
+     * @param s la cadena a verificar
+     * @return true si la cadena cumple con el patrón de contraseña, false en
+     * caso contrario
+     */
+    public boolean esContrasena(String s) {
+        String patron = "(?!.*\\s)[^\\s]{4,20}";
+
+        Pattern p = Pattern.compile(patron);
+
+        Matcher matcher = p.matcher(s);
+
+        return matcher.matches();
+    }
+
+    /**
+     * Verifica si una cadena cumple con el patrón de un número de teléfono.
+     *
+     * @param s la cadena a verificar
+     * @return true si la cadena cumple con el patrón de número de teléfono,
+     * false en caso contrario
      */
     public boolean esTelefono(String s) {
-        String patron = "([0-9]){1,10}";
+        String patron = "\\+\\d{12}";
+
+        Pattern p = Pattern.compile(patron);
+
+        Matcher matcher = p.matcher(s);
+
+        return matcher.matches();
+    }
+
+    /**
+     * Verifica si una cadena cumple con el patrón de una ciudad.
+     *
+     * @param s la cadena a verificar
+     * @return true si la cadena cumple con el patrón de ciudad, false en caso
+     * contrario
+     */
+    public boolean esCiudad(String s) {
+        String patron = "(?!.*\\s{2})(?!.*[^a-zA-Z\\s.,])(?=.*[a-zA-Z])[a-zA-Z\\s.,]{1,20}";
 
         Pattern p = Pattern.compile(patron);
 
