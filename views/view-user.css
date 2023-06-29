@@ -167,7 +167,7 @@ body {
     border-radius: 5px;
     padding: 10px;
     box-sizing: border-box;
-    max-width: 200px;
+    max-width: 300px;
     width: calc(100% - 20px);
     font-family: 'Ubuntu', sans-serif;
 }

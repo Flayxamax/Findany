@@ -12,6 +12,7 @@ import static com.mongodb.client.model.Updates.set;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 import org.hired.exception.PersistenciaException;
 import org.hired.findanyobjetosnegocio.Estado;
 import org.hired.findanyobjetosnegocio.Municipio;
@@ -25,7 +26,7 @@ import org.hired.interfaces.IUsuarioDAO;
 public class UsuarioDAO implements IUsuarioDAO {
 
     private static UsuarioDAO instancia;
-    private final String NOMBRE_COLECCION = "user";
+    private final String NOMBRE_COLECCION = "User";
 
     public UsuarioDAO() {
 
@@ -39,7 +40,7 @@ public class UsuarioDAO implements IUsuarioDAO {
     }
 
     @Override
-    public void registrarUsuario(Usuario usuario, Municipio municipio, Estado estado) throws PersistenciaException {
+    public void registrarUsuario(Usuario usuario, Municipio municipio, ObjectId estado) throws PersistenciaException {
         try {
             MongoCollection<Usuario> coleccion = ConexionMongoDB.getInstancia().getBaseDatos().getCollection(NOMBRE_COLECCION, Usuario.class);
             usuario.setContrasena(encriptarContrasenia(usuario.getContrasena()));
@@ -52,7 +53,7 @@ public class UsuarioDAO implements IUsuarioDAO {
     }
 
     @Override
-    public void actualizarUsuario(Usuario usuario, Municipio municipio, Estado estado) throws PersistenciaException {
+    public void actualizarUsuario(Usuario usuario, Municipio municipio, ObjectId estado) throws PersistenciaException {
         try {
             MongoCollection<Usuario> coleccion = ConexionMongoDB.getInstancia().getBaseDatos().getCollection(NOMBRE_COLECCION, Usuario.class);
             Bson filtro = eq("_id", usuario.getId());

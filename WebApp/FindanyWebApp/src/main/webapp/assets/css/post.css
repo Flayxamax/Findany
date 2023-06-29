@@ -1,0 +1,240 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto 1fr;
+    height: 100vh;
+}
+
+.container>div {
+    text-align: center;
+    font-size: 30px;
+}
+
+.container header {
+    background-color: #ff4736;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.container div.header-logo {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    display: flex;
+    margin-left: 8%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.container div.header-searchbar {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    margin-top: 4%;
+}
+
+.search {
+    display: flex;
+    font-size: medium;
+    border: 2px solid #dfdede;
+}
+
+.search input {
+    padding: 5px;
+    width: 100%;
+}
+
+.search button {
+    background-color: #28a745;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.container div.header-join {
+    grid-column-start: 3;
+    grid-column-end: 4;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.container .main {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto auto auto auto auto auto;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.container div.main-ad {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    text-align: start;
+    font-size: 25px;
+}
+
+.container div.main-post-info {
+    grid-row-start: 2;
+    grid-row-end: 3;
+    text-align: start;
+    font-size: 20px;
+}
+
+.container div.main-post-content {
+    grid-row-start: 3;
+    grid-row-end: 4;
+    text-align: start;
+    font-size: 15px;
+}
+
+.container div.main-post-img {
+    grid-row-start: 4;
+    grid-row-end: 5;
+    text-align: start;
+}
+
+.container div.main-post-createcomment{
+    grid-row-start: 5;
+    grid-row-end: 6;
+    text-align: start;
+    font-size: 20px;
+}
+
+.container div.main-post-comment {
+    grid-row-start: 7;
+    grid-row-end: 8;
+    text-align: start;
+    font-size: 15px;
+}
+
+.imagen {
+    display: block;
+    margin-top: 20px;
+}
+
+.titulo-text {
+    margin-bottom: 20px;
+    border: 2px solid #dfdede;
+    border-radius: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+    max-width: 400px;
+    display: block;
+    width: calc(100% - 20px);
+    font-family: 'Ubuntu', sans-serif;
+
+}
+
+.textarea {
+    margin-bottom: 20px;
+    border: 2px solid #dfdede;
+    border-radius: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.main-data label,
+.main-content label {
+    margin-bottom: 20px;
+}
+
+.form-login-button {
+    background-color: #28a745;
+    font-size: large;
+    font-weight: bold;
+    color: white;
+    border: 2px solid #dfdede;
+    border-radius: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 400px;
+    margin: 0 auto;
+}
+
+.main-post-comment {
+    display: flex;
+    align-items: center;
+}
+
+.main-post-comment-img {
+    margin-right: 10px;
+}
+
+.main-post-comment-img img {
+    width: 40px;
+    height: 100%;
+}
+
+.form-login-button:hover {
+    background-color: #3ab657;
+}
+
+.container footer {
+    background-color: #ff4736;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    display: grid;
+}
+
+.container div.footer-contacto {
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+
+.header-user {
+    color: white;
+    background-color: transparent;
+    font-weight: bolder;
+    font-size: 18px;
+    border-radius: 19px 19px 19px 19px;
+    -moz-border-radius: 19px 19px 19px 19px;
+    -webkit-border-radius: 19px 19px 19px 19px;
+    border: transparent;
+    margin-right: 10px;
+}
+
+.imagen-logo {
+    width: 50%;
+}
+
+.contacto {
+    padding-left: 2%;
+    color: white;
+}
+
+.contacto-lista {
+    padding: 10;
+}
+
+.contacto-lista li {
+    list-style: none;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.contacto-lista li img {
+    width: 1%;
+    margin-right: 5px;
+}
+
+.footer-contacto-separator {
+    border-color: white;
+    margin-right: 85%;
+}
+
+footer {
+    align-self: end;
+}

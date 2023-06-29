@@ -4,6 +4,8 @@
  */
 package org.hired.persistencia;
 
+import org.hired.interfaces.IEstadoDAO;
+import org.hired.interfaces.IMunicipioDAO;
 import org.hired.interfaces.IUsuarioDAO;
 
 /**
@@ -14,9 +16,16 @@ public class FactoryPersistencia {
 
     public FactoryPersistencia() {
     }
-    
-    public static IUsuarioDAO getUsuarioDAO(){
+
+    public static IUsuarioDAO getUsuarioDAO() {
         return UsuarioDAO.getInstancia();
     }
 
+    public static IEstadoDAO getEstadoDAO() {
+        return EstadoDAO.getInstancia();
+    }
+
+    public static IMunicipioDAO getMunicipioDAO() {
+        return MunicipioDAO.getInstancia();
+    }
 }

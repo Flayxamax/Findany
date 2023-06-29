@@ -20,7 +20,7 @@ import org.bson.codecs.pojo.PojoCodecProvider;
 public class ConexionMongoDB {
 
     private static ConexionMongoDB instancia;
-    private final String BASE_DATOS = "findany";
+    private final String BASE_DATOS = "Findany";
     private final MongoDatabase baseDatos;
 
     private ConexionMongoDB() {

@@ -17,7 +17,7 @@ public class Municipio {
     private ObjectId id;
     private String nombre;
     private List<Usuario> usuario;
-    private Estado estado;
+    private ObjectId estado;
 
     public Municipio() {
     }
@@ -26,18 +26,18 @@ public class Municipio {
         this.nombre = nombre;
     }
 
-    public Municipio(String nombre, Estado estado) {
+    public Municipio(String nombre, ObjectId estado) {
         this.nombre = nombre;
         this.estado = estado;
     }
 
-    public Municipio(String nombre, List<Usuario> usuario, Estado estado) {
+    public Municipio(String nombre, List<Usuario> usuario, ObjectId estado) {
         this.nombre = nombre;
         this.usuario = usuario;
         this.estado = estado;
     }
 
-    public Municipio(ObjectId id, String nombre, List<Usuario> usuario, Estado estado) {
+    public Municipio(ObjectId id, String nombre, List<Usuario> usuario, ObjectId estado) {
         this.id = id;
         this.nombre = nombre;
         this.usuario = usuario;
@@ -68,11 +68,11 @@ public class Municipio {
         this.usuario = usuario;
     }
 
-    public Estado getEstado() {
+    public ObjectId getEstado() {
         return estado;
     }
 
-    public void setEstado(Estado estado) {
+    public void setEstado(ObjectId estado) {
         this.estado = estado;
     }
 

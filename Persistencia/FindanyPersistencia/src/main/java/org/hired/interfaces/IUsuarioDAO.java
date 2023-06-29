@@ -4,6 +4,7 @@
  */
 package org.hired.interfaces;
 
+import org.bson.types.ObjectId;
 import org.hired.exception.PersistenciaException;
 import org.hired.findanyobjetosnegocio.Estado;
 import org.hired.findanyobjetosnegocio.Municipio;
@@ -15,9 +16,9 @@ import org.hired.findanyobjetosnegocio.Usuario;
  */
 public interface IUsuarioDAO {
 
-    public void registrarUsuario(Usuario usuario, Municipio municipio, Estado estado) throws PersistenciaException;
+    public void registrarUsuario(Usuario usuario, Municipio municipio, ObjectId estado) throws PersistenciaException;
 
-    public void actualizarUsuario(Usuario usuario, Municipio municipio, Estado estado) throws PersistenciaException;
+    public void actualizarUsuario(Usuario usuario, Municipio municipio, ObjectId estado) throws PersistenciaException;
     
     public boolean autentificarUsuario(String correo, String contrasena) throws PersistenciaException;
 }
