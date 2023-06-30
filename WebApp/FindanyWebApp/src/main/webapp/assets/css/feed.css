@@ -64,6 +64,7 @@ body {
     justify-content: center;
     align-items: center;
     display: flex;
+    position: relative;
 }
 
 .container .banner {
@@ -187,7 +188,33 @@ body {
     background-color: #3ab657;
 }
 
-.header-user {
+.menu-content {
+    display: none;
+    top: 70%;
+    left: 33%;
+    position: absolute;
+    min-width: 200px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.menu-btn:hover .menu-content, .header-join.open .menu-content{
+    display: block;
+}
+
+.menu-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.menu-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.menu-btn {
     color: white;
     background-color: transparent;
     font-weight: bolder;
@@ -197,6 +224,11 @@ body {
     -webkit-border-radius: 19px 19px 19px 19px;
     border: transparent;
     margin-right: 10px;
+}
+
+.menu-btn:hover {
+    color: #fe4735;
+    background-color: white;
 }
 
 .imagen-logo {

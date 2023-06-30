@@ -53,7 +53,7 @@ public class AuthServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession sesion = request.getSession();
         sesion.invalidate();
-        getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/login.html").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

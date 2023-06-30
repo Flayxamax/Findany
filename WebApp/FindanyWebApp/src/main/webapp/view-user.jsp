@@ -2,9 +2,9 @@
 <html lang="es-en">
 
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
         <title>Findany</title>
-        <link rel="stylesheet" href="assets/css/feed.css">
+        <link rel="stylesheet" href="assets/css/view-user.css">
         <link rel="icon" type="image/png" href="assets/img/f.png">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,13 +20,13 @@
                 <div class="header-searchbar">
                     <form action="results.html" method="GET" class="search">
                         <input type="text" name="search" class="search" placeholder="Buscar...">
-                        <button type="submit" class="search">???</button>
+                        <button type="submit" class="search">????</button>
                     </form>
                 </div>
                 <div class="header-join">
                     <button class="menu-btn">${sessionScope.usuario.nombreCompleto}
                         <div class="menu-content">
-                            <a href="view-user.jsp">Ver perfil</a>
+                            <a href="feed.jsp">Ver feed</a>
                             <a href="create-post.jsp">Crear post</a>
 
                             <form action="./auth?action=logout" method="POST" class="form-login">
@@ -38,30 +38,36 @@
             </header>
 
             <div class="main">
-                <div class="main-post">
-                    <h2 class="title-post">Buenos días a todos!!!!</h2>
-                    <div class="post-user">
-                        <p>Esteban Durán</p>
+                <div class="main-content">
+                    <div class="main-img">
+                        <img id="preview-image" src="assets/img/default.png" alt="Vista previa de la imagen" class="img-post">
                     </div>
-                    <div class="date-published">
-                        <p>Fecha publicación:</p>
-                        <p>20/06/2023</p>
+                    <div class="main-datos">
+                        <p><strong>Misael Marchena</strong></p>
+                        <p>Correo: misael.marchena233418@potros.itson.edu.mx</p>
+                        <p>Teléfono: 6441234567</p>
+                        <p>Dirección: Ciudad Obregón, Cajeme, Sonora.</p>
+                        <p>Fecha de nacimiento: 29 de febrero 2004</p>
+                        <p>Género: Masculino</p>
                     </div>
-                    <div class="date-edited">
-                        <p>Ultima edición:</p>
-                        <p>21/06/2023</p>
-                    </div>
-                    <div class="post-content">
-                        <p>Me gusta madrugar porque así puedo ser la primera persona en darte los buenos días.</p>
-                    </div>
-                    <div class="post-img">
-                        <img src="assets/img/img-post.jpg">
-                    </div>
-                    <div class="post-view">
-                        <button>Ver</button>
+                    <div class="main-submit">
+                        <button class="edit-button">Editar información</button>
                     </div>
                 </div>
             </div>
+
+            <footer>
+                <div class="footer-contacto">
+                    <h3 class="contacto">CONTACTO</h3>
+                    <ul class="contacto-lista">
+                        <li><img src="assets/img/casa.png"> 644-220-9588</li>
+                        <hr class="footer-contacto-separator">
+                        <li><img src="assets/img/celular.png"> 644-460-9376</li>
+                        <hr class="footer-contacto-separator">
+                        <li><img src="assets/img/correo.png"> duran.esteban.cbtis37@gmail.com</li>
+                    </ul>
+                </div>
+            </footer>
         </div>
     </body>
 

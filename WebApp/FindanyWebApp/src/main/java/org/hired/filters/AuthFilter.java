@@ -52,9 +52,9 @@ public class AuthFilter implements Filter {
             if (path.startsWith("/" + pathPublico)) {
                 return false;
             }
-        }
-        if (path.startsWith("/assets/")) {
-            return false;
+            if (path.startsWith("/assets/")) {
+                return false;
+            }
         }
         return true;
     }
