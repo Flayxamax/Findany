@@ -98,4 +98,24 @@ public class Validadores {
 
         return matcher.matches();
     }
+    
+    public boolean esTitulo(String s) {
+        String patron = "^.{1,20}$";
+
+        Pattern p = Pattern.compile(patron);
+
+        Matcher matcher = p.matcher(s);
+
+        return matcher.matches();
+    }
+    
+    public boolean esContenido(String s) {
+        String patron = "^.{1,200}$";
+
+        Pattern p = Pattern.compile(patron);
+
+        Matcher matcher = p.matcher(s);
+
+        return matcher.matches();
+    }
 }

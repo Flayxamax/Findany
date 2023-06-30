@@ -45,7 +45,7 @@ public class AuthServlet extends HttpServlet {
         Usuario usuarioLogueado = loginUsuarioBO.busquedaUsuario(correo);
         HttpSession sesion = request.getSession();
         sesion.setAttribute("usuario", usuarioLogueado);
-        getServletContext().getRequestDispatcher("/feed.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/post").forward(request, response);
 
     }
 

@@ -7,6 +7,7 @@ package org.hired.persistencia;
 import org.hired.interfaces.IComentarioDAO;
 import org.hired.interfaces.IEstadoDAO;
 import org.hired.interfaces.IMunicipioDAO;
+import org.hired.interfaces.IPostDAO;
 import org.hired.interfaces.IUsuarioDAO;
 
 /**
@@ -29,7 +30,7 @@ public class FactoryPersistencia {
     /**
      * Constructor privado para evitar la instanciación de la clase.
      */
-    private FactoryPersistencia() {
+    public FactoryPersistencia() {
     }
 
     /**
@@ -66,5 +67,9 @@ public class FactoryPersistencia {
      */
     public static IComentarioDAO getComentarioDAO() {
         return ComentarioDAO.getInstancia();
+    }
+    
+    public static IPostDAO getPostDAO(){
+        return PostDAO.getInstancia();
     }
 }

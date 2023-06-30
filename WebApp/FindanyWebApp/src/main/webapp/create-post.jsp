@@ -43,26 +43,26 @@
                         <h2>- CREAR PUBLICACIÓN -</h2>
                     </div>
                 </div>
-                <form class="main-form" method="get">
+                <form action="/post?action=create" class="main-form" method="POST">
                     <div class="main-data">
                         <label for="titulo" class="titulo">Título</label>
-                        <input type="text" id="titulo" class="titulo-text" placeholder="Un título interesante"
+                        <input type="text" id="titulo" name="titulo" class="titulo-text" placeholder="Un título interesante"
                                required="required">
-                        <label for="imagen" class="imagen">Imagen</label>
-                        <input type="file" id="imagen" accept="image/png, image/jpeg"  onchange="previewImage(event)" class="titulo-text">
+                        <!-- <label for="imagen" class="imagen">Imagen</label>
+                        <input type="file" id="imagen" accept="image/png, image/jpeg"  onchange="previewImage(event)" class="titulo-text">-->
                         <label for="anclado">Anclado</label>
-                        <input type="checkbox" id="anclado" class="checkbox">
+                        <input type="checkbox" id="anclado" name="anclado" class="checkbox">
                     </div>
                     <div class="main-content">
                         <label for="contenido" class="titulo">Contenido</label>
-                        <textarea id="contenido" class="textarea" placeholder="Tu contenido aquí" rows="20"
+                        <textarea id="contenido" class="textarea" name="contenido" placeholder="Tu contenido aquí" rows="20"
                                   required="required"></textarea>
                     </div>
-                    <div class="main-img">
+                    <!-- <div class="main-img">
                         <img id="preview-image" src="assets/img/default.png" alt="Vista previa de la imagen" class="img-post">
-                    </div>
+                    </div>-->
                     <div class="main-submit">
-                        <button class="form-login-button">Publicar</button>
+                        <button class="form-login-button" type="submit">Publicar</button>
                     </div>
                 </form>
             </div>

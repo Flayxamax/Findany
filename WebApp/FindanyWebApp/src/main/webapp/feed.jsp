@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="es-en">
 
@@ -38,29 +39,33 @@
             </header>
 
             <div class="main">
-                <div class="main-post">
-                    <h2 class="title-post">Buenos días a todos!!!!</h2>
-                    <div class="post-user">
-                        <p>Esteban Durán</p>
+                <c:forEach var="post" items="${posts}">
+                    <div class="main-post">
+                        <h2 class="title-post">${post.titulo}</h2>
+                        <div class="post-user">
+                            <p>${post.usuarioAutor.nombreCompleto}</p>
+                        </div>
+                        <div class="date-published">
+                            <p>Fecha publicación:</p>
+                            <p>${post.fechaHoraCreacion}</p>
+                        </div>
+                        <div class="date-edited">
+                            <c:if test="${post.fechaHoraEdicion != null}">
+                                <p>Ultima edición:</p>
+                                <p>${post.fechaHoraEdicion}</p>
+                            </c:if>                          
+                        </div>
+                        <div class="post-content">
+                            <p>${post.contenido}</p>
+                        </div>
+                        <!--<div class="post-img">
+                            <img src="assets/img/img-post.jpg">
+                        </div>-->
+                        <div class="post-view">
+                            <button>Ver</button>
+                        </div>
                     </div>
-                    <div class="date-published">
-                        <p>Fecha publicación:</p>
-                        <p>20/06/2023</p>
-                    </div>
-                    <div class="date-edited">
-                        <p>Ultima edición:</p>
-                        <p>21/06/2023</p>
-                    </div>
-                    <div class="post-content">
-                        <p>Me gusta madrugar porque así puedo ser la primera persona en darte los buenos días.</p>
-                    </div>
-                    <div class="post-img">
-                        <img src="assets/img/img-post.jpg">
-                    </div>
-                    <div class="post-view">
-                        <button>Ver</button>
-                    </div>
-                </div>
+                </c:forEach>
             </div>
         </div>
     </body>

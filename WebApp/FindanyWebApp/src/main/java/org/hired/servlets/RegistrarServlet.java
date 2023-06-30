@@ -36,7 +36,7 @@ import org.hired.utils.Validadores;
 @WebServlet(name = "RegistrarServlet", urlPatterns = {"/register"})
 public class RegistrarServlet extends HttpServlet {
 
-    Validadores validador = new Validadores();
+    private Validadores validador = new Validadores();
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
