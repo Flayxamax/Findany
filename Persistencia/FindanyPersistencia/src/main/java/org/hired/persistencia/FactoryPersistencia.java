@@ -4,28 +4,67 @@
  */
 package org.hired.persistencia;
 
+import org.hired.interfaces.IComentarioDAO;
 import org.hired.interfaces.IEstadoDAO;
 import org.hired.interfaces.IMunicipioDAO;
 import org.hired.interfaces.IUsuarioDAO;
 
 /**
+ * La clase FactoryPersistencia es una fábrica que proporciona instancias de los
+ * diferentes DAO (Data Access Object) utilizados para acceder a la persistencia
+ * de datos. Contiene métodos estáticos para obtener instancias de los DAO de
+ * usuario, estado, municipio y comentario.
  *
- * @author ildex
+ * @see IUsuarioDAO
+ * @see IEstadoDAO
+ * @see IMunicipioDAO
+ * @see IComentarioDAO
+ * @see UsuarioDAO
+ * @see EstadoDAO
+ * @see MunicipioDAO
+ * @see ComentarioDAO
  */
 public class FactoryPersistencia {
 
-    public FactoryPersistencia() {
+    /**
+     * Constructor privado para evitar la instanciación de la clase.
+     */
+    private FactoryPersistencia() {
     }
 
+    /**
+     * Obtiene una instancia del DAO de usuario.
+     *
+     * @return una instancia del DAO de usuario
+     */
     public static IUsuarioDAO getUsuarioDAO() {
         return UsuarioDAO.getInstancia();
     }
 
+    /**
+     * Obtiene una instancia del DAO de estado.
+     *
+     * @return una instancia del DAO de estado
+     */
     public static IEstadoDAO getEstadoDAO() {
         return EstadoDAO.getInstancia();
     }
 
+    /**
+     * Obtiene una instancia del DAO de municipio.
+     *
+     * @return una instancia del DAO de municipio
+     */
     public static IMunicipioDAO getMunicipioDAO() {
         return MunicipioDAO.getInstancia();
+    }
+
+    /**
+     * Obtiene una instancia del DAO de comentario.
+     *
+     * @return una instancia del DAO de comentario
+     */
+    public static IComentarioDAO getComentarioDAO() {
+        return ComentarioDAO.getInstancia();
     }
 }

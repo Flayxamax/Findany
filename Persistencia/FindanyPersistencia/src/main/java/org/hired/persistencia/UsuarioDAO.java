@@ -19,18 +19,47 @@ import org.hired.findanyobjetosnegocio.Usuario;
 import org.hired.interfaces.IUsuarioDAO;
 
 /**
+ * Esta clase implementa la interfaz IUsuarioDAO y proporciona métodos para
+ * acceder y manipular los datos de los usuarios en la base de datos. Utiliza la
+ * base de datos MongoDB para almacenar los datos de los usuarios. La clase
+ * utiliza el patrón Singleton para garantizar una única instancia de la clase.
  *
- * @author ildex
+ * @see IUsuarioDAO
+ * @see FactoryPersistencia
+ * @see Usuario
+ * @see Municipio
+ * @see ObjectId
+ * @throws PersistenciaException si ocurre algún error en la interacción con la
+ * base de datos
+ * @throws NoSuchAlgorithmException si ocurre un error al encriptar la
+ * contraseña utilizando el algoritmo SHA-256
+ * @throws MongoException si ocurre un error en la operación con la base de
+ * datos MongoDB
+ * @throws MessageDigestException si ocurre un error al crear la instancia de
+ * MessageDigest para el algoritmo SHA-256
+ * @throws MongoException si ocurre un error en la operación con la base de
+ * datos MongoDB
+ * @throws PersistenciaException si ocurre algún error en la interacción con la
+ * base de datos
+ * @author Findany
  */
 public class UsuarioDAO implements IUsuarioDAO {
 
     private static UsuarioDAO instancia;
     private final String NOMBRE_COLECCION = "User";
 
+    /**
+     * Crea una nueva instancia de UsuarioDAO.
+     */
     public UsuarioDAO() {
 
     }
 
+    /**
+     * Obtiene la instancia única de UsuarioDAO utilizando el patrón Singleton.
+     *
+     * @return la instancia única de UsuarioDAO
+     */
     public static UsuarioDAO getInstancia() {
         if (instancia == null) {
             instancia = new UsuarioDAO();
@@ -38,6 +67,15 @@ public class UsuarioDAO implements IUsuarioDAO {
         return instancia;
     }
 
+    /**
+     * Registra un nuevo usuario en la base de datos.
+     *
+     * @param usuario el usuario a registrar
+     * @return el usuario registrado
+     * @throws PersistenciaException si el correo electrónico ya está registrado
+     * en la base de datos o si ocurre un error durante la operación de registro
+     * del usuario
+     */
     @Override
     public Usuario registrarUsuario(Usuario usuario) throws PersistenciaException {
         if (existeCorreoRegistrado(usuario.getCorreo())) {
@@ -57,11 +95,13 @@ public class UsuarioDAO implements IUsuarioDAO {
     /**
      * Verifica si el correo electrónico ya está registrado en la base de datos.
      *
-     * @param correo El correo electrónico a verificar.
+     * @param correo el correo electrónico a verificar
      * @return true si el correo electrónico está registrado, false en caso
-     * contrario.
-     * @throws PersistenciaException Si ocurre un error en la base de datos.
+     * contrario
+     * @throws PersistenciaException si ocurre un error durante la operación de
+     * verificación del correo electrónico
      */
+    @Override
     public boolean existeCorreoRegistrado(String correo) throws PersistenciaException {
         try {
             MongoCollection<Usuario> coleccion = ConexionMongoDB.getInstancia().getBaseDatos().getCollection(NOMBRE_COLECCION, Usuario.class);
@@ -72,6 +112,15 @@ public class UsuarioDAO implements IUsuarioDAO {
         }
     }
 
+    /**
+     * Actualiza la información de un usuario en la base de datos.
+     *
+     * @param usuario el usuario a actualizar
+     * @param municipio el municipio asociado al usuario
+     * @param estado el estado asociado al usuario
+     * @throws PersistenciaException si ocurre un error durante la operación de
+     * actualización del usuario
+     */
     @Override
     public void actualizarUsuario(Usuario usuario, Municipio municipio, ObjectId estado) throws PersistenciaException {
         try {
@@ -92,8 +141,8 @@ public class UsuarioDAO implements IUsuarioDAO {
     /**
      * Encripta una contraseña utilizando el algoritmo de hash SHA-256.
      *
-     * @param contrasenia La contraseña a encriptar.
-     * @return La contraseña encriptada.
+     * @param contrasenia la contraseña a encriptar
+     * @return la contraseña encriptada
      */
     public String encriptarContrasenia(String contrasenia) {
         try {
@@ -117,6 +166,17 @@ public class UsuarioDAO implements IUsuarioDAO {
         return null;
     }
 
+    /**
+     * Autentifica un usuario utilizando el correo y la contraseña
+     * proporcionados.
+     *
+     * @param correo el correo del usuario
+     * @param contrasena la contraseña del usuario
+     * @return true si la autenticación es exitosa, false de lo contrario
+     * @throws PersistenciaException si ocurre un error durante la operación de
+     * autenticación del usuario
+     */
+    @Override
     public boolean autentificarUsuario(String correo, String contrasena) throws PersistenciaException {
         try {
             MongoCollection<Usuario> coleccion = ConexionMongoDB.getInstancia().getBaseDatos().getCollection(NOMBRE_COLECCION, Usuario.class);
@@ -128,6 +188,15 @@ public class UsuarioDAO implements IUsuarioDAO {
         }
     }
 
+    /**
+     * Busca un usuario en la base de datos utilizando el correo electrónico.
+     *
+     * @param correo el correo electrónico del usuario a buscar
+     * @return el usuario encontrado o null si no se encuentra ningún usuario
+     * con el correo electrónico especificado
+     * @throws PersistenciaException si ocurre un error durante la operación de
+     * búsqueda del usuario
+     */
     @Override
     public Usuario buscarUsuarioPorCorreo(String correo) throws PersistenciaException {
         try {

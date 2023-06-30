@@ -17,12 +17,12 @@
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>FindanyPersistencia</artifactId>
+            <artifactId>FindanyObjetosNegocio</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>FindanyObjetosNegocio</artifactId>
+            <artifactId>FindanyPersistencia</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
