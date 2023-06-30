@@ -11,6 +11,7 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -18,9 +19,10 @@ import javax.servlet.http.HttpSession;
  *
  * @author ildex
  */
+@WebFilter(filterName = "AuthFilter", urlPatterns = {"/*"})
 public class AuthFilter implements Filter {
 
-    private static final String[] pathsPublicos = {"login.html", "auth"};
+    private static final String[] pathsPublicos = {"login.html", "auth", "index.html", "register"};
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -33,14 +35,10 @@ public class AuthFilter implements Filter {
         boolean isPathPrivado = this.isPathPrivado(path);
         boolean isUsuarioLogueado = this.isUsuarioLogueado(httpRequest);
         if (isPathPrivado && !isUsuarioLogueado) {
-            request.getServletContext().getRequestDispatcher("/login.html").forward(request, response);
+            request.getServletContext().getRequestDispatcher("/index.html").forward(request, response);
             return;
         }
         chain.doFilter(request, response);
-    }
-
-    @Override
-    public void destroy() {
     }
 
     private String getPathSolicitado(HttpServletRequest request) {
@@ -55,12 +53,19 @@ public class AuthFilter implements Filter {
                 return false;
             }
         }
+        if (path.startsWith("/assets/")) {
+            return false;
+        }
         return true;
     }
 
     private boolean isUsuarioLogueado(HttpServletRequest request) {
         HttpSession sesion = request.getSession(false);
         return (sesion != null && sesion.getAttribute("usuario") != null);
+    }
+
+    @Override
+    public void destroy() {
     }
 
 }
