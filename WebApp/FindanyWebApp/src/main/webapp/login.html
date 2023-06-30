@@ -26,10 +26,10 @@
                 <div class="main-form">
                     <img src="assets/img/icono.png" alt="logo findany" class="form-icon">
                     <h3 class="form-LoginText">Iniciar Sesión</h3>
-                    <form action="login.jsp" method="POST" class="form-login">
-                        <input type="text" id="email" name="email" placeholder="Correo" required>
+                    <form action="./auth?action=login" method="POST" class="form-login">
+                        <input type="text" id="email" name="correo" placeholder="Correo" required>
                         <br>
-                        <input type="password" id="password" name="password" placeholder="Contraseña" required>
+                        <input type="password" id="password" name="pass" placeholder="Contraseña" required>
                         <br>
                         <input type="submit" value="Iniciar Sesión" class="form-login-button">
                     </form>

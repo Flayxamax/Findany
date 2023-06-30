@@ -42,6 +42,10 @@ public class FacadePersistencia {
         return this.usuarioDAO.autentificarUsuario(correo, contrasena);
     }
 
+    public Usuario buscarUsuarioPorCorreo(String correo) throws PersistenciaException {
+        return this.usuarioDAO.buscarUsuarioPorCorreo(correo);
+    }
+
     public List<Estado> obtenerEstados() throws PersistenciaException {
         return this.estadoDAO.obtenerEstados();
     }

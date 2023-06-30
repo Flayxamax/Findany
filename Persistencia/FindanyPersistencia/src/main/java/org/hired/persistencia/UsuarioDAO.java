@@ -128,4 +128,15 @@ public class UsuarioDAO implements IUsuarioDAO {
         }
     }
 
+    @Override
+    public Usuario buscarUsuarioPorCorreo(String correo) throws PersistenciaException {
+        try {
+            MongoCollection<Usuario> coleccion = ConexionMongoDB.getInstancia().getBaseDatos().getCollection(NOMBRE_COLECCION, Usuario.class);
+            Bson filtro = eq("correo", correo);
+            return coleccion.find(filtro).first();
+        } catch (MongoException e) {
+            throw new PersistenciaException("Error al buscar el usuario: " + e.getMessage());
+        }
+    }
+
 }

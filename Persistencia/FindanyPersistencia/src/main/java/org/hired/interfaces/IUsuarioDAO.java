@@ -23,4 +23,6 @@ public interface IUsuarioDAO {
     public void actualizarUsuario(Usuario usuario, Municipio municipio, ObjectId estado) throws PersistenciaException;
     
     public boolean autentificarUsuario(String correo, String contrasena) throws PersistenciaException;
+    
+    public Usuario buscarUsuarioPorCorreo(String correo) throws PersistenciaException;
 }
