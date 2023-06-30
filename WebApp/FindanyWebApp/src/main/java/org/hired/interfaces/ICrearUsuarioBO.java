@@ -15,5 +15,5 @@ import org.hired.findanyobjetosnegocio.Usuario;
  */
 public interface ICrearUsuarioBO {
 
-    public Usuario crearUsuario(Usuario usuario, Municipio municipio, ObjectId estado) throws NegocioException;
+    public Usuario crearUsuario(Usuario usuario) throws NegocioException;
 }

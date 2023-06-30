@@ -26,7 +26,7 @@
                 <div class="main-register">
                     <h3>Crea una cuenta</h3>
                     <hr>
-                    <form action="" method="POST" enctype="multipart/form-data">
+                    <form action="" method="POST">
                         <div class="main-form-group">
                             <label>Nombre completo*
                                 <input type="text" name="nombre" placeholder="Ingrese su nombre completo" required>
@@ -87,12 +87,6 @@
                                 <input type="date" name="fechaNacimiento" placeholder="Ingrese su fecha de nacimiento"
                                        required>
                             </label>
-                        </div>
-                        <div class="main-form-group">
-                            <div class="form-fotoPerfil">
-                                <label for="seleccionarArchivo">Subir foto de perfil</label>
-                                <input type="file" id="seleccionarArchivo" name="avatarArchivo" accept="image/png, image/jpeg">
-                            </div>
                         </div>
                         <button type="submit" class="form-login-button">Crea mi cuenta</button>
                     </form>

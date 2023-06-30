@@ -26,9 +26,9 @@ public class CrearUsuarioBO implements ICrearUsuarioBO {
         this.persistencia = new FactoryPersistencia();
     }
 
-    public Usuario crearUsuario(Usuario usuario, Municipio municipio, ObjectId estado) throws NegocioException {
+    public Usuario crearUsuario(Usuario usuario) throws NegocioException {
         try {
-            Usuario usuarioGuardado = this.usuarioDAO.registrarUsuario(usuario, municipio, estado);
+            Usuario usuarioGuardado = this.usuarioDAO.registrarUsuario(usuario);
             return usuarioGuardado;
         } catch (PersistenciaException e) {
             throw new NegocioException(e);

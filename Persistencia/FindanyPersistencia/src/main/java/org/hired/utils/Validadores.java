@@ -39,7 +39,7 @@ public class Validadores {
      * false en caso contrario
      */
     public boolean esCorreo(String s) {
-        String patron = "[^\\s@]{1,50}@[^\\s@]+\\.[^\\s@]";
+        String patron = "^[^\\s@]+@[^\\s@]+\\.[^\\s@]{2,}$";
 
         Pattern p = Pattern.compile(patron);
 
@@ -73,7 +73,7 @@ public class Validadores {
      * false en caso contrario
      */
     public boolean esTelefono(String s) {
-        String patron = "\\+\\d{12}";
+        String patron = "^\\+\\d{1,3}\\d{10}$";
 
         Pattern p = Pattern.compile(patron);
 

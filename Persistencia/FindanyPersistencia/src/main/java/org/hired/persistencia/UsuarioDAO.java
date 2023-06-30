@@ -14,7 +14,6 @@ import java.security.NoSuchAlgorithmException;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import org.hired.exception.PersistenciaException;
-import org.hired.findanyobjetosnegocio.Estado;
 import org.hired.findanyobjetosnegocio.Municipio;
 import org.hired.findanyobjetosnegocio.Usuario;
 import org.hired.interfaces.IUsuarioDAO;
@@ -40,16 +39,36 @@ public class UsuarioDAO implements IUsuarioDAO {
     }
 
     @Override
-    public Usuario registrarUsuario(Usuario usuario, Municipio municipio, ObjectId estado) throws PersistenciaException {
+    public Usuario registrarUsuario(Usuario usuario) throws PersistenciaException {
+        if (existeCorreoRegistrado(usuario.getCorreo())) {
+            throw new PersistenciaException("El correo electrónico ya se encuentra registrado en el sistema");
+        }
+
         try {
             MongoCollection<Usuario> coleccion = ConexionMongoDB.getInstancia().getBaseDatos().getCollection(NOMBRE_COLECCION, Usuario.class);
             usuario.setContrasena(encriptarContrasenia(usuario.getContrasena()));
-            usuario.setMunicipio(municipio);
-            municipio.setEstado(estado);
             coleccion.insertOne(usuario);
             return usuario;
         } catch (MongoException e) {
             throw new PersistenciaException("Error al registrar usuario: " + e.getLocalizedMessage());
+        }
+    }
+
+    /**
+     * Verifica si el correo electrónico ya está registrado en la base de datos.
+     *
+     * @param correo El correo electrónico a verificar.
+     * @return true si el correo electrónico está registrado, false en caso
+     * contrario.
+     * @throws PersistenciaException Si ocurre un error en la base de datos.
+     */
+    public boolean existeCorreoRegistrado(String correo) throws PersistenciaException {
+        try {
+            MongoCollection<Usuario> coleccion = ConexionMongoDB.getInstancia().getBaseDatos().getCollection(NOMBRE_COLECCION, Usuario.class);
+            Bson filtro = Filters.eq("correo", correo);
+            return coleccion.countDocuments(filtro) > 0;
+        } catch (MongoException e) {
+            throw new PersistenciaException("Error al verificar el correo electrónico: " + e.getLocalizedMessage());
         }
     }
 
