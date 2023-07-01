@@ -35,18 +35,22 @@ public class AuthServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processLogin(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, NegocioException {
+            throws ServletException, IOException {
         String correo = request.getParameter("correo");
         String contrasena = request.getParameter("pass");
         ILoginUsuarioBO loginUsuarioBO = new LoginUsuarioBO();
-        if (!loginUsuarioBO.AuthUsuario(correo, contrasena)) {
-            getServletContext().getRequestDispatcher("/login.html").forward(request, response);
+        try {
+            if (!loginUsuarioBO.AuthUsuario(correo, contrasena)) {
+                response.sendRedirect(request.getContextPath() + "/login.html");
+                return;
+            }
+            Usuario usuarioLogueado = loginUsuarioBO.busquedaUsuario(correo);
+            HttpSession sesion = request.getSession();
+            sesion.setAttribute("usuario", usuarioLogueado);
+            response.sendRedirect(request.getContextPath() + "/post");
+        } catch (NegocioException ex) {
+            Logger.getLogger(AuthServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Usuario usuarioLogueado = loginUsuarioBO.busquedaUsuario(correo);
-        HttpSession sesion = request.getSession();
-        sesion.setAttribute("usuario", usuarioLogueado);
-        getServletContext().getRequestDispatcher("/post").forward(request, response);
-
     }
 
     protected void processLogout(HttpServletRequest request, HttpServletResponse response)
@@ -84,13 +88,8 @@ public class AuthServlet extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
         if (action != null && action.equalsIgnoreCase("login")) {
-            try {
-                processLogin(request, response);
-                return;
-            } catch (NegocioException ex) {
-                Logger.getLogger(AuthServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
+            processLogin(request, response);
+            return;
         }
         if (action != null && action.equalsIgnoreCase("logout")) {
             processLogout(request, response);

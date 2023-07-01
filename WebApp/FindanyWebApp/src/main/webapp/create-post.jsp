@@ -43,7 +43,7 @@
                         <h2>- CREAR PUBLICACIÓN -</h2>
                     </div>
                 </div>
-                <form action="/post?action=create" class="main-form" method="POST">
+                <form action="./post?action=create" class="main-form" method="POST">
                     <div class="main-data">
                         <label for="titulo" class="titulo">Título</label>
                         <input type="text" id="titulo" name="titulo" class="titulo-text" placeholder="Un título interesante"

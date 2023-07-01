@@ -65,18 +65,17 @@ public class PostServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
-        if (action == null && action.equalsIgnoreCase("create")) {
+        if (action != null && action.equalsIgnoreCase("create")) {
             try {
-                this.processCreate(request, response);
-                return;
+                processCreate(request, response);
             } catch (ParseException ex) {
                 Logger.getLogger(RegistrarServlet.class.getName()).log(Level.SEVERE, null, ex);
             } catch (NegocioException ex) {
                 Logger.getLogger(PostServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-            return;
+        } else {
+            doGet(request, response);
         }
-
     }
 
     protected Post obtenerDatos(HttpServletRequest request, HttpServletResponse response)
@@ -125,7 +124,6 @@ public class PostServlet extends HttpServlet {
             throws ServletException, IOException, ParseException, NegocioException {
         Post post = this.obtenerDatos(request, response);
 
-        System.out.println("NEGRO");
         IPostBO postBO = new PostBO();
         try {
             Post postGuardado = postBO.crearPost(post);
