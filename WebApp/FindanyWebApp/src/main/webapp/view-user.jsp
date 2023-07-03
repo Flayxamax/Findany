@@ -43,12 +43,12 @@
                         <img id="preview-image" src="assets/img/default.png" alt="Vista previa de la imagen" class="img-post">
                     </div>
                     <div class="main-datos">
-                        <p><strong>Misael Marchena</strong></p>
-                        <p>Correo: misael.marchena233418@potros.itson.edu.mx</p>
-                        <p>Teléfono: 6441234567</p>
-                        <p>Dirección: Ciudad Obregón, Cajeme, Sonora.</p>
-                        <p>Fecha de nacimiento: 29 de febrero 2004</p>
-                        <p>Género: Masculino</p>
+                        <p><strong>${sessionScope.usuario.nombreCompleto}</strong></p>
+                        <p>Correo: ${sessionScope.usuario.correo}</p>
+                        <p>Teléfono: ${sessionScope.usuario.telefono}</p>
+                        <p>Dirección: ${sessionScope.usuario.ciudad}, ${sessionScope.usuario.municipio.nombre}, ${sessionScope.usuario.municipio.estado}.</p>
+                        <p>Fecha de nacimiento: ${sessionScope.usuario.fechaNacimiento}</p>
+                        <p>Género: ${sessionScope.usuario.genero}</p>
                     </div>
                     <div class="main-submit">
                         <button class="edit-button">Editar información</button>

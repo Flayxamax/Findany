@@ -207,5 +207,5 @@ public class UsuarioDAO implements IUsuarioDAO {
             throw new PersistenciaException("Error al buscar el usuario: " + e.getMessage());
         }
     }
-
+    
 }

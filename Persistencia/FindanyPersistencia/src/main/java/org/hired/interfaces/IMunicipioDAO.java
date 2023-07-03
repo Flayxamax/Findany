@@ -15,4 +15,8 @@ import org.hired.findanyobjetosnegocio.Municipio;
 public interface IMunicipioDAO {
 
     public List<Municipio> obtenerMunicipiosPorEstado() throws PersistenciaException;
+    
+    public String obtenerMunicipioPorId(String municipioId) throws PersistenciaException;
+    
+    public String obtenerEstadoPorIdMunicipio(String municipioId) throws PersistenciaException;
 }
