@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
 @WebFilter(filterName = "AuthFilter", urlPatterns = {"/*"})
 public class AuthFilter implements Filter {
 
-    private static final String[] pathsPublicos = {"login.html", "auth", "index.html", "register"};
+    private static final String[] pathsPublicos = {"login.html", "auth", "index.html", "register", "comment", "comments.jsp"};
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

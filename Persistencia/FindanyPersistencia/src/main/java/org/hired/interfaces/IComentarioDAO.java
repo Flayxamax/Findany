@@ -10,7 +10,7 @@ import org.hired.findanyobjetosnegocio.Comentario;
 
 /**
  *
- * @author xeron
+ * @author HIRED
  */
 public interface IComentarioDAO {
 
@@ -19,4 +19,6 @@ public interface IComentarioDAO {
     public Comentario crearComentarioRespuesta(Comentario comentario) throws PersistenciaException;
 
     public List<Comentario> obtenerComentarios() throws PersistenciaException;
+    
+    public void eliminarComentario(Comentario comentario) throws PersistenciaException;
 }

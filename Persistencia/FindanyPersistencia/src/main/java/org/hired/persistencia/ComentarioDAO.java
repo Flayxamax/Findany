@@ -6,6 +6,7 @@ package org.hired.persistencia;
 
 import com.mongodb.MongoException;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Filters;
 import java.util.ArrayList;
 import java.util.List;
 import org.hired.exception.PersistenciaException;
@@ -17,7 +18,7 @@ import org.hired.interfaces.IComentarioDAO;
  * interactuar con la colección de comentarios en MongoDB. Utiliza la conexión a
  * la base de datos proporcionada por la clase ConexionMongoDB.
  *
- * @author Findany
+ * @author HIRED
  */
 public class ComentarioDAO implements IComentarioDAO {
 
@@ -99,4 +100,53 @@ public class ComentarioDAO implements IComentarioDAO {
             throw new PersistenciaException("Error al obtener comentarios: " + e.getLocalizedMessage());
         }
     }
+
+    /**
+     * Elimina un comentario de la base de datos. Si el comentario es una
+     * respuesta, se eliminará únicamente el comentario actual. Si el comentario
+     * es un comentario padre, se eliminará el comentario actual y todas sus
+     * respuestas.
+     *
+     * @param comentario el comentario a eliminar
+     * @throws PersistenciaException si ocurre un error al eliminar el
+     * comentario
+     */
+    @Override
+    public void eliminarComentario(Comentario comentario) throws PersistenciaException {
+        try {
+            MongoCollection<Comentario> coleccion = ConexionMongoDB.getInstancia().getBaseDatos().getCollection(NOMBRE_COLECCION, Comentario.class);
+
+            if (comentario.getComentarioPadre() != null) {
+                // Es un comentario respuesta, se elimina únicamente el comentario actual
+                coleccion.deleteOne(Filters.eq("_id", comentario.getId()));
+                System.out.println("Se ha eliminado el comentario actual: " + comentario);
+            } else {
+                // Es un comentario padre, se eliminan el comentario actual y todas sus respuestas
+                eliminarComentarioPadreYRespuestas(coleccion, comentario);
+                System.out.println("Se ha eliminado el comentario padre y todas sus respuestas: " + comentario);
+            }
+        } catch (MongoException e) {
+            throw new PersistenciaException("Error al eliminar comentario: " + e.getLocalizedMessage());
+        }
+    }
+
+    /**
+     * Elimina un comentario padre y todas sus respuestas de forma recursiva.
+     *
+     * @param coleccion la colección de comentarios en la base de datos
+     * @param comentario el comentario padre a eliminar
+     */
+    private void eliminarComentarioPadreYRespuestas(MongoCollection<Comentario> coleccion, Comentario comentario) {
+        // Se elimina el comentario actual
+        coleccion.deleteOne(Filters.eq("_id", comentario.getId()));
+
+        // Se obtienen las respuestas del comentario padre
+        List<Comentario> respuestas = coleccion.find(Filters.eq("comentarioPadre", comentario.getId())).into(new ArrayList<>());
+
+        // Se eliminan las respuestas recursivamente
+        for (Comentario respuesta : respuestas) {
+            eliminarComentarioPadreYRespuestas(coleccion, respuesta);
+        }
+    }
+
 }

@@ -33,8 +33,8 @@ public class Comentario {
     }
 
     /**
-     * Crea una nueva instancia de Comentario con los valores
-     * especificados para sus propiedades.
+     * Crea una nueva instancia de Comentario con los valores especificados para
+     * sus propiedades.
      *
      * @param id el identificador del comentario
      * @param fechaHora la fecha y hora de creación del comentario
@@ -46,27 +46,24 @@ public class Comentario {
         this.id = id;
         this.fechaHora = fechaHora;
         this.contenido = contenido;
-        this.comentario = comentario;
         this.usuarioAutor = usuarioAutor;
     }
 
     /**
-     * Crea una nueva instancia de Comentario con los valores
-     * especificados para sus propiedades.
+     * Crea una nueva instancia de Comentario con los valores especificados para
+     * sus propiedades.
      *
      * @param id el identificador del comentario
      * @param fechaHora la fecha y hora de creación del comentario
      * @param contenido el contenido del comentario
-     * @param comentario el comentario padre al que responde (puede ser null)
      * @param usuarioAutor el usuario autor del comentario
      * @param comentarioPadre el identificador del comentario padre al que
      * responde (puede ser null)
      */
-    public Comentario(ObjectId id, Date fechaHora, String contenido, Comentario comentario, Usuario usuarioAutor, ObjectId comentarioPadre) {
+    public Comentario(ObjectId id, Date fechaHora, String contenido, Usuario usuarioAutor, ObjectId comentarioPadre) {
         this.id = id;
         this.fechaHora = fechaHora;
         this.contenido = contenido;
-        this.comentario = comentario;
         this.usuarioAutor = usuarioAutor;
         this.comentarioPadre = comentarioPadre;
     }
@@ -123,24 +120,6 @@ public class Comentario {
      */
     public void setContenido(String contenido) {
         this.contenido = contenido;
-    }
-
-    /**
-     * Obtiene el comentario padre al que responde.
-     *
-     * @return el comentario padre al que responde
-     */
-    public Comentario getComentario() {
-        return comentario;
-    }
-
-    /**
-     * Establece el comentario padre al que responde.
-     *
-     * @param comentario el comentario padre al que responde
-     */
-    public void setComentario(Comentario comentario) {
-        this.comentario = comentario;
     }
 
     /**

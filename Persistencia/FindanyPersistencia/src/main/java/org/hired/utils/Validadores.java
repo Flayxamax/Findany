@@ -118,4 +118,14 @@ public class Validadores {
 
         return matcher.matches();
     }
+    
+    public boolean esContenidoComentario(String s) {
+        String patron = "^.{1,100}$";
+
+        Pattern p = Pattern.compile(patron);
+
+        Matcher matcher = p.matcher(s);
+
+        return matcher.matches();
+    }
 }
