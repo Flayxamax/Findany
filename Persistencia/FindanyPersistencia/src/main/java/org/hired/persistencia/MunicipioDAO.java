@@ -43,7 +43,8 @@ public class MunicipioDAO implements IMunicipioDAO {
             throw new PersistenciaException("Error al obtener los municipios por estado: " + e.getLocalizedMessage());
         }
     }
-
+    
+    @Override
     public String obtenerMunicipioPorId(String municipioId) throws PersistenciaException {
         try {
             MongoCollection<Document> coleccion = ConexionMongoDB.getInstancia().getBaseDatos().getCollection(NOMBRE_COLECCION);
@@ -58,7 +59,8 @@ public class MunicipioDAO implements IMunicipioDAO {
             throw new PersistenciaException("Error al obtener el municipio: " + e.getLocalizedMessage());
         }
     }
-
+    
+    @Override
     public String obtenerEstadoPorIdMunicipio(String municipioId) throws PersistenciaException {
         try {
             MongoCollection<Document> coleccionMunicipio = ConexionMongoDB.getInstancia().getBaseDatos().getCollection(NOMBRE_COLECCION);

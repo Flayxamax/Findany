@@ -46,7 +46,7 @@
                         <p><strong>${sessionScope.usuario.nombreCompleto}</strong></p>
                         <p>Correo: ${sessionScope.usuario.correo}</p>
                         <p>Teléfono: ${sessionScope.usuario.telefono}</p>
-                        <p>Dirección: ${sessionScope.usuario.ciudad}, ${sessionScope.usuario.municipio.nombre}, ${sessionScope.usuario.municipio.estado}.</p>
+                        <p>Dirección: ${sessionScope.usuario.ciudad}, ${municipio}, ${estado}.</p>
                         <p>Fecha de nacimiento: ${sessionScope.usuario.fechaNacimiento}</p>
                         <p>Género: ${sessionScope.usuario.genero}</p>
                     </div>

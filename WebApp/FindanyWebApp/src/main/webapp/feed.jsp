@@ -27,7 +27,7 @@
                 <div class="header-join">
                     <button class="menu-btn">${sessionScope.usuario.nombreCompleto}
                         <div class="menu-content">
-                            <a href="view-user.jsp">Ver perfil</a>
+                            <a href="./view-user">Ver perfil</a>
                             <a href="create-post.jsp">Crear post</a>
 
                             <form action="./auth?action=logout" method="POST" class="form-login">

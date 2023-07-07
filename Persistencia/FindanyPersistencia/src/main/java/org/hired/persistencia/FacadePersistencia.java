@@ -66,6 +66,14 @@ public class FacadePersistencia {
     public List<Municipio> obtenerMunicipiosPorEstado() throws PersistenciaException {
         return this.municipioDAO.obtenerMunicipiosPorEstado();
     }
+    
+    public String obtenerMunicipioPorId(String municipioId) throws PersistenciaException{
+        return this.municipioDAO.obtenerMunicipioPorId(municipioId);
+    }
+    
+    public String obtenerEstadoPorIdMunicipio(String municipioId) throws PersistenciaException{
+        return this.municipioDAO.obtenerEstadoPorIdMunicipio(municipioId);
+    }
 
     public Comentario crearComentario(Comentario comentario) throws PersistenciaException {
         return this.comentarioDAO.crearComentario(comentario);
