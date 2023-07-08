@@ -4,17 +4,19 @@
  */
 package org.hired.servlets;
 
+import com.google.gson.Gson;
 import java.io.IOException;
-import java.text.ParseException;
+import java.io.PrintWriter;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import org.apache.commons.io.IOUtils;
+import org.hired.dtos.CrearPostDTO;
 import org.hired.exception.NegocioException;
 import org.hired.findanyobjetosnegocio.Post;
 import org.hired.findanyobjetosnegocio.TipoPost;
@@ -66,74 +68,62 @@ public class PostServlet extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
         if (action != null && action.equalsIgnoreCase("create")) {
-            try {
-                processCreate(request, response);
-            } catch (ParseException ex) {
-                Logger.getLogger(RegistrarServlet.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (NegocioException ex) {
-                Logger.getLogger(PostServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            processCreate(request, response);
         } else {
             doGet(request, response);
         }
     }
 
-    protected Post obtenerDatos(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, NegocioException {
+    protected void processCreate(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("application/json;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        Gson serializadorJSON = new Gson();
         try {
-            // Obtener parámetros del formulario
-            String titulo = request.getParameter("titulo");
-            String contenido = request.getParameter("contenido");
-            String anclado = request.getParameter("anclado");
+            String datosJSON = IOUtils.toString(request.getInputStream(), "utf-8");
+            CrearPostDTO crearPostDTO = serializadorJSON.fromJson(datosJSON, CrearPostDTO.class);
 
-            if (titulo == null || titulo.isBlank() || !validador.esTitulo(titulo)) {
-                throw new IllegalArgumentException("El titulo es inválido");
+            // VALIDACIONES DE DATOS...
+            if (crearPostDTO.getTitulo() == null || crearPostDTO.getTitulo().isBlank() || !validador.esTitulo(crearPostDTO.getTitulo())) {
+                throw new IllegalArgumentException("El título es inválido");
             }
-            if (contenido == null || contenido.isBlank() || !validador.esContenido(contenido)) {
+            if (crearPostDTO.getContenido() == null || crearPostDTO.getContenido().isBlank() || !validador.esContenido(crearPostDTO.getContenido())) {
                 throw new IllegalArgumentException("El contenido es inválido");
-            }
-            if (anclado == null || anclado.isBlank()) {
-                throw new IllegalArgumentException("El anclado es inválido");
             }
 
             Post post = new Post();
-            post.setTitulo(titulo);
-            post.setContenido(contenido);
-            if ("on".equals(anclado)) {
+            post.setTitulo(crearPostDTO.getTitulo());
+            post.setContenido(crearPostDTO.getContenido());
+            if ("on".equals(crearPostDTO.getTipo())) {
                 post.setTipo(TipoPost.ANCLADO);
             } else {
                 post.setTipo(TipoPost.COMUN);
             }
+
             ILoginUsuarioBO usuarioBO = new LoginUsuarioBO();
-            String correo = (String) (request.getSession().getAttribute("usuario.correo"));
-            Usuario usuario = usuarioBO.busquedaUsuario(correo);
+            String correo = null;
+            HttpSession session = request.getSession();
+            if (session.getAttribute("usuario") != null) {
+                correo = (String) session.getAttribute("usuario.correo");
+            }
 
-            post.setUsuarioAutor(usuario);
-            post.setFechaHoraCreacion(new Date());
+            if (correo != null) {
+                Usuario usuario = usuarioBO.busquedaUsuario(correo);
 
-            return post;
-        } catch (IllegalArgumentException e) {
-            request.setAttribute("error", "Error en los datos del formulario: " + e.getMessage());
-            getServletContext().getRequestDispatcher("/error/errorHttp.jsp").forward(request, response);
-        }
+                post.setUsuarioAutor(usuario);
+                post.setFechaHoraCreacion(new Date());
+            }
 
-        return null;
-    }
-
-    protected void processCreate(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ParseException, NegocioException {
-        Post post = this.obtenerDatos(request, response);
-
-        IPostBO postBO = new PostBO();
-        try {
+            IPostBO postBO = new PostBO();
             Post postGuardado = postBO.crearPost(post);
-            request.setAttribute("post", postGuardado);
-        } catch (NegocioException e) {
-            request.setAttribute("error", e.getMessage());
-            getServletContext().getRequestDispatcher("/error/errorJava.jsp").forward(request, response);
-            return;
+            out.println(serializadorJSON.toJson(postGuardado));
+        } catch (IllegalArgumentException ex) {
+            response.setStatus(400); // BAD_REQUEST
+            out.println(serializadorJSON.toJson(ex.getMessage()));
+        } catch (Exception ex) {
+            response.setStatus(500); // ERROR EN EL SERVIDOR
+            out.println(serializadorJSON.toJson("Error interno del servidor"));
         }
-        getServletContext().getRequestDispatcher("/feed.jsp").forward(request, response);
     }
 
     protected void processObtener(HttpServletRequest request, HttpServletResponse response)
@@ -141,7 +131,11 @@ public class PostServlet extends HttpServlet {
         try {
             IPostBO postBO = new PostBO();
             List<Post> listaPost = postBO.buscarTodo();
-            request.setAttribute("posts", listaPost);
+            Gson serializadorJSON = new Gson();
+            response.setContentType("application/json;charset=UTF-8");
+            try (PrintWriter out = response.getWriter()) {
+                out.println(serializadorJSON.toJson(listaPost));
+            }
         } catch (NegocioException e) {
             request.setAttribute("error", e.getMessage());
             getServletContext().getRequestDispatcher("/error/errorJava.jsp").forward(request, response);

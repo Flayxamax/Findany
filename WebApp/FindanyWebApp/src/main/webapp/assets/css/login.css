@@ -1,5 +1,4 @@
 body {
-    background-color: #ff4736;
     margin: 0;
     padding: 0;
     font-family: 'Ubuntu', sans-serif;
@@ -9,9 +8,12 @@ body {
 .container {
     display: grid;
     grid-template-columns: auto auto auto;
-    grid-template-rows: auto auto auto 1fr;
-    height: 100vh;
+    grid-template-rows: auto auto 1fr auto;
+    min-height: 100vh;
     overflow-x: hidden;
+    background-image: url("../img/login-bg.jpg");
+    background-size: cover;
+    background-position: center;
 }
 
 .container>div {
@@ -52,15 +54,9 @@ body {
     grid-row-end: 3;
 }
 
-.main .background-image {
-    height: 100%;
-    object-fit: cover;
-    filter: blur(3px);
-}
-
 .main-form {
     width: 400px;
-    height: 50%;
+    height: auto;
     background-color: white;
     position: absolute;
     top: 20%;
@@ -68,6 +64,7 @@ body {
     transform: translateX(-50%);
     border-radius: 20px;
     border: 2px solid #dfdede;
+    padding-bottom: 20px;
 }
 
 .main .form-icon {
@@ -104,8 +101,6 @@ input[name="password"] {
 
 .form-login-button {
     margin-top: 20px;
-}
-.form-login-button {
     background-color: #28a745;
     color: white;
 }
@@ -114,7 +109,7 @@ input[name="password"] {
     background-color: #3ab657;
 }
 
-.main .main-form .form-divisor {
+.main .form-divisor {
     margin-left: 15px;
     margin-right: 15px;
     border: 1px solid #dfdede;
@@ -122,10 +117,9 @@ input[name="password"] {
 
 .redirect-register{
     font-size: 17px;
-
 }
 
-.container footer {
+footer {
     background-color: #ff4736;
     grid-column-start: 1;
     grid-column-end: 4;

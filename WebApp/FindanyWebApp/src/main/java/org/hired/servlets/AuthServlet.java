@@ -47,7 +47,7 @@ public class AuthServlet extends HttpServlet {
             Usuario usuarioLogueado = loginUsuarioBO.busquedaUsuario(correo);
             HttpSession sesion = request.getSession();
             sesion.setAttribute("usuario", usuarioLogueado);
-            response.sendRedirect(request.getContextPath() + "/post");
+            response.sendRedirect(request.getContextPath() + "/feed.jsp");
         } catch (NegocioException ex) {
             Logger.getLogger(AuthServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

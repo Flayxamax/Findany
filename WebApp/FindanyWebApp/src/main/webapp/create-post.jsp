@@ -9,6 +9,9 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+        <script src="assets/css/prev-img.js"></script>
+        <script src="assets/css/menu-content.js"></script>
+        <script src="feed.js"></script>
     </head>
 
     <body>
@@ -43,7 +46,7 @@
                         <h2>- CREAR PUBLICACIÓN -</h2>
                     </div>
                 </div>
-                <form action="./post?action=create" class="main-form" method="POST">
+                <form class="main-form">
                     <div class="main-data">
                         <label for="titulo" class="titulo">Título</label>
                         <input type="text" id="titulo" name="titulo" class="titulo-text" placeholder="Un título interesante"
@@ -62,7 +65,7 @@
                         <img id="preview-image" src="assets/img/default.png" alt="Vista previa de la imagen" class="img-post">
                     </div>-->
                     <div class="main-submit">
-                        <button class="form-login-button" type="submit">Publicar</button>
+                        <button class="form-login-button" type="button" id="btn-guardar">Publicar</button>
                     </div>
                 </form>
             </div>
@@ -81,8 +84,5 @@
             </footer>
         </div>
     </body>
-
-    <script src="assets/css/prev-img.js"></script>
-    <script src="assets/css/menu-content.js"></script>
 
 </html>

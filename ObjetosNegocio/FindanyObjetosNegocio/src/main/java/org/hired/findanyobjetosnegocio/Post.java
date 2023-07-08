@@ -6,7 +6,7 @@ package org.hired.findanyobjetosnegocio;
 
 import java.util.Date;
 import java.util.Objects;
-import org.bson.types.Binary;
+//import org.bson.types.Binary;
 import org.bson.types.ObjectId;
 
 /**
@@ -20,7 +20,7 @@ public class Post {
     private Date fechaHoraCreacion;
     private String titulo;
     private String contenido;
-    private Binary imagen;
+//    private Binary imagen;
     private Date fechaHoraEdicion;
     private Usuario usuarioAutor;
     private TipoPost tipo;
@@ -37,16 +37,15 @@ public class Post {
      * @param fechaHoraCreacion la fecha y hora de creación del post
      * @param titulo el título del post
      * @param contenido el contenido del post
-     * @param imagen la imagen asociada al post
      * @param fechaHoraEdicion la fecha y hora de edición del post
      * @param usuarioAutor el usuario que ha creado el post
      * @param tipo el tipo de post
      */
-    public Post(Date fechaHoraCreacion, String titulo, String contenido, Binary imagen, Date fechaHoraEdicion, Usuario usuarioAutor, TipoPost tipo) {
+    public Post(Date fechaHoraCreacion, String titulo, String contenido, Date fechaHoraEdicion, Usuario usuarioAutor, TipoPost tipo) {
         this.fechaHoraCreacion = fechaHoraCreacion;
         this.titulo = titulo;
         this.contenido = contenido;
-        this.imagen = imagen;
+//        this.imagen = imagen;
         this.fechaHoraEdicion = fechaHoraEdicion;
         this.usuarioAutor = usuarioAutor;
         this.tipo = tipo;
@@ -60,18 +59,25 @@ public class Post {
      * @param fechaHoraCreacion la fecha y hora de creación del post
      * @param titulo el título del post
      * @param contenido el contenido del post
-     * @param imagen la imagen asociada al post
      * @param fechaHoraEdicion la fecha y hora de edición del post
      * @param usuarioAutor el usuario que ha creado el post
      * @param tipo el tipo de post
      */
-    public Post(ObjectId id, Date fechaHoraCreacion, String titulo, String contenido, Binary imagen, Date fechaHoraEdicion, Usuario usuarioAutor, TipoPost tipo) {
+    public Post(ObjectId id, Date fechaHoraCreacion, String titulo, String contenido, Date fechaHoraEdicion, Usuario usuarioAutor, TipoPost tipo) {
         this.id = id;
         this.fechaHoraCreacion = fechaHoraCreacion;
         this.titulo = titulo;
         this.contenido = contenido;
-        this.imagen = imagen;
+//        this.imagen = imagen;
         this.fechaHoraEdicion = fechaHoraEdicion;
+        this.usuarioAutor = usuarioAutor;
+        this.tipo = tipo;
+    }
+
+    public Post(Date fechaHoraCreacion, String titulo, String contenido, Usuario usuarioAutor, TipoPost tipo) {
+        this.fechaHoraCreacion = fechaHoraCreacion;
+        this.titulo = titulo;
+        this.contenido = contenido;
         this.usuarioAutor = usuarioAutor;
         this.tipo = tipo;
     }
@@ -148,23 +154,23 @@ public class Post {
         this.contenido = contenido;
     }
 
-    /**
-     * Devuelve la imagen asociada al post.
-     *
-     * @return la imagen asociada al post
-     */
-    public Binary getImagen() {
-        return imagen;
-    }
-
-    /**
-     * Establece la imagen asociada al post.
-     *
-     * @param imagen la imagen asociada al post
-     */
-    public void setImagen(Binary imagen) {
-        this.imagen = imagen;
-    }
+//    /**
+//     * Devuelve la imagen asociada al post.
+//     *
+//     * @return la imagen asociada al post
+//     */
+//    public Binary getImagen() {
+//        return imagen;
+//    }
+//
+//    /**
+//     * Establece la imagen asociada al post.
+//     *
+//     * @param imagen la imagen asociada al post
+//     */
+//    public void setImagen(Binary imagen) {
+//        this.imagen = imagen;
+//    }
 
     /**
      * Devuelve la fecha y hora de edición del post.
