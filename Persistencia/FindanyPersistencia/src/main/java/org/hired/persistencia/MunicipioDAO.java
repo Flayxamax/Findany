@@ -10,6 +10,7 @@ import com.mongodb.client.model.Filters;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 import org.hired.exception.PersistenciaException;
 import org.hired.findanyobjetosnegocio.Municipio;
 import org.hired.interfaces.IMunicipioDAO;
@@ -48,12 +49,12 @@ public class MunicipioDAO implements IMunicipioDAO {
     public String obtenerMunicipioPorId(String municipioId) throws PersistenciaException {
         try {
             MongoCollection<Document> coleccion = ConexionMongoDB.getInstancia().getBaseDatos().getCollection(NOMBRE_COLECCION);
-            Document filtro = new Document("_id", municipioId);
+            Document filtro = new Document("_id", new ObjectId(municipioId));
             Document municipio = coleccion.find(filtro).first();
             if (municipio != null) {
                 return municipio.getString("nombre");
             } else {
-                throw new PersistenciaException("No se encontró el municipio con el id: " + municipioId);
+                throw new PersistenciaException("Error al encontrar el municipio con el id: " + municipioId);
             }
         } catch (MongoException e) {
             throw new PersistenciaException("Error al obtener el municipio: " + e.getLocalizedMessage());
@@ -64,10 +65,10 @@ public class MunicipioDAO implements IMunicipioDAO {
     public String obtenerEstadoPorIdMunicipio(String municipioId) throws PersistenciaException {
         try {
             MongoCollection<Document> coleccionMunicipio = ConexionMongoDB.getInstancia().getBaseDatos().getCollection(NOMBRE_COLECCION);
-            Document municipio = coleccionMunicipio.find(Filters.eq("_id", municipioId)).first();
+            Document municipio = coleccionMunicipio.find(Filters.eq("_id", new ObjectId(municipioId))).first();
 
             if (municipio != null) {
-                String estadoId = municipio.getString("estado");
+                ObjectId estadoId = municipio.getObjectId("estado");
                 MongoCollection<Document> estadosColeccion = ConexionMongoDB.getInstancia().getBaseDatos().getCollection("Estado");
                 Document estado = estadosColeccion.find(Filters.eq("_id", estadoId)).first();
 
