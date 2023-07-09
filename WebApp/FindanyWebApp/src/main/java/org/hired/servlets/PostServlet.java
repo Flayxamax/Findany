@@ -5,6 +5,7 @@
 package org.hired.servlets;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.commons.io.IOUtils;
+import org.bson.types.ObjectId;
 import org.hired.dtos.CrearPostDTO;
 import org.hired.exception.NegocioException;
 import org.hired.findanyobjetosnegocio.Post;
@@ -26,6 +28,7 @@ import org.hired.impl.LoginUsuarioBO;
 import org.hired.impl.PostBO;
 import org.hired.interfaces.ILoginUsuarioBO;
 import org.hired.interfaces.IPostBO;
+import org.hired.utils.ObjectIdTypeAdapter;
 import org.hired.utils.Validadores;
 
 /**
@@ -52,6 +55,9 @@ public class PostServlet extends HttpServlet {
         String action = request.getParameter("action");
         if (action == null || action.equalsIgnoreCase("feed")) {
             this.processObtener(request, response);
+            return;
+        } else if (action.equalsIgnoreCase("post")) {
+            this.processObtenerPost(request, response);
             return;
         }
     }
@@ -128,7 +134,11 @@ public class PostServlet extends HttpServlet {
         try {
             IPostBO postBO = new PostBO();
             List<Post> listaPost = postBO.buscarTodo();
-            Gson serializadorJSON = new Gson();
+
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            gsonBuilder.registerTypeAdapter(ObjectId.class, new ObjectIdTypeAdapter());
+            Gson serializadorJSON = gsonBuilder.create();
+
             response.setContentType("application/json;charset=UTF-8");
             try (PrintWriter out = response.getWriter()) {
                 out.println(serializadorJSON.toJson(listaPost));
@@ -138,6 +148,24 @@ public class PostServlet extends HttpServlet {
             getServletContext().getRequestDispatcher("/error/errorJava.jsp").forward(request, response);
         }
         getServletContext().getRequestDispatcher("/feed.jsp").forward(request, response);
+    }
+
+    protected void processObtenerPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            String id = request.getParameter("id");
+            IPostBO postBO = new PostBO();
+            Post post = postBO.buscarPorId(id);
+            Gson serializadorJSON = new Gson();
+            response.setContentType("application/json;charset=UTF-8");
+            try (PrintWriter out = response.getWriter()) {
+                out.println(serializadorJSON.toJson(post));
+            }
+        } catch (NegocioException e) {
+            request.setAttribute("error", e.getMessage());
+            getServletContext().getRequestDispatcher("/error/errorJava.jsp").forward(request, response);
+        }
+        getServletContext().getRequestDispatcher("/view-post.jsp").forward(request, response);
     }
 
     /**

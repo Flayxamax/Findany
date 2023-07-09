@@ -16,7 +16,7 @@ import org.hired.persistencia.FactoryPersistencia;
  *
  * @author wikit
  */
-public class PostBO implements IPostBO{
+public class PostBO implements IPostBO {
 
     FactoryPersistencia persistencia;
     IPostDAO postDAO = persistencia.getPostDAO();
@@ -53,9 +53,9 @@ public class PostBO implements IPostBO{
             throw new NegocioException(e);
         }
     }
-    
+
     @Override
-    public List<Post> buscarPost(String busqueda) throws NegocioException{
+    public List<Post> buscarPost(String busqueda) throws NegocioException {
         try {
             List<Post> feed = this.postDAO.buscarPost(busqueda);
             return feed;
@@ -63,12 +63,22 @@ public class PostBO implements IPostBO{
             throw new NegocioException(e);
         }
     }
-    
+
     @Override
-    public List<Post> buscarTodo() throws NegocioException{
+    public List<Post> buscarTodo() throws NegocioException {
         try {
             List<Post> feed = this.postDAO.buscarTodo();
             return feed;
+        } catch (PersistenciaException e) {
+            throw new NegocioException(e);
+        }
+    }
+
+    @Override
+    public Post buscarPorId(String postId) throws NegocioException {
+        try {
+            Post post = this.postDAO.buscarPorId(postId);
+            return post;
         } catch (PersistenciaException e) {
             throw new NegocioException(e);
         }

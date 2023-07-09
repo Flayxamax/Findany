@@ -31,7 +31,7 @@
                             <a href="create-post.jsp">Crear post</a>
 
                             <form action="./auth?action=logout" method="POST" class="form-login">
-                                <a href="index.html">Cerrar sesión</a>
+                                <a href="index.html">Cerrar sesiï¿½n</a>
                             </form>
                         </div>
                     </button>

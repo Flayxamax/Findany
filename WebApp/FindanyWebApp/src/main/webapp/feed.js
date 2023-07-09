@@ -65,6 +65,16 @@ window.onload = function () {
                 divPostView.classList.add('post-view');
                 const buttonView = document.createElement('button');
                 buttonView.innerHTML = 'Ver';
+                const servletUrl = new URL("http://localhost:8080/AppWeb/view-post.jsp");
+                servletUrl.searchParams.append("id", (post.id).toString());
+                //calis id
+                console.log((post.id).toString());
+                buttonView.setAttribute('data-url', servletUrl.href);
+                buttonView.addEventListener('click', function () {
+                    const servletUrl = this.getAttribute('data-url');
+                    window.location.href = servletUrl;
+                });
+
                 divPostView.appendChild(buttonView);
                 divMainPost.appendChild(divPostView);
 
@@ -81,13 +91,13 @@ window.onload = function () {
                 "content-type": "application/json"
             }
         })
-                .then(response => response.json())
-                .then(posts => {
-                    mostrarFeed(posts);
-                })
-                .catch(err => {
-                    console.error(err);
-                });
+            .then(response => response.json())
+            .then(posts => {
+                mostrarFeed(posts);
+            })
+            .catch(err => {
+                console.error(err);
+            });
     };
 
     const guardarPost = () => {
@@ -113,17 +123,17 @@ window.onload = function () {
                 "content-type": "application/json"
             }
         })
-                .then(response => {
-                    return response.json();
-                    console.log(response);
-                })
-                .then(post => {
-                    alert("¡Post publicado!");
-                    window.location.href = "feed.jsp";
-                })
-                .catch(err => {
-                    console.error(err);
-                });
+            .then(response => {
+                return response.json();
+                console.log(response);
+            })
+            .then(post => {
+                alert("¡Post publicado!");
+                window.location.href = "feed.jsp";
+            })
+            .catch(err => {
+                console.error(err);
+            });
     };
 
     const btnGuardar = document.getElementById("btn-guardar");

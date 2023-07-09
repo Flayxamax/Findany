@@ -22,4 +22,6 @@ public interface IPostBO {
     public List<Post> buscarPost(String busqueda) throws NegocioException;
     
     public List<Post> buscarTodo() throws NegocioException;
+    
+    public Post buscarPorId(String postId) throws NegocioException;
 }

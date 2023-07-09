@@ -8,11 +8,11 @@ import com.mongodb.MongoException;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.model.Filters;
-import static com.mongodb.client.model.Filters.eq;
 import com.mongodb.client.model.Sorts;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 import org.hired.exception.PersistenciaException;
 import org.hired.findanyobjetosnegocio.Post;
 import org.hired.interfaces.IPostDAO;
@@ -92,6 +92,20 @@ public class PostDAO implements IPostDAO {
             return resultados;
         } catch (MongoException e) {
             throw new PersistenciaException("Error al buscar los posts: " + e.getLocalizedMessage());
+        }
+    }
+
+    @Override
+    public Post buscarPorId(String postId) throws PersistenciaException {
+        try {
+            MongoCollection<Post> coleccion = ConexionMongoDB.getInstancia().getBaseDatos().getCollection(NOMBRE_COLECCION, Post.class);
+            ObjectId objectId = new ObjectId(postId);
+            Bson filtro = Filters.eq("_id", objectId);
+            return coleccion.find(filtro).first();
+        } catch (IllegalArgumentException e) {
+            throw new PersistenciaException("ID de post inválido: " + postId);
+        } catch (MongoException e) {
+            throw new PersistenciaException("Error al buscar el post por ID: " + e.getLocalizedMessage());
         }
     }
 

@@ -13,14 +13,16 @@ import org.hired.findanyobjetosnegocio.Post;
  * @author wikit
  */
 public interface IPostDAO {
-    
+
     public Post crearPost(Post post) throws PersistenciaException;
 
     public Post actualizarPost(Post post) throws PersistenciaException;
-    
+
     public void eliminarPost(Post post) throws PersistenciaException;
-    
+
     public List<Post> buscarPost(String busqueda) throws PersistenciaException;
-    
+
     public List<Post> buscarTodo() throws PersistenciaException;
+
+    public Post buscarPorId(String postId) throws PersistenciaException;
 }
