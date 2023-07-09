@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es-en">
+<html lang="es">
 
     <head>
         <meta charset="UTF-8">
@@ -9,9 +9,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
-        <script src="assets/css/prev-img.js"></script>
-        <script src="assets/css/menu-content.js"></script>
-        <script src="feed.js"></script>
+        <script src="feed.js" charset="UTF-8"></script>
     </head>
 
     <body>
@@ -83,6 +81,9 @@
                 </div>
             </footer>
         </div>
+
+        <script src="assets/css/prev-img.js"></script>
+        <script src="assets/css/menu-content.js"></script>
     </body>
 
 </html>

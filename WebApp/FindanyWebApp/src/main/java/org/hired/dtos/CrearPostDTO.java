@@ -17,7 +17,7 @@ public class CrearPostDTO {
     private String titulo;
     private String contenido;
     private Usuario usuarioAutor;
-    private TipoPost tipo;
+    private boolean tipo;
 
     // Agrega constructor, getters y setters de los campos
 
@@ -54,10 +54,13 @@ public class CrearPostDTO {
     }
 
     public TipoPost getTipo() {
-        return tipo;
+        if (tipo){
+            return TipoPost.ANCLADO;
+        }
+        return TipoPost.COMUN;
     }
 
-    public void setTipo(TipoPost tipo) {
+    public void setTipo(Boolean tipo) {
         this.tipo = tipo;
     }
 }

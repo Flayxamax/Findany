@@ -100,7 +100,7 @@ public class PostDAO implements IPostDAO {
         try {
             MongoCollection<Post> coleccion = ConexionMongoDB.getInstancia().getBaseDatos().getCollection(NOMBRE_COLECCION, Post.class);
 
-            Bson orden = Sorts.ascending("tipo", "fechaHoraCreacion");
+            Bson orden = Sorts.orderBy(Sorts.ascending("tipo"), Sorts.descending("fechaHoraCreacion"));
 
             MongoCursor<Post> cursor = coleccion.find().sort(orden).iterator();
 

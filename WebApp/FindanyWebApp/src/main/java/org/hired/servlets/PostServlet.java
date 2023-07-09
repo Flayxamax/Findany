@@ -5,9 +5,11 @@
 package org.hired.servlets;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
+import java.nio.file.AccessDeniedException;
+import java.util.Enumeration;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,7 +21,6 @@ import org.apache.commons.io.IOUtils;
 import org.hired.dtos.CrearPostDTO;
 import org.hired.exception.NegocioException;
 import org.hired.findanyobjetosnegocio.Post;
-import org.hired.findanyobjetosnegocio.TipoPost;
 import org.hired.findanyobjetosnegocio.Usuario;
 import org.hired.impl.LoginUsuarioBO;
 import org.hired.impl.PostBO;
@@ -83,7 +84,6 @@ public class PostServlet extends HttpServlet {
             String datosJSON = IOUtils.toString(request.getInputStream(), "utf-8");
             CrearPostDTO crearPostDTO = serializadorJSON.fromJson(datosJSON, CrearPostDTO.class);
 
-            // VALIDACIONES DE DATOS...
             if (crearPostDTO.getTitulo() == null || crearPostDTO.getTitulo().isBlank() || !validador.esTitulo(crearPostDTO.getTitulo())) {
                 throw new IllegalArgumentException("El título es inválido");
             }
@@ -94,35 +94,32 @@ public class PostServlet extends HttpServlet {
             Post post = new Post();
             post.setTitulo(crearPostDTO.getTitulo());
             post.setContenido(crearPostDTO.getContenido());
-            if ("on".equals(crearPostDTO.getTipo())) {
-                post.setTipo(TipoPost.ANCLADO);
-            } else {
-                post.setTipo(TipoPost.COMUN);
-            }
+            post.setTipo(crearPostDTO.getTipo());
 
             ILoginUsuarioBO usuarioBO = new LoginUsuarioBO();
-            String correo = null;
             HttpSession session = request.getSession();
-            if (session.getAttribute("usuario") != null) {
-                correo = (String) session.getAttribute("usuario.correo");
-            }
+            Enumeration<String> attributeNames = session.getAttributeNames();
+            String attributeName = attributeNames.nextElement();
+            Usuario usuario = (Usuario) session.getAttribute(attributeName);
 
-            if (correo != null) {
-                Usuario usuario = usuarioBO.busquedaUsuario(correo);
+            if (usuario != null) {
+                usuario = usuarioBO.busquedaUsuario(usuario.getCorreo());
 
                 post.setUsuarioAutor(usuario);
-                post.setFechaHoraCreacion(new Date());
-            }
+                post.setFechaHoraCreacion(crearPostDTO.getFechaHoraCreacion());
 
-            IPostBO postBO = new PostBO();
-            Post postGuardado = postBO.crearPost(post);
-            out.println(serializadorJSON.toJson(postGuardado));
+                IPostBO postBO = new PostBO();
+                Post postGuardado = postBO.crearPost(post);
+                out.println(serializadorJSON.toJson(postGuardado));
+            } else {
+                throw new AccessDeniedException("No se encontro usuario con sesión");
+            }
         } catch (IllegalArgumentException ex) {
-            response.setStatus(400); // BAD_REQUEST
+            response.setStatus(400);//BAD_REQUEST
             out.println(serializadorJSON.toJson(ex.getMessage()));
-        } catch (Exception ex) {
-            response.setStatus(500); // ERROR EN EL SERVIDOR
-            out.println(serializadorJSON.toJson("Error interno del servidor"));
+        } catch (JsonSyntaxException | IOException | NegocioException ex) {
+            response.setStatus(500);    // ERROR EN EL SERVER
+            out.println(serializadorJSON.toJson("Falló interno del servidor"));
         }
     }
 

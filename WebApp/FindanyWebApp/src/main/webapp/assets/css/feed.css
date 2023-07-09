@@ -91,6 +91,20 @@ body {
     padding: 0 50px;
 }
 
+.container div.main-anchored {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    display: grid;
+    width: 80%;
+    margin: 30px auto;
+    border-radius: 5px;
+    border: 5px solid black;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto auto;
+    overflow: auto;
+    padding: 0 50px;
+}
+
 .titulo {
     display: block;
 }
