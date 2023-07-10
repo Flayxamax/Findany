@@ -13,7 +13,11 @@ window.onload = function () {
 
             posts.forEach((post) => {
                 const divMainPost = document.createElement('div');
-                divMainPost.classList.add('main-post');
+                if (post.tipo === "ANCLADO") {
+                    divMainPost.classList.add('main-anchored');
+                } else {
+                    divMainPost.classList.add('main-post');
+                }
 
                 const h2TitlePost = document.createElement('h2');
                 h2TitlePost.classList.add('title-post');
