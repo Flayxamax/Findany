@@ -101,8 +101,10 @@ public class ViewUserServlet extends HttpServlet {
             String municipioId = this.processObtenerMunicipioUsuario(request, response).getNombre();
             String municipio = viewUserBO.obtenerMunicipioId(municipioId);
             String estado = viewUserBO.obtenerEstadoIdMunicipio(municipioId);
-            request.setAttribute("municipio", municipio);
-            request.setAttribute("estado", estado);
+
+            HttpSession session = request.getSession();
+            session.setAttribute("municipio", municipio);
+            session.setAttribute("estado", estado);
         } catch (NegocioException e) {
             request.setAttribute("error", e.getMessage());
             getServletContext().getRequestDispatcher("/error/errorJava.jsp").forward(request, response);

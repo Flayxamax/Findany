@@ -49,12 +49,10 @@ public interface IUsuarioDAO {
      * Actualiza la información de un usuario en la base de datos.
      *
      * @param usuario el usuario a actualizar
-     * @param municipio el municipio asociado al usuario
-     * @param estado el estado asociado al usuario
      * @throws PersistenciaException si ocurre un error durante la operación de
      * actualización del usuario
      */
-    public void actualizarUsuario(Usuario usuario, Municipio municipio, ObjectId estado) throws PersistenciaException;
+    public void actualizarUsuario(Usuario usuario) throws PersistenciaException;
 
     /**
      * Autentifica un usuario utilizando el correo y la contraseña

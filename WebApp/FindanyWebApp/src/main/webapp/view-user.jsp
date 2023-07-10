@@ -1,3 +1,4 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es-en">
 
@@ -30,7 +31,7 @@
                             <a href="create-post.jsp">Crear post</a>
 
                             <form action="./auth?action=logout" method="POST" class="form-login">
-                                <a href="index.html">Cerrar sesión</a>
+                                <a href="index.html">Cerrar sesiÃ³n</a>
                             </form>
                         </div>
                     </button>
@@ -45,13 +46,13 @@
                     <div class="main-datos">
                         <p><strong>${sessionScope.usuario.nombreCompleto}</strong></p>
                         <p>Correo: ${sessionScope.usuario.correo}</p>
-                        <p>Teléfono: ${sessionScope.usuario.telefono}</p>
-                        <p>Dirección: ${sessionScope.usuario.ciudad}, ${municipio}, ${estado}.</p>
+                        <p>TelÃ©fono: ${sessionScope.usuario.telefono}</p>
+                        <p>DirecciÃ³n: ${sessionScope.usuario.ciudad}, ${municipio}, ${estado}.</p>
                         <p>Fecha de nacimiento: ${sessionScope.usuario.fechaNacimiento}</p>
-                        <p>Género: ${sessionScope.usuario.genero}</p>
+                        <p>GÃ©nero: ${sessionScope.usuario.genero}</p>
                     </div>
                     <div class="main-submit">
-                        <button class="edit-button">Editar información</button>
+                        <a href="./edit-user"><button class="edit-button">Editar informaciÃ³n</button></a>
                     </div>
                 </div>
             </div>

@@ -47,8 +47,8 @@ public class FacadePersistencia {
         return this.usuarioDAO.registrarUsuario(usuario);
     }
 
-    public void actualizarUsuario(Usuario usuario, Municipio municipio, ObjectId estado) throws PersistenciaException {
-        this.usuarioDAO.actualizarUsuario(usuario, municipio, estado);
+    public void actualizarUsuario(Usuario usuario) throws PersistenciaException {
+        this.usuarioDAO.actualizarUsuario(usuario);
     }
 
     public boolean autentificarUsuario(String correo, String contrasena) throws PersistenciaException {

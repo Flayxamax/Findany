@@ -20,7 +20,7 @@ public class Usuario {
     private String correo;
     private String contrasena;
     private String telefono;
-    private Binary avatar;
+    private byte[] avatar;
     private String ciudad;
     private Date fechaNacimiento;
     private Genero genero;
@@ -30,7 +30,7 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(String nombreCompleto, String correo, String contrasena, String telefono, Binary avatar, String ciudad, Date fechaNacimiento, Genero genero, Municipio municipio, TipoUsuario tipo) {
+    public Usuario(String nombreCompleto, String correo, String contrasena, String telefono, byte[] avatar, String ciudad, Date fechaNacimiento, Genero genero, Municipio municipio, TipoUsuario tipo) {
         this.nombreCompleto = nombreCompleto;
         this.correo = correo;
         this.contrasena = contrasena;
@@ -43,7 +43,7 @@ public class Usuario {
         this.tipo = tipo;
     }
 
-    public Usuario(ObjectId id, String nombreCompleto, String correo, String contrasena, String telefono, Binary avatar, String ciudad, Date fechaNacimiento, Genero genero, Municipio municipio, TipoUsuario tipo) {
+    public Usuario(ObjectId id, String nombreCompleto, String correo, String contrasena, String telefono, byte[] avatar, String ciudad, Date fechaNacimiento, Genero genero, Municipio municipio, TipoUsuario tipo) {
         this.id = id;
         this.nombreCompleto = nombreCompleto;
         this.correo = correo;
@@ -97,11 +97,11 @@ public class Usuario {
         this.telefono = telefono;
     }
 
-    public Binary getAvatar() {
+    public byte[] getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(Binary avatar) {
+    public void setAvatar(byte[] avatar) {
         this.avatar = avatar;
     }
 
