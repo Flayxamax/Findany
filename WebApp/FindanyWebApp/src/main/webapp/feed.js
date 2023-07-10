@@ -5,9 +5,8 @@ window.onload = function () {
 
     const mostrarFeed = (posts) => {
         const contenedor = document.getElementById("container");
-        if (contenedor) {
+        if (contenedor !== null) {
             contenedor.classList.add('container');
-            const main = document.createElement('div');
             main.classList.add('main');
             contenedor.appendChild(main);
 
