@@ -134,7 +134,7 @@ public class UsuarioDAO implements IUsuarioDAO {
                     .append("genero", usuario.getGenero().toString())
                     .append("ciudad", usuario.getCiudad())
                     .append("municipio", usuario.getMunicipio())
-                    .append("tipo", usuario.getTipo())
+                    .append("tipo", usuario.getTipo().toString())
                     .append("avatar", usuario.getAvatar())
             );
             coleccion.updateOne(filtro, documentoActualizacion);

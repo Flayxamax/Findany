@@ -29,6 +29,7 @@ import org.hired.exception.PersistenciaException;
 import org.hired.findanyobjetosnegocio.Estado;
 import org.hired.findanyobjetosnegocio.Genero;
 import org.hired.findanyobjetosnegocio.Municipio;
+import org.hired.findanyobjetosnegocio.TipoUsuario;
 import org.hired.findanyobjetosnegocio.Usuario;
 import org.hired.impl.ActualizarUsuarioBO;
 import org.hired.impl.CrearUsuarioBO;
@@ -48,9 +49,9 @@ import org.hired.utils.Validadores;
  */
 @WebServlet(name = "EditUserServlet", urlPatterns = {"/edit-user"})
 @MultipartConfig(
-    fileSizeThreshold = 1024 * 10, // 10 KB
-    maxFileSize = 1024 * 1024 * 16, // 16 MB
-    maxRequestSize = 1024 * 1024 * 16 // 16 MB
+        fileSizeThreshold = 1024 * 10, // 10 KB
+        maxFileSize = 1024 * 1024 * 16, // 16 MB
+        maxRequestSize = 1024 * 1024 * 16 // 16 MB
 )
 public class EditUserServlet extends HttpServlet {
 
@@ -128,6 +129,11 @@ public class EditUserServlet extends HttpServlet {
                 } else {
                     usuario.setGenero(Genero.FEMENINO);
                 }
+                if (usuarioLogueado.getTipo().toString().equals("ADMINISTRADOR")) {
+                    usuario.setTipo(TipoUsuario.ADMINISTRADOR);
+                } else {
+                    usuario.setTipo(TipoUsuario.NORMAL);
+                }
                 usuario.setCiudad(ciudad);
                 Municipio municipioA = new Municipio(municipio);
                 usuario.setMunicipio(municipioA);
@@ -135,6 +141,10 @@ public class EditUserServlet extends HttpServlet {
                 if (imagenPart != null) {
                     InputStream imagenInputStream = imagenPart.getInputStream();
                     byte[] imagenBytes = IOUtils.toByteArray(imagenInputStream);
+                    usuario.setAvatar(new Binary(imagenBytes));
+                } else if (imagenPart == null) {
+                    Binary imagenBinary = usuario.getAvatar();
+                    byte[] imagenBytes = imagenBinary.getData();
                     usuario.setAvatar(new Binary(imagenBytes));
                 }
 
@@ -167,6 +177,7 @@ public class EditUserServlet extends HttpServlet {
             usuarioS.setCiudad(usuario.getCiudad());
             usuarioS.setMunicipio(usuario.getMunicipio());
             usuarioS.setAvatar(usuario.getAvatar());
+            usuarioS.setTipo(usuario.getTipo());
             session.setAttribute("usuario", usuarioS);
         } catch (NegocioException e) {
             request.setAttribute("error", e.getMessage());
