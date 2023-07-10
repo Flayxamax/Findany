@@ -21,10 +21,6 @@
                     <img src="assets/img/findanylogo.svg" alt="logo" class="imagen-logo">
                 </div>
                 <div class="header-searchbar">
-                    <form action="results.html" method="GET" class="search">
-                        <input type="text" name="search" class="search" placeholder="Buscar...">
-                        <button type="submit" class="search">🔍</button>
-                    </form>
                 </div>
                 <div class="header-join">
                     <button class="menu-btn">${sessionScope.usuario.nombreCompleto}
@@ -33,7 +29,7 @@
                             <a href="create-post.jsp">Crear post</a>
 
                             <form action="./auth?action=logout" method="POST" class="form-login">
-                                <a href="index.html">Cerrar sesión</a>
+                                <input type="submit" value="Cerrar sesión">
                             </form>
                         </div>
                     </button>
@@ -41,13 +37,13 @@
             </header>
 
             <div class="main">
-                <form class="main-content" method="POST", enctype="multipart/form-data">
+                <form action="" class="main-content" method="POST" enctype="multipart/form-data">
                     <div class="main-img">
-                        <img id="preview-image" src="assets/img/default.png" alt="Vista previa de la imagen" class="img-post">
+                        <img id="preview-image" src="<%=request.getContextPath()%>/image-user" alt="Vista previa de la imagen" class="img-post">
                     </div>
                     <div class="main-update-img">
                         <label for="imagen" class="imagen">Actualizar foto de perfil</label>
-                        <input type="file" id="imagen" accept="image/*" onchange="previewImage(event)" class="titulo-text">
+                        <input type="file" name="imagen" id="imagen" accept=".png, .jpg, .jpeg, .svg, .webp" onchange="previewImage(event)" class="titulo-text">
                     </div>
                     <div class="main-datos">
                         <div class="main-form-group">

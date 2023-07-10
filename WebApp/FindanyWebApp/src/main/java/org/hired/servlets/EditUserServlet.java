@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import org.apache.commons.io.IOUtils;
+import org.bson.types.Binary;
 import org.bson.types.ObjectId;
 import org.hired.exception.NegocioException;
 import org.hired.exception.PersistenciaException;
@@ -47,9 +48,9 @@ import org.hired.utils.Validadores;
  */
 @WebServlet(name = "EditUserServlet", urlPatterns = {"/edit-user"})
 @MultipartConfig(
-        fileSizeThreshold = 1024 * 10, // 10 KB
-        maxFileSize = 1024 * 300, // 300 KB
-        maxRequestSize = 1024 * 1024 // 1 MB 
+    fileSizeThreshold = 1024 * 10, // 10 KB
+    maxFileSize = 1024 * 1024 * 16, // 16 MB
+    maxRequestSize = 1024 * 1024 * 16 // 16 MB
 )
 public class EditUserServlet extends HttpServlet {
 
@@ -134,7 +135,7 @@ public class EditUserServlet extends HttpServlet {
                 if (imagenPart != null) {
                     InputStream imagenInputStream = imagenPart.getInputStream();
                     byte[] imagenBytes = IOUtils.toByteArray(imagenInputStream);
-                    usuario.setAvatar(imagenBytes);
+                    usuario.setAvatar(new Binary(imagenBytes));
                 }
 
                 return usuario;
@@ -150,19 +151,29 @@ public class EditUserServlet extends HttpServlet {
     }
 
     protected void processUpdate(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ParseException {
+            throws ServletException, IOException {
         Usuario usuario = this.obtenerDatosFormulario(request, response);
 
         //APLICAR LOGICA DE NEGOCIO
         IActualizarUsuarioBO actualizarUsuarioBO = new ActualizarUsuarioBO();
         try {
             actualizarUsuarioBO.modificarUsuario(usuario);
+            HttpSession session = request.getSession();
+            Usuario usuarioS = (Usuario) session.getAttribute("usuario");
+            usuarioS.setNombreCompleto(usuario.getNombreCompleto());
+            usuarioS.setCorreo(usuario.getCorreo());
+            usuarioS.setTelefono(usuario.getTelefono());
+            usuarioS.setGenero(usuario.getGenero());
+            usuarioS.setCiudad(usuario.getCiudad());
+            usuarioS.setMunicipio(usuario.getMunicipio());
+            usuarioS.setAvatar(usuario.getAvatar());
+            session.setAttribute("usuario", usuarioS);
         } catch (NegocioException e) {
             request.setAttribute("error", e.getMessage());
             getServletContext().getRequestDispatcher("/error/errorJava.jsp").forward(request, response);
             return;
         }
-        getServletContext().getRequestDispatcher("/view-user").forward(request, response);
+        getServletContext().getRequestDispatcher("/feed.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -197,11 +208,7 @@ public class EditUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        try {
-            this.processUpdate(request, response);
-        } catch (ParseException ex) {
-            Logger.getLogger(EditUserServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.processUpdate(request, response);
         return;
     }
 

@@ -5,6 +5,7 @@
 package org.hired.servlets;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.logging.Level;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.bson.types.Binary;
 import org.hired.exception.NegocioException;
 import org.hired.exception.PersistenciaException;
 import org.hired.findanyobjetosnegocio.Estado;
@@ -48,6 +50,7 @@ public class ViewUserServlet extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
+
         if (action == null || action.equalsIgnoreCase("obtener-direccion")) {
             try {
                 this.processObtenerMunicipioId(request, response);

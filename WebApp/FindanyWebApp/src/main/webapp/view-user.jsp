@@ -19,10 +19,6 @@
                     <img src="assets/img/findanylogo.svg" alt="logo" class="imagen-logo">
                 </div>
                 <div class="header-searchbar">
-                    <form action="results.html" method="GET" class="search">
-                        <input type="text" name="search" class="search" placeholder="Buscar...">
-                        <button type="submit" class="search">????</button>
-                    </form>
                 </div>
                 <div class="header-join">
                     <button class="menu-btn">${sessionScope.usuario.nombreCompleto}
@@ -31,7 +27,7 @@
                             <a href="create-post.jsp">Crear post</a>
 
                             <form action="./auth?action=logout" method="POST" class="form-login">
-                                <a href="index.html">Cerrar sesión</a>
+                                <input type="submit" value="Cerrar sesión">
                             </form>
                         </div>
                     </button>
@@ -41,7 +37,7 @@
             <div class="main">
                 <div class="main-content">
                     <div class="main-img">
-                        <img id="preview-image" src="assets/img/default.png" alt="Vista previa de la imagen" class="img-post">
+                        <img id="preview-image" src="<%=request.getContextPath()%>/image-user" alt="Vista previa de la imagen" class="img-post">
                     </div>
                     <div class="main-datos">
                         <p><strong>${sessionScope.usuario.nombreCompleto}</strong></p>
