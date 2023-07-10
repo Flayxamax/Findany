@@ -5,6 +5,7 @@
 package org.hired.servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -12,18 +13,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.hired.exception.NegocioException;
-import org.hired.findanyobjetosnegocio.Usuario;
-import org.hired.impl.LoginUsuarioBO;
-import org.hired.interfaces.ILoginUsuarioBO;
+import org.hired.findanyobjetosnegocio.Post;
+import org.hired.impl.PostBO;
+import org.hired.interfaces.IPostBO;
 
 /**
  *
  * @author ildex
  */
-@WebServlet(name = "AuthServlet", urlPatterns = {"/auth"})
-public class AuthServlet extends HttpServlet {
+@WebServlet(name = "DeletePostAdmin", urlPatterns = {"/delete-post-admin"})
+public class DeletePostAdmin extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,31 +34,16 @@ public class AuthServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processLogin(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String correo = request.getParameter("correo");
-        String contrasena = request.getParameter("pass");
-        ILoginUsuarioBO loginUsuarioBO = new LoginUsuarioBO();
-        try {
-            if (!loginUsuarioBO.AuthUsuario(correo, contrasena)) {
-                response.sendRedirect(request.getContextPath() + "/login.html");
-                return;
-            }
-            Usuario usuarioLogueado = loginUsuarioBO.busquedaUsuario(correo);
-            HttpSession sesion = request.getSession();
-            sesion.setAttribute("usuario", usuarioLogueado);
-            response.sendRedirect(request.getContextPath() + "/feed.jsp");
-        } catch (NegocioException ex) {
-            Logger.getLogger(AuthServlet.class.getName()).log(Level.SEVERE, null, ex);
+    protected void processDeletePost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, NegocioException {
+        IPostBO postBO = new PostBO();
+        String postId = request.getParameter("id");
+        if (postId == null || postId.isEmpty()) {
+            throw new IllegalArgumentException("No se proporcionó un ID de comentario válido");
         }
-    }
-
-    protected void processLogout(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        HttpSession sesion = request.getSession();
-        sesion.invalidate();
-
-        getServletContext().getRequestDispatcher("/login.html").forward(request, response);
+        Post post = postBO.buscarPorId(postId);
+        postBO.eliminarPost(post);
+        getServletContext().getRequestDispatcher("/feed.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -73,7 +58,11 @@ public class AuthServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        try {
+            this.processDeletePost(request, response);
+        } catch (NegocioException ex) {
+            Logger.getLogger(DeletePostAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -87,15 +76,6 @@ public class AuthServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getParameter("action");
-        if (action != null && action.equalsIgnoreCase("login")) {
-            processLogin(request, response);
-            return;
-        }
-        if (action != null && action.equalsIgnoreCase("logout")) {
-            processLogout(request, response);
-            return;
-        }
     }
 
     /**

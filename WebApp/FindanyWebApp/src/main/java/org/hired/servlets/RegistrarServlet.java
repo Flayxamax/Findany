@@ -20,6 +20,7 @@ import org.hired.exception.NegocioException;
 import org.hired.findanyobjetosnegocio.Estado;
 import org.hired.findanyobjetosnegocio.Genero;
 import org.hired.findanyobjetosnegocio.Municipio;
+import org.hired.findanyobjetosnegocio.TipoUsuario;
 import org.hired.findanyobjetosnegocio.Usuario;
 import org.hired.impl.CrearUsuarioBO;
 import org.hired.impl.EstadoBO;
@@ -136,6 +137,7 @@ public class RegistrarServlet extends HttpServlet {
             Municipio municipioA = new Municipio(municipio);
             usuario.setMunicipio(municipioA);
             usuario.setFechaNacimiento(fecha);
+            usuario.setTipo(TipoUsuario.NORMAL);
 
             return usuario;
         } catch (ParseException e) {

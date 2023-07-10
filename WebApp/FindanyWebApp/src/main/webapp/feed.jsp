@@ -16,6 +16,7 @@
 
     <body>
         <div id="container">
+            <input type="hidden" id="user-tipo" value="${sessionScope.usuario.tipo.toString()}">
             <header>
                 <div class="header-logo">
                     <img src="assets/img/findanylogo.svg" alt="logo" class="imagen-logo">

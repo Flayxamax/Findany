@@ -5,18 +5,15 @@ window.onload = function () {
 
     const mostrarFeed = (posts) => {
         const contenedor = document.getElementById("container");
-        if (contenedor !== null) {
+        if (contenedor) {
             contenedor.classList.add('container');
+            const main = document.createElement('div');
             main.classList.add('main');
+            contenedor.appendChild(main);
 
             posts.forEach((post) => {
-                console.table(post);
                 const divMainPost = document.createElement('div');
-                if (post.tipo === "ANCLADO") {
-                    divMainPost.classList.add('main-anchored');
-                } else {
-                    divMainPost.classList.add('main-post');
-                }
+                divMainPost.classList.add('main-post');
 
                 const h2TitlePost = document.createElement('h2');
                 h2TitlePost.classList.add('title-post');
@@ -64,23 +61,42 @@ window.onload = function () {
                 const buttonView = document.createElement('button');
                 buttonView.innerHTML = 'Ver';
                 const servletUrl = new URL("http://localhost:8080/AppWeb/view-post.jsp");
-                servletUrl.searchParams.append("id", (post.id).toString());
-                //calis id
-                console.log((post.id).toString());
+                servletUrl.searchParams.append("id", post.id.toString());
                 buttonView.setAttribute('data-url', servletUrl.href);
                 buttonView.addEventListener('click', function () {
                     const servletUrl = this.getAttribute('data-url');
                     window.location.href = servletUrl;
                 });
-
                 divPostView.appendChild(buttonView);
                 divMainPost.appendChild(divPostView);
 
+                if (esAdmin()) {
+                    const divDeleteButton = document.createElement('div');
+                    divDeleteButton.classList.add('delete-button');
+                    const buttonDelete = document.createElement('button');
+                    buttonDelete.innerHTML = 'Borrar';
+                    const servletUrlD = new URL("http://localhost:8080/AppWeb/delete-post-admin");
+                    servletUrlD.searchParams.append("id", post.id.toString());
+                    buttonDelete.setAttribute('data-url', servletUrlD.href);
+                    buttonDelete.addEventListener('click', function () {
+                        const servletUrl = this.getAttribute('data-url');
+                        window.location.href = servletUrl;
+                    });
+                    divDeleteButton.appendChild(buttonDelete);
+                    divMainPost.appendChild(divDeleteButton);
+                }
+
                 main.appendChild(divMainPost);
             });
-
         }
     };
+
+    const esAdmin = () => {
+        const userTipo = document.getElementById("user-tipo").value;
+        return userTipo === "ADMINISTRADOR";
+    };
+
+
 
     const cargarFeed = () => {
         fetch("http://localhost:8080/AppWeb/post?action=feed", {
