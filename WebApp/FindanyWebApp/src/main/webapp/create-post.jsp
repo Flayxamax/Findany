@@ -9,7 +9,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
-        <script src="feed.js" charset="UTF-8"></script>
+        <script src="create-post.js" charset="UTF-8"></script>
     </head>
 
     <body>

@@ -7,11 +7,15 @@ package org.hired.servlets;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.AccessDeniedException;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -56,7 +60,8 @@ public class PostServlet extends HttpServlet {
         if (action == null || action.equalsIgnoreCase("feed")) {
             this.processObtener(request, response);
             return;
-        } else if (action.equalsIgnoreCase("post")) {
+        }
+        if (action != null && action.equalsIgnoreCase("post")) {
             this.processObtenerPost(request, response);
             return;
         }
@@ -76,8 +81,10 @@ public class PostServlet extends HttpServlet {
         String action = request.getParameter("action");
         if (action != null && action.equalsIgnoreCase("create")) {
             processCreate(request, response);
-        } else {
-            doGet(request, response);
+        }
+        if (action != null && action.equalsIgnoreCase("search")) {
+            this.processBuscarPost(request, response);
+            return;
         }
     }
 
@@ -166,6 +173,30 @@ public class PostServlet extends HttpServlet {
             getServletContext().getRequestDispatcher("/error/errorJava.jsp").forward(request, response);
         }
         getServletContext().getRequestDispatcher("/view-post.jsp").forward(request, response);
+    }
+
+    private void processBuscarPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(ObjectId.class, new ObjectIdTypeAdapter());
+        Gson serializadorJSON = gsonBuilder.create();
+        
+        try (BufferedReader reader = request.getReader()) {
+            String datosJSON = reader.lines().collect(Collectors.joining(System.lineSeparator()));
+            Map<String, String> jsonMap = serializadorJSON.fromJson(datosJSON, new TypeToken<Map<String, String>>() {
+            }.getType());
+            String termino = jsonMap.get("termino");
+            IPostBO postBO = new PostBO();
+            List<Post> listaPost = postBO.buscarPost(termino);
+
+            response.setContentType("application/json;charset=UTF-8");
+            try (PrintWriter out = response.getWriter()) {
+                out.println(serializadorJSON.toJson(listaPost));
+            }
+        } catch (NegocioException e) {
+            request.setAttribute("error", e.getMessage());
+            getServletContext().getRequestDispatcher("/error/errorJava.jsp").forward(request, response);
+        }
     }
 
     /**

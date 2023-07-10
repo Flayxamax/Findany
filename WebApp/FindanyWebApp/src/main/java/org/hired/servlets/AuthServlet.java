@@ -57,7 +57,14 @@ public class AuthServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession sesion = request.getSession();
         sesion.invalidate();
-        getServletContext().getRequestDispatcher("/login.html").forward(request, response);
+
+        // Desactivar la caché del navegador
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("Expires", "0");
+
+        // Redirigir al usuario a la página de inicio de sesión
+        response.sendRedirect(request.getContextPath() + "/login.html");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -1,8 +1,10 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-en">
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
         <title>Findany</title>
         <link rel="stylesheet" href="assets/css/feed.css">
         <link rel="icon" type="image/png" href="assets/img/f.png">
@@ -19,9 +21,9 @@
                     <img src="assets/img/findanylogo.svg" alt="logo" class="imagen-logo">
                 </div>
                 <div class="header-searchbar">
-                    <form action="results.html" method="GET" class="search">
-                        <input type="text" name="search" class="search" placeholder="Buscar...">
-                        <button type="submit" class="search">???</button>
+                    <form class="search">
+                        <input type="text" name="search" id="search" class="search" placeholder="Buscar...">
+                        <button type="button" id="btn-buscar" class="search">🔍︎</button>
                     </form>
                 </div>
                 <div class="header-join">
@@ -31,7 +33,7 @@
                             <a href="create-post.jsp">Crear post</a>
 
                             <form action="./auth?action=logout" method="POST" class="form-login">
-                                <a href="index.html">Cerrar sesi�n</a>
+                                <input type="submit" value="Cerrar sesión">
                             </form>
                         </div>
                     </button>

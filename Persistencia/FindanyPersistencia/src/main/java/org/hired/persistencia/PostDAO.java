@@ -11,6 +11,7 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Sorts;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import org.hired.exception.PersistenciaException;
@@ -75,12 +76,14 @@ public class PostDAO implements IPostDAO {
     public List<Post> buscarPost(String busqueda) throws PersistenciaException {
         try {
             MongoCollection<Post> coleccion = ConexionMongoDB.getInstancia().getBaseDatos().getCollection(NOMBRE_COLECCION, Post.class);
+            String regexPattern = "(?i).*" + Pattern.quote(busqueda) + ".*"; // Aplicar insensibilidad a mayúsculas y minúsculas
             Bson filtro = Filters.or(
-                    Filters.text(busqueda), // Búsqueda de texto en contenido y título
-                    Filters.eq("usuarioAutor", busqueda) // Búsqueda por autor
+                    Filters.regex("contenido", regexPattern),
+                    Filters.regex("titulo", regexPattern),
+                    Filters.regex("usuarioAutor.nombreCompleto", regexPattern)
             );
 
-            Bson orden = Sorts.ascending("tipo", "fechaHoraCreacion");
+            Bson orden = Sorts.orderBy(Sorts.ascending("tipo"), Sorts.descending("fechaHoraCreacion"));
 
             MongoCursor<Post> cursor = coleccion.find(filtro).sort(orden).iterator();
 

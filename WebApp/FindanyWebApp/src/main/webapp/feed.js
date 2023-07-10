@@ -1,18 +1,16 @@
 window.onload = function () {
-
-    const esAnclado = () => {
-        const checkAnclado = document.getElementById("anclado");
-        return checkAnclado.checked;
-    };
+    const btnBuscar = document.getElementById('btn-buscar');
+    const inputSearch = document.getElementById('search');
+    const main = document.getElementById('main');
 
     const mostrarFeed = (posts) => {
         const contenedor = document.getElementById("container");
         if (contenedor !== null) {
             contenedor.classList.add('container');
-            const main = document.getElementById("main");
             main.classList.add('main');
 
             posts.forEach((post) => {
+                console.table(post);
                 const divMainPost = document.createElement('div');
                 if (post.tipo === "ANCLADO") {
                     divMainPost.classList.add('main-anchored');
@@ -91,55 +89,42 @@ window.onload = function () {
                 "content-type": "application/json"
             }
         })
-            .then(response => response.json())
-            .then(posts => {
-                mostrarFeed(posts);
-            })
-            .catch(err => {
-                console.error(err);
-            });
+                .then(response => response.json())
+                .then(posts => {
+                    mostrarFeed(posts);
+                })
+                .catch(err => {
+                    console.error(err);
+                });
     };
 
-    const guardarPost = () => {
-        const btnGuardar = document.getElementById("btn-guardar");
-        btnGuardar.disabled = true;
+    const realizarBusqueda = (texto) => {
+        const busqueda = {termino: texto};
 
-        const titulo = document.getElementById("titulo").value;
-        const contenido = document.getElementById("contenido").value;
-        const fechaHoraCreacion = new Date();
-        const tipo = esAnclado();
-        const post = {
-            titulo: titulo,
-            contenido: contenido,
-            tipo,
-            fechaHoraCreacion: fechaHoraCreacion
-        };
-
-        console.log(JSON.stringify(post));
-        fetch("http://localhost:8080/AppWeb/post?action=create", {
+        fetch("http://localhost:8080/AppWeb/post?action=search", {
             method: "POST",
-            body: JSON.stringify(post),
+            body: JSON.stringify(busqueda),
             headers: {
-                "content-type": "application/json"
+                "Content-Type": "application/json"
             }
         })
-            .then(response => {
-                return response.json();
-                console.log(response);
-            })
-            .then(post => {
-                alert("¡Post publicado!");
-                window.location.href = "feed.jsp";
-            })
-            .catch(err => {
-                console.error(err);
-            });
+                .then(response => response.json())
+                .then(posts => {
+                    main.innerHTML = '';
+                    mostrarFeed(posts);
+                })
+                .catch(err => {
+                    console.error(err);
+                });
     };
 
-    const btnGuardar = document.getElementById("btn-guardar");
-    if (btnGuardar !== null) {
-        btnGuardar.onclick = guardarPost;
+    const obtenerBusqueda = () => {
+        const searchTerm = inputSearch.value.trim();
+        if (searchTerm !== '') {
+            realizarBusqueda(searchTerm);
+        }
     }
 
+    btnBuscar.onclick = obtenerBusqueda;
     cargarFeed();
 };

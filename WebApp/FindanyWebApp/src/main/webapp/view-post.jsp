@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
-    <!DOCTYPE html>
-    <html lang="es-en">
+<!DOCTYPE html>
+<html lang="es-en">
 
     <head>
         <meta charset="UTF-8">
@@ -12,7 +12,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
         <script src="comments.js" charset="utf-8"></script>
         <script src="view-post.js" charset="utf-8"></script>
-
     </head>
 
     <body>
@@ -50,31 +49,33 @@
                 <section class="comment-textarea">
                     <h3 class="comment-titulo">Comentarios</h3>
                     <textarea class="comment-contenido" id="comment-contenido" name="comment-contenido" minlength="1"
-                        maxlength="100" rows="3" cols="60" placeholder="Escribe tu comentario"></textarea>
+                              maxlength="100" rows="3" cols="60" placeholder="Escribe tu comentario"></textarea>
                     <div class="comment-addBtn">
                         <input type="hidden" class="user-email" value="${sessionScope.usuario.correo}">
                         <input type="hidden" id="user-tipo" value="${sessionScope.usuario.tipo}">
-                </section>
-                <section class="comments" id="comments">
+                        <section class="comments" id="comments">
 
+                        </section>
+                    </div>
                 </section>
-        </div>
-        </section>
-        <footer>
-            <section class="footer-contacto">
-                <h3 class="contacto">CONTACTO</h3>
-                <ul class="contacto-lista">
-                    <li><img src="assets/img/casa.png"> 644-220-9588</li>
-                    <hr class="footer-contacto-separator">
-                    <li><img src="assets/img/celular.png"> 644-460-9376</li>
-                    <hr class="footer-contacto-separator">
-                    <li><img src="assets/img/correo.png"> duran.esteban.cbtis37@gmail.com</li>
-                </ul>
             </section>
-        </footer>
+
+
+            <footer>
+                <section class="footer-contacto">
+                    <h3 class="contacto">CONTACTO</h3>
+                    <ul class="contacto-lista">
+                        <li><img src="assets/img/casa.png"> 644-220-9588</li>
+                        <hr class="footer-contacto-separator">
+                        <li><img src="assets/img/celular.png"> 644-460-9376</li>
+                        <hr class="footer-contacto-separator">
+                        <li><img src="assets/img/correo.png"> duran.esteban.cbtis37@gmail.com</li>
+                    </ul>
+                </section>
+            </footer>
         </div>
     </body>
 
-    <script src="assets/css/menu-content.js"></script>
+    <script src="./assets/css/menu-content.js"></script>
 
-    </html>
+</html>
