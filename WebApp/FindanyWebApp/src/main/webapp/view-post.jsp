@@ -12,7 +12,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
         <script src="view-post.js" charset="utf-8"></script>
         <!--<script src="comments.js" charset="utf-8"></script>-->
-
     </head>
 
     <body>

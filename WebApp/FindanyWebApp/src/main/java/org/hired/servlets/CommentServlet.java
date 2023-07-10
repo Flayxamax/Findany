@@ -94,6 +94,7 @@ public class CommentServlet extends HttpServlet {
         }
         //getServletContext().getRequestDispatcher("/feed.jsp").forward(request, response);
     }
+
     protected void processObtenerRespuesta(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, NegocioException {
         try {
@@ -193,7 +194,37 @@ public class CommentServlet extends HttpServlet {
             } catch (NegocioException ex) {
                 Logger.getLogger(CommentServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } else if (action != null && action.equalsIgnoreCase("eliminar")) { 
+            try {
+                processDelete(request, response);
+            } catch (IllegalArgumentException ex) {
+                request.setAttribute("error", ex.getMessage());
+                getServletContext().getRequestDispatcher("/error/errorJava.jsp").forward(request, response);
+                return;
+            } catch (NegocioException ex) {
+                request.setAttribute("error", ex.getMessage());
+                getServletContext().getRequestDispatcher("/error/errorJava.jsp").forward(request, response);
+                return;
+            }
         }
+    }
+
+    protected void processDelete(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, NegocioException {
+        PrintWriter out = response.getWriter();
+        String id = request.getParameter("id");
+        response.setContentType("application/json;charset=UTF-8");
+        Gson serializadorJSON = new Gson();
+        IComentarioBO comentarioBO = new ComentarioBO();
+        Comentario comentario = comentarioBO.buscarComentarioPorId(id);
+        try {
+            comentarioBO.eliminarComentario(comentario);
+        } catch (NegocioException e) {
+            request.setAttribute("error", e.getMessage());
+            getServletContext().getRequestDispatcher("/error/errorJava.jsp").forward(request, response);
+            return;
+        }
+        doGet(request, response);
     }
 
     @Override

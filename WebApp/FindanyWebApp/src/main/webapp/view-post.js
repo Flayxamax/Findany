@@ -57,6 +57,8 @@ window.onload = function () {
         }
         return false;
     };
+
+
     const crearBoton = () => {
         const divButton = document.querySelector(".comment-addBtn");
         const buttonCrear = document.createElement('button');
@@ -92,18 +94,18 @@ window.onload = function () {
                 method: "POST",
                 body: JSON.stringify(comentario),
                 headers: {
-                    "content-type": "application/json"
-                }
+                    "content-type": "application/json",
+                },
             })
-                .then(response => {
-                    return response.json();
-                    console.log(response);
-                })
-                .then(comentario => {
+                .then((response) => response.json())
+                .then((comentario) => {
+                    const comentarioId = comentario.id; // Obtener el ID del comentario creado
                     alert("¡Comentario publicado!");
                     vaciarContenido();
+                    cargarComentarios();
+
                 })
-                .catch(err => {
+                .catch((err) => {
                     console.error(err);
                 });
         };
@@ -115,47 +117,75 @@ window.onload = function () {
     };
 
 
+    const eliminarComentario = (comentarioId) => {
+        fetch(`http://localhost:8080/AppWeb/comment?action=eliminar&id=${comentarioId}`, {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                // Aquí puedes realizar acciones adicionales después de eliminar el comentario
+                alert("Comentario eliminado");
+                cargarComentarios(); // Vuelve a cargar los comentarios actualizados
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    };
+
     const mostrarComentarios = (listaComentarios) => {
         const commentsContainer = document.getElementById("comments");
         if (commentsContainer !== null) {
             commentsContainer.innerHTML = ""; // Limpiar el contenido existente
             console.table(listaComentarios);
             listaComentarios.forEach((comentario) => {
-
-                const divMainComentarios = document.createElement('div');
+                const divMainComentarios = document.createElement("div");
                 console.table(comentario);
-                /*
-                if (comentario.usuarioAutor.tipoCuenta === "ADMINISTRADOR") {
-                    //divMainComentarios.classList.add('main-anchored');
-                    //todo botones de admin
-                } else {
-     
-                }
-                */
 
-                const divComentario = document.createElement('div');
-                divComentario.classList.add('comentario-individual');
+                const divComentario = document.createElement("div");
+                divComentario.classList.add("comentario-individual");
 
-                const autor = document.createElement('p');
-                autor.classList.add('comentario-individual-autor');
+                const autor = document.createElement("p");
+                autor.classList.add("comentario-individual-autor");
                 autor.textContent = comentario.usuarioAutor.nombreCompleto;
 
-                const fecha = document.createElement('p');
-                fecha.classList.add('comentario-individual-fecha');
+                const fecha = document.createElement("p");
+                fecha.classList.add("comentario-individual-fecha");
                 fecha.textContent = comentario.fechaHora;
 
                 divComentario.appendChild(autor);
                 divComentario.appendChild(fecha);
 
-                const contenido = document.createElement('p');
-                contenido.classList.add('comentario-individual-contenido');
+                const contenido = document.createElement("p");
+                contenido.classList.add("comentario-individual-contenido");
                 contenido.textContent = comentario.contenido;
 
                 divComentario.appendChild(contenido);
 
-                divMainComentarios.appendChild(divComentario);
-                commentsContainer.appendChild(divMainComentarios);
+                const isAdmin = esAdmin();
+                const btnGuardar = document.getElementById("btn-crear");
+                if (btnGuardar !== null) {
+                    if (isAdmin) {
+                        btnGuardar.disabled = true;
 
+                        const divBotones = document.createElement("div");
+                        divBotones.classList.add("comentario-individual-botones");
+
+                        const botonEliminar = document.createElement("button");
+                        botonEliminar.textContent = "Eliminar";
+                        botonEliminar.addEventListener("click", () => {
+                            eliminarComentario(comentario.id);
+                        });
+                        divBotones.appendChild(botonEliminar);
+
+                        divComentario.appendChild(divBotones);
+                    }
+
+                    divMainComentarios.appendChild(divComentario);
+                    commentsContainer.appendChild(divMainComentarios);
+                }
             });
         }
     };

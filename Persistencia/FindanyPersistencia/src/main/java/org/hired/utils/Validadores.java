@@ -22,9 +22,9 @@ public class Validadores {
      * contrario
      */
     public boolean esNombre(String s) {
-        String patron = "(?!.*\\s{4})[A-Za-z]{1,25}(?:\\s[A-Za-z]{1,25}){0,3}";
+        String patron = "(?!.*\\s{4})[\\p{L}]{1,25}(?:\\s[\\p{L}]{1,25}){0,3}";
 
-        Pattern p = Pattern.compile(patron);
+        Pattern p = Pattern.compile(patron, Pattern.UNICODE_CHARACTER_CLASS);
 
         Matcher matcher = p.matcher(s);
 
@@ -56,7 +56,7 @@ public class Validadores {
      * caso contrario
      */
     public boolean esContrasena(String s) {
-        String patron = "(?!.*\\s)[^\\s]{4,20}";
+        String patron = "(?!.*\\s)[^\\s\\p{M}]{4,20}";
 
         Pattern p = Pattern.compile(patron);
 
@@ -90,7 +90,7 @@ public class Validadores {
      * contrario
      */
     public boolean esCiudad(String s) {
-        String patron = "(?!.*\\s{2})(?!.*[^a-zA-Z\\s.,])(?=.*[a-zA-Z])[a-zA-Z\\s.,]{1,20}";
+        String patron = "(?!.*\\s{2})(?!.*[^a-zA-Z\\s.,áéíóúÁÉÍÓÚ])(?=.*[a-zA-ZáéíóúÁÉÍÓÚ])[a-zA-ZáéíóúÁÉÍÓÚ\\s.,]{1,20}";
 
         Pattern p = Pattern.compile(patron);
 
@@ -108,9 +108,9 @@ public class Validadores {
      * para un título, false de lo contrario
      */
     public boolean esTitulo(String s) {
-        String patron = "^.{1,20}$";
+        String patron = "^[\\p{L}\\p{M}\\s]{1,20}$";
 
-        Pattern p = Pattern.compile(patron);
+        Pattern p = Pattern.compile(patron, Pattern.UNICODE_CHARACTER_CLASS);
 
         Matcher matcher = p.matcher(s);
 
@@ -126,9 +126,9 @@ public class Validadores {
      * para un contenido, false de lo contrario
      */
     public boolean esContenido(String s) {
-        String patron = "^.{1,200}$";
+        String patron = "^[\\p{L}\\p{M}\\p{N}\\p{P}\\p{Z}]{1,200}$";
 
-        Pattern p = Pattern.compile(patron);
+        Pattern p = Pattern.compile(patron, Pattern.UNICODE_CHARACTER_CLASS);
 
         Matcher matcher = p.matcher(s);
 
@@ -144,12 +144,13 @@ public class Validadores {
      * para un contenido de comentario, false de lo contrario
      */
     public boolean esContenidoComentario(String s) {
-        String patron = "^.{1,100}$";
+        String patron = "^[\\p{L}\\p{M}\\p{N}\\p{P}\\p{Z}]{1,100}$";
 
-        Pattern p = Pattern.compile(patron);
+        Pattern p = Pattern.compile(patron, Pattern.UNICODE_CHARACTER_CLASS);
 
         Matcher matcher = p.matcher(s);
 
         return matcher.matches();
     }
+
 }
