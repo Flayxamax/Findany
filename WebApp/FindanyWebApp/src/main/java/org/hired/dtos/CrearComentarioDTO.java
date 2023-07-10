@@ -5,6 +5,7 @@
 package org.hired.dtos;
 
 import java.util.Date;
+import org.bson.types.ObjectId;
 import org.hired.findanyobjetosnegocio.Comentario;
 import org.hired.findanyobjetosnegocio.Usuario;
 
@@ -14,6 +15,7 @@ import org.hired.findanyobjetosnegocio.Usuario;
  */
 public class CrearComentarioDTO {
 
+    private ObjectId id;
     private Date fechaHoraCreacion;
     private String contenido;
     private String usuarioAutor;
@@ -22,6 +24,14 @@ public class CrearComentarioDTO {
     public CrearComentarioDTO() {
     }
 
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
+    
     public Date getFechaHoraCreacion() {
         return fechaHoraCreacion;
     }

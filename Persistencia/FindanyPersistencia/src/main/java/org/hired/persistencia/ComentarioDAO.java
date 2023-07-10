@@ -7,6 +7,7 @@ package org.hired.persistencia;
 import com.mongodb.MongoException;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Sorts;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.conversions.Bson;
@@ -97,7 +98,8 @@ public class ComentarioDAO implements IComentarioDAO {
     public List<Comentario> obtenerComentarios() throws PersistenciaException {
         try {
             MongoCollection<Comentario> coleccion = ConexionMongoDB.getInstancia().getBaseDatos().getCollection(NOMBRE_COLECCION, Comentario.class);
-            return coleccion.find().into(new ArrayList<>());
+            Bson orden = Sorts.ascending("fechaHoraCreacion");
+            return coleccion.find().sort(orden).into(new ArrayList<>());
         } catch (MongoException e) {
             throw new PersistenciaException("Error al obtener comentarios: " + e.getLocalizedMessage());
         }

@@ -5,8 +5,11 @@
 package org.hired.servlets;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -27,6 +30,7 @@ import org.hired.impl.ComentarioBO;
 import org.hired.impl.LoginUsuarioBO;
 import org.hired.interfaces.IComentarioBO;
 import org.hired.interfaces.ILoginUsuarioBO;
+import org.hired.utils.ObjectIdTypeAdapter;
 import org.hired.utils.Validadores;
 
 /**
@@ -59,9 +63,13 @@ public class CommentServlet extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
         try {
-            if (action == null || action.equalsIgnoreCase("obtain")) {
+            if (action == null || action.equalsIgnoreCase("respuesta")) {
+                this.processObtenerRespuesta(request, response);
+                return;
+            } else if (action == null || action.equalsIgnoreCase("obtain")) {
                 this.processObtener(request, response);
                 return;
+
             }
         } catch (NegocioException ex) {
             Logger.getLogger(CommentServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -73,7 +81,9 @@ public class CommentServlet extends HttpServlet {
         try {
             IComentarioBO comentarioBO = new ComentarioBO();
             List<Comentario> listaComentarios = comentarioBO.obtenerComentarios();
-            Gson serializadorJSON = new Gson();
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            gsonBuilder.registerTypeAdapter(ObjectId.class, new ObjectIdTypeAdapter());
+            Gson serializadorJSON = gsonBuilder.create();
             response.setContentType("application/json;charset=UTF-8");
             try (PrintWriter out = response.getWriter()) {
                 out.println(serializadorJSON.toJson(listaComentarios));
@@ -83,6 +93,36 @@ public class CommentServlet extends HttpServlet {
             getServletContext().getRequestDispatcher("/error/errorJava.jsp").forward(request, response);
         }
         //getServletContext().getRequestDispatcher("/feed.jsp").forward(request, response);
+    }
+    protected void processObtenerRespuesta(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, NegocioException {
+        try {
+            String id = request.getParameter("id");
+            if (id == null || id.isEmpty()) {
+                // Si no se proporciona un ID, lanzar una excepción o manejar el caso en consecuencia
+                throw new IllegalArgumentException("No se proporcionó un ID de comentario válido");
+            }
+
+            IComentarioBO comentarioBO = new ComentarioBO();
+            Comentario comentario = comentarioBO.buscarComentarioPorId(id);
+
+            // Verificar si se encontró el comentario
+            if (comentario == null) {
+                // Manejar el caso cuando el comentario no existe
+                throw new NegocioException("El comentario no existe");
+            }
+
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            gsonBuilder.registerTypeAdapter(ObjectId.class, new ObjectIdTypeAdapter());
+            Gson serializadorJSON = gsonBuilder.create();
+            response.setContentType("application/json;charset=UTF-8");
+            try (PrintWriter out = response.getWriter()) {
+                out.println(serializadorJSON.toJson(comentario));
+            }
+        } catch (NegocioException e) {
+            request.setAttribute("error", e.getMessage());
+            getServletContext().getRequestDispatcher("/error/errorJava.jsp").forward(request, response);
+        }
     }
 
     protected void processCreate(HttpServletRequest request, HttpServletResponse response)
