@@ -12,6 +12,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+        <script src="assets/css/dateLimit.js"></script>
     </head>
 
     <body>
@@ -84,7 +85,7 @@
                         </div>
                         <div class="main-form-group">
                             <label>Fecha de nacimiento*
-                                <input type="date" name="fechaNacimiento" placeholder="Ingrese su fecha de nacimiento"
+                                <input type="date" id="calendar" name="fechaNacimiento" placeholder="Ingrese su fecha de nacimiento"
                                        required>
                             </label>
                         </div>

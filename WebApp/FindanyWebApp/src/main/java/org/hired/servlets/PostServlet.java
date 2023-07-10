@@ -82,6 +82,10 @@ public class PostServlet extends HttpServlet {
         if (action != null && action.equalsIgnoreCase("create")) {
             processCreate(request, response);
         }
+        if (action != null && action.equalsIgnoreCase("update")) {
+            this.processUpdate(request, response);
+            return;
+        }
         if (action != null && action.equalsIgnoreCase("search")) {
             this.processBuscarPost(request, response);
             return;
@@ -135,6 +139,57 @@ public class PostServlet extends HttpServlet {
             out.println(serializadorJSON.toJson("Fallo interno del servidor"));
         }
     }
+    
+    protected void processUpdate(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("application/json;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        Gson serializadorJSON = new Gson();
+        try {
+            String datosJSON = IOUtils.toString(request.getInputStream(), "utf-8");
+            CrearPostDTO crearPostDTO = serializadorJSON.fromJson(datosJSON, CrearPostDTO.class);
+
+            if (crearPostDTO.getTitulo() == null || crearPostDTO.getTitulo().isBlank() || !validador.esTitulo(crearPostDTO.getTitulo())) {
+                throw new IllegalArgumentException("El título es inválido");
+            }
+            if (crearPostDTO.getContenido() == null || crearPostDTO.getContenido().isBlank() || !validador.esContenido(crearPostDTO.getContenido())) {
+                throw new IllegalArgumentException("El contenido es inválido");
+            }
+
+            Post post = new Post();
+            post.setId(crearPostDTO.getId());
+            post.setTitulo(crearPostDTO.getTitulo());
+            post.setContenido(crearPostDTO.getContenido());
+            post.setTipo(crearPostDTO.getTipo());
+            post.setFechaHoraCreacion(crearPostDTO.getFechaHoraCreacion());
+            post.setFechaHoraEdicion(crearPostDTO.getFechaHoraEdicion());
+
+            ILoginUsuarioBO usuarioBO = new LoginUsuarioBO();
+            HttpSession session = request.getSession();
+            Enumeration<String> attributeNames = session.getAttributeNames();
+            String attributeName = attributeNames.nextElement();
+            Usuario usuario = (Usuario) session.getAttribute(attributeName);
+
+            if (usuario != null) {
+                usuario = usuarioBO.busquedaUsuario(usuario.getCorreo());
+
+                post.setUsuarioAutor(usuario);
+                post.setFechaHoraCreacion(crearPostDTO.getFechaHoraCreacion());
+
+                IPostBO postBO = new PostBO();
+                Post postGuardado = postBO.actualizarPost(post);
+                out.println(serializadorJSON.toJson(postGuardado));
+            } else {
+                throw new AccessDeniedException("No se encontro usuario con sesión");
+            }
+        } catch (IllegalArgumentException ex) {
+            response.setStatus(400);//BAD_REQUEST
+            out.println(serializadorJSON.toJson(ex.getMessage()));
+        } catch (JsonSyntaxException | IOException | NegocioException ex) {
+            response.setStatus(500);    // ERROR EN EL SERVER
+            out.println(serializadorJSON.toJson("Fallo interno del servidor"));
+        }
+    }
 
     protected void processObtener(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -163,7 +218,9 @@ public class PostServlet extends HttpServlet {
             String id = request.getParameter("id");
             IPostBO postBO = new PostBO();
             Post post = postBO.buscarPorId(id);
-            Gson serializadorJSON = new Gson();
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            gsonBuilder.registerTypeAdapter(ObjectId.class, new ObjectIdTypeAdapter());
+            Gson serializadorJSON = gsonBuilder.create();
             response.setContentType("application/json;charset=UTF-8");
             try (PrintWriter out = response.getWriter()) {
                 out.println(serializadorJSON.toJson(post));

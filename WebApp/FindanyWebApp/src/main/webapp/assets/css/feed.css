@@ -156,23 +156,18 @@ body {
     grid-row-start: 1;
     display: flex;
     flex-direction: column;
-    background-color: #28a745;
     font-size: large;
     font-weight: bold;
     color: white;
-    border: 2px solid #dfdede;
-    border-radius: 5px;
-    padding: 10px;
-    box-sizing: border-box;
     width: auto;
     margin: 40px 0 auto auto;
 }
 
-.delete-button:hover button{
+.delete-button:hover button {
     background-color: #3ab657;
 }
 
-.delete-button button{
+.delete-button button {
     display: flex;
     flex-direction: column;
     background-color: #28a745;
@@ -182,8 +177,10 @@ body {
     border: 2px solid #dfdede;
     border-radius: 5px;
     box-sizing: border-box;
-    width: auto;
+    width: 100%;
+    padding: 10px 20px;
 }
+
 
 .post-img img {
     max-height: 500px;

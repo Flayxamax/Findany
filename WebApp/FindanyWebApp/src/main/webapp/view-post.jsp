@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
-    <!DOCTYPE html>
-    <html lang="es-en">
+<!DOCTYPE html>
+<html lang="es-en">
 
     <head>
         <meta charset="UTF-8">
@@ -50,17 +50,17 @@
                 <section class="comment-textarea">
                     <h3 class="comment-titulo">Comentarios</h3>
                     <textarea class="comment-contenido" id="comment-contenido" name="comment-contenido" minlength="1"
-                        maxlength="100" rows="3" cols="60" placeholder="Escribe tu comentario"></textarea>
+                              maxlength="100" rows="3" cols="60" placeholder="Escribe tu comentario"></textarea>
                     <div class="comment-addBtn">
                         <input type="hidden" class="user-email" value="${sessionScope.usuario.correo}">
                         <input type="hidden" id="user-tipo" value="${sessionScope.usuario.tipo}">
                     </div>
                 </section>
                 <section class="comments" id="comments">
-                    <input type="hidden" id="idPost" name="idPost" value="${requestScope.post.id}">
 
                 </section>
             </section>
+            <section id="editar" class="editar"></section>
         </div>
         <!--
         <footer>
@@ -79,4 +79,4 @@
         <script src="assets/css/menu-content.js"></script>
     </body>
 
-    </html>
+</html>

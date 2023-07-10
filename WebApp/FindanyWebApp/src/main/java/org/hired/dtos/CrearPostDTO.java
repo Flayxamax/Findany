@@ -5,6 +5,7 @@
 package org.hired.dtos;
 
 import java.util.Date;
+import org.bson.types.ObjectId;
 import org.hired.findanyobjetosnegocio.TipoPost;
 import org.hired.findanyobjetosnegocio.Usuario;
 
@@ -13,7 +14,9 @@ import org.hired.findanyobjetosnegocio.Usuario;
  * @author wikit
  */
 public class CrearPostDTO {
+    private ObjectId id;
     private Date fechaHoraCreacion;
+    private Date fechaHoraEdicion;
     private String titulo;
     private String contenido;
     private Usuario usuarioAutor;
@@ -63,5 +66,22 @@ public class CrearPostDTO {
     public void setTipo(Boolean tipo) {
         this.tipo = tipo;
     }
+    
+    public Date getFechaHoraEdicion() {
+        return fechaHoraEdicion;
+    }
+
+    public void setFechaHoraEdicion(Date fechaHoraEdicion) {
+        this.fechaHoraEdicion = fechaHoraEdicion;
+    }
+
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
+
 }
 

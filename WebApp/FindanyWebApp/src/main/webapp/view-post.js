@@ -7,6 +7,23 @@ window.onload = function () {
         const postFechaEdicion = document.querySelector(".post-fechaEdicion");
         const postFechaEdicionTexto = document.querySelector(".post-fechaEdicionTexto");
         const postContenido = document.querySelector(".post-contenido");
+        const secEdit = document.getElementById("editar");
+        const userEmail = document.querySelector(".user-email").value;
+
+        if (userEmail === post.usuarioAutor.correo) {
+            const editButton = document.createElement('button');
+            editButton.classList.add('edit-button');
+            editButton.innerHTML = "Editar";
+            secEdit.appendChild(editButton);
+            
+            const servletUrl = new URL("http://localhost:8080/AppWeb/edit-post.jsp");
+            servletUrl.searchParams.append("id", post.id.toString());
+            editButton.setAttribute('data-url', servletUrl.href);
+            editButton.onclick = function () {
+                const servletUrl = this.getAttribute('data-url');
+                window.location.href = servletUrl;
+            };
+        }
 
         const titulo = post.titulo;
         const nombreUsuario = post.usuarioAutor.nombreCompleto;
@@ -41,13 +58,13 @@ window.onload = function () {
                 "content-type": "application/json"
             }
         })
-            .then(response => response.json())
-            .then(post => {
-                mostrarPost(post);
-            })
-            .catch(err => {
-                console.error(err);
-            });
+                .then(response => response.json())
+                .then(post => {
+                    mostrarPost(post);
+                })
+                .catch(err => {
+                    console.error(err);
+                });
     };
 
     const esAdmin = () => {
@@ -97,17 +114,17 @@ window.onload = function () {
                     "content-type": "application/json",
                 },
             })
-                .then((response) => response.json())
-                .then((comentario) => {
-                    const comentarioId = comentario.id; // Obtener el ID del comentario creado
-                    alert("¡Comentario publicado!");
-                    vaciarContenido();
-                    cargarComentarios();
+                    .then((response) => response.json())
+                    .then((comentario) => {
+                        const comentarioId = comentario.id; // Obtener el ID del comentario creado
+                        alert("¡Comentario publicado!");
+                        vaciarContenido();
+                        cargarComentarios();
 
-                })
-                .catch((err) => {
-                    console.error(err);
-                });
+                    })
+                    .catch((err) => {
+                        console.error(err);
+                    });
         };
 
         const btnGuardar = document.getElementById("btn-crear");
@@ -124,15 +141,15 @@ window.onload = function () {
                 "content-type": "application/json",
             },
         })
-            .then((response) => response.json())
-            .then((data) => {
-                // Aquí puedes realizar acciones adicionales después de eliminar el comentario
-                alert("Comentario eliminado");
-                cargarComentarios(); // Vuelve a cargar los comentarios actualizados
-            })
-            .catch((err) => {
-                console.error(err);
-            });
+                .then((response) => response.json())
+                .then((data) => {
+                    // Aquí puedes realizar acciones adicionales después de eliminar el comentario
+                    alert("Comentario eliminado");
+                    cargarComentarios(); // Vuelve a cargar los comentarios actualizados
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
     };
 
     const mostrarComentarios = (listaComentarios) => {
@@ -197,13 +214,13 @@ window.onload = function () {
                 "content-type": "application/json"
             }
         })
-            .then(response => response.json())
-            .then(listaComentarios => {
-                mostrarComentarios(listaComentarios);
-            })
-            .catch(err => {
-                console.error(err);
-            });
+                .then(response => response.json())
+                .then(listaComentarios => {
+                    mostrarComentarios(listaComentarios);
+                })
+                .catch(err => {
+                    console.error(err);
+                });
     };
 
     cargarPost();
