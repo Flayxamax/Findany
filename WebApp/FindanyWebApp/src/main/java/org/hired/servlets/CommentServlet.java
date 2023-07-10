@@ -4,6 +4,7 @@
  */
 package org.hired.servlets;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
@@ -16,7 +17,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.io.IOUtils;
 import org.bson.types.ObjectId;
+import org.hired.dtos.CrearComentarioDTO;
 import org.hired.exception.NegocioException;
 import org.hired.findanyobjetosnegocio.Comentario;
 import org.hired.findanyobjetosnegocio.Usuario;
@@ -54,8 +57,12 @@ public class CommentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String action = request.getParameter("action");
         try {
-            processObtener(request, response);
+            if (action == null || action.equalsIgnoreCase("obtain")) {
+                this.processObtener(request, response);
+                return;
+            }
         } catch (NegocioException ex) {
             Logger.getLogger(CommentServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -66,7 +73,11 @@ public class CommentServlet extends HttpServlet {
         try {
             IComentarioBO comentarioBO = new ComentarioBO();
             List<Comentario> listaComentarios = comentarioBO.obtenerComentarios();
-            request.setAttribute("comentarios", listaComentarios);
+            Gson serializadorJSON = new Gson();
+            response.setContentType("application/json;charset=UTF-8");
+            try (PrintWriter out = response.getWriter()) {
+                out.println(serializadorJSON.toJson(listaComentarios));
+            }
         } catch (NegocioException e) {
             request.setAttribute("error", e.getMessage());
             getServletContext().getRequestDispatcher("/error/errorJava.jsp").forward(request, response);
@@ -76,11 +87,14 @@ public class CommentServlet extends HttpServlet {
 
     protected void processCreate(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, NegocioException {
+        PrintWriter out = response.getWriter();
+        response.setContentType("application/json;charset=UTF-8");
+        Gson serializadorJSON = new Gson();
         Comentario comentario = obtenerDatos(request, response);
         IComentarioBO comentarioBO = new ComentarioBO();
         try {
             Comentario comentarioGuardado = comentarioBO.crearComentario(comentario);
-            request.setAttribute("comentario", comentarioGuardado);
+            out.println(serializadorJSON.toJson(comentarioGuardado));
         } catch (NegocioException e) {
             request.setAttribute("error", e.getMessage());
             getServletContext().getRequestDispatcher("/error/errorJava.jsp").forward(request, response);
@@ -91,32 +105,34 @@ public class CommentServlet extends HttpServlet {
 
     protected Comentario obtenerDatos(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, NegocioException {
+        response.setContentType("application/json;charset=UTF-8");
+        Gson serializadorJSON = new Gson();
         try {
-            String contenido = request.getParameter("contenido");
-            String comentarioPadreId = request.getParameter("comentarioPadre");
+            String datosJSON = IOUtils.toString(request.getInputStream(), "utf-8");
+            CrearComentarioDTO crearComentarioDTO = serializadorJSON.fromJson(datosJSON, CrearComentarioDTO.class);
 
-            if (contenido == null || contenido.isBlank() || !validador.esContenidoComentario(contenido)) {
+            if (crearComentarioDTO.getContenido() == null || crearComentarioDTO.getContenido().isBlank() || !validador.esContenidoComentario(crearComentarioDTO.getContenido())) {
                 throw new IllegalArgumentException("El contenido es inválido");
             }
 
             Comentario comentario = new Comentario();
-            comentario.setContenido(contenido);
+            comentario.setContenido(crearComentarioDTO.getContenido());
+            comentario.setFechaHora(crearComentarioDTO.getFechaHoraCreacion());
 
-            HttpSession session = request.getSession();
-            Usuario usuario = (Usuario) session.getAttribute("usuario");
-            String correo = usuario.getCorreo();
+            String correo = crearComentarioDTO.getUsuarioAutor();
 
             ILoginUsuarioBO usuarioBO = new LoginUsuarioBO();
             Usuario usuario2 = usuarioBO.busquedaUsuario(correo);
             comentario.setUsuarioAutor(usuario2);
-            comentario.setFechaHora(new Date());
 
-            if (comentarioPadreId == null || comentarioPadreId.isBlank()) {
+            if (crearComentarioDTO.getComentarioPadre() == null || crearComentarioDTO.getComentarioPadre().isBlank()) {
                 // Es un comentario padre
                 return comentario;
             } else {
                 // Es una respuesta a un comentario padre
-                ObjectId comentarioPadre = new ObjectId(comentarioPadreId);
+                String id = crearComentarioDTO.getComentarioPadre();
+                IComentarioBO comentarioBO = new ComentarioBO();
+                Comentario comentarioPadre = comentarioBO.buscarComentarioPorId(id);
                 comentario.setComentarioPadre(comentarioPadre);
                 return comentario;
             }

@@ -10,7 +10,9 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+        <script src="comments.js" charset="utf-8"></script>
         <script src="view-post.js" charset="utf-8"></script>
+
     </head>
 
     <body>
@@ -18,12 +20,6 @@
             <header>
                 <section class="header-logo">
                     <img src="assets/img/findanylogo.svg" alt="logo" class="imagen-logo">
-                </section>
-                <section class="header-searchbar">
-                    <form action="results.html" method="GET" class="search">
-                        <input type="text" name="search" class="search" placeholder="Buscar...">
-                        <button type="submit" class="search">???</button>
-                    </form>
                 </section>
                 <section class="header-join">
                     <button class="menu-btn">${sessionScope.usuario.nombreCompleto}
@@ -51,20 +47,31 @@
                 <hr class="post-contentCommentSeparator">
             </section>
             <section class="post-comments">
-                <!--Comentarios próximamente-->
-            </section>
-            <footer>
-                <section class="footer-contacto">
-                    <h3 class="contacto">CONTACTO</h3>
-                    <ul class="contacto-lista">
-                        <li><img src="assets/img/casa.png"> 644-220-9588</li>
-                        <hr class="footer-contacto-separator">
-                        <li><img src="assets/img/celular.png"> 644-460-9376</li>
-                        <hr class="footer-contacto-separator">
-                        <li><img src="assets/img/correo.png"> duran.esteban.cbtis37@gmail.com</li>
-                    </ul>
+                <section class="comment-textarea">
+                    <h3 class="comment-titulo">Comentarios</h3>
+                    <textarea class="comment-contenido" id="comment-contenido" name="comment-contenido" minlength="1"
+                        maxlength="100" rows="3" cols="60" placeholder="Escribe tu comentario"></textarea>
+                    <div class="comment-addBtn">
+                        <input type="hidden" class="user-email" value="${sessionScope.usuario.correo}">
+                        <input type="hidden" id="user-tipo" value="${sessionScope.usuario.tipo}">
                 </section>
-            </footer>
+                <section class="comments" id="comments">
+
+                </section>
+        </div>
+        </section>
+        <footer>
+            <section class="footer-contacto">
+                <h3 class="contacto">CONTACTO</h3>
+                <ul class="contacto-lista">
+                    <li><img src="assets/img/casa.png"> 644-220-9588</li>
+                    <hr class="footer-contacto-separator">
+                    <li><img src="assets/img/celular.png"> 644-460-9376</li>
+                    <hr class="footer-contacto-separator">
+                    <li><img src="assets/img/correo.png"> duran.esteban.cbtis37@gmail.com</li>
+                </ul>
+            </section>
+        </footer>
         </div>
     </body>
 

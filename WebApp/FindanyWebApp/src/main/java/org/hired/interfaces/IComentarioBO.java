@@ -21,4 +21,6 @@ public interface IComentarioBO {
     public List<Comentario> obtenerComentarios() throws NegocioException;
 
     public void eliminarComentario(Comentario comentario) throws NegocioException;
+    
+    public Comentario buscarComentarioPorId(String comentarioId) throws NegocioException;
 }

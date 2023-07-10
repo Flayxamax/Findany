@@ -9,6 +9,8 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import java.util.ArrayList;
 import java.util.List;
+import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 import org.hired.exception.PersistenciaException;
 import org.hired.findanyobjetosnegocio.Comentario;
 import org.hired.interfaces.IComentarioDAO;
@@ -117,11 +119,9 @@ public class ComentarioDAO implements IComentarioDAO {
             MongoCollection<Comentario> coleccion = ConexionMongoDB.getInstancia().getBaseDatos().getCollection(NOMBRE_COLECCION, Comentario.class);
 
             if (comentario.getComentarioPadre() != null) {
-                // Es un comentario respuesta, se elimina únicamente el comentario actual
                 coleccion.deleteOne(Filters.eq("_id", comentario.getId()));
                 System.out.println("Se ha eliminado el comentario actual: " + comentario);
             } else {
-                // Es un comentario padre, se eliminan el comentario actual y todas sus respuestas
                 eliminarComentarioPadreYRespuestas(coleccion, comentario);
                 System.out.println("Se ha eliminado el comentario padre y todas sus respuestas: " + comentario);
             }
@@ -137,15 +137,22 @@ public class ComentarioDAO implements IComentarioDAO {
      * @param comentario el comentario padre a eliminar
      */
     private void eliminarComentarioPadreYRespuestas(MongoCollection<Comentario> coleccion, Comentario comentario) {
-        // Se elimina el comentario actual
         coleccion.deleteOne(Filters.eq("_id", comentario.getId()));
-
-        // Se obtienen las respuestas del comentario padre
         List<Comentario> respuestas = coleccion.find(Filters.eq("comentarioPadre", comentario.getId())).into(new ArrayList<>());
-
-        // Se eliminan las respuestas recursivamente
         for (Comentario respuesta : respuestas) {
             eliminarComentarioPadreYRespuestas(coleccion, respuesta);
+        }
+    }
+
+    @Override
+    public Comentario buscarComentarioPorId(String comentarioId) throws PersistenciaException {
+        try {
+            MongoCollection<Comentario> coleccion = ConexionMongoDB.getInstancia().getBaseDatos().getCollection(NOMBRE_COLECCION, Comentario.class);
+            Bson filtro = Filters.eq("_id", new ObjectId(comentarioId));
+            Comentario comentario = coleccion.find(filtro).first();
+            return comentario;
+        } catch (MongoException e) {
+            throw new PersistenciaException("Error al buscar comentario por ID: " + e.getLocalizedMessage());
         }
     }
 

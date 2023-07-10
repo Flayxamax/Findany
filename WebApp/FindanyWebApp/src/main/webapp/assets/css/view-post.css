@@ -78,6 +78,11 @@ body {
     padding-right: 100px;
 }
 
+.container .post-comments {
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
 .container .main .post-titulo, .post-nombreUsuario, .post-fechaCreacion, .post-fechaEdicion .post-fechaEdicionTexto{
     margin-bottom: 20px;
     margin-top: 20px;
@@ -89,6 +94,16 @@ body {
 
 .container .main > h4{
     font-size: large;
+}
+
+.container .post-comments .comment-titulo{
+    margin-bottom: 10px;
+}
+
+.container .post-comments .comment-contenido{
+    resize: none;
+    border-radius: 5px;
+    border-color: #282828;
 }
 
 .container div.main-update-img {

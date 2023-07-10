@@ -21,4 +21,6 @@ public interface IComentarioDAO {
     public List<Comentario> obtenerComentarios() throws PersistenciaException;
     
     public void eliminarComentario(Comentario comentario) throws PersistenciaException;
+    
+    public Comentario buscarComentarioPorId(String comentarioId) throws PersistenciaException;
 }

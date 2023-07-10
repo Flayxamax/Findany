@@ -21,10 +21,8 @@ public class Comentario {
     private ObjectId id;
     private Date fechaHora;
     private String contenido;
-    private Comentario comentario;
+    private Comentario comentarioPadre;
     private Usuario usuarioAutor;
-    private ObjectId comentarioPadre;
-
     /**
      * Crea una nueva instancia de {@code Comentario} con valores
      * predeterminados para sus propiedades.
@@ -60,7 +58,7 @@ public class Comentario {
      * @param comentarioPadre el identificador del comentario padre al que
      * responde (puede ser null)
      */
-    public Comentario(ObjectId id, Date fechaHora, String contenido, Usuario usuarioAutor, ObjectId comentarioPadre) {
+    public Comentario(ObjectId id, Date fechaHora, String contenido, Usuario usuarioAutor, Comentario comentarioPadre) {
         this.id = id;
         this.fechaHora = fechaHora;
         this.contenido = contenido;
@@ -145,7 +143,7 @@ public class Comentario {
      *
      * @return el identificador del comentario padre al que responde
      */
-    public ObjectId getComentarioPadre() {
+    public Comentario getComentarioPadre() {
         return comentarioPadre;
     }
 
@@ -155,7 +153,7 @@ public class Comentario {
      * @param comentarioPadre el identificador del comentario padre al que
      * responde
      */
-    public void setComentarioPadre(ObjectId comentarioPadre) {
+    public void setComentarioPadre(Comentario comentarioPadre) {
         this.comentarioPadre = comentarioPadre;
     }
 
@@ -165,7 +163,6 @@ public class Comentario {
         hash = 59 * hash + Objects.hashCode(this.id);
         hash = 59 * hash + Objects.hashCode(this.fechaHora);
         hash = 59 * hash + Objects.hashCode(this.contenido);
-        hash = 59 * hash + Objects.hashCode(this.comentario);
         hash = 59 * hash + Objects.hashCode(this.usuarioAutor);
         hash = 59 * hash + Objects.hashCode(this.comentarioPadre);
         return hash;
@@ -192,9 +189,6 @@ public class Comentario {
         if (!Objects.equals(this.fechaHora, other.fechaHora)) {
             return false;
         }
-        if (!Objects.equals(this.comentario, other.comentario)) {
-            return false;
-        }
         if (!Objects.equals(this.usuarioAutor, other.usuarioAutor)) {
             return false;
         }
@@ -203,6 +197,6 @@ public class Comentario {
 
     @Override
     public String toString() {
-        return "Comentario{" + "id=" + id + ", fechaHora=" + fechaHora + ", contenido=" + contenido + ", comentario=" + comentario + ", usuarioAutor=" + usuarioAutor + ", comentarioPadre=" + comentarioPadre + '}';
+        return "Comentario{" + "id=" + id + ", fechaHora=" + fechaHora + ", contenido=" + contenido + ", usuarioAutor=" + usuarioAutor + ", comentarioPadre=" + comentarioPadre + '}';
     }
 }

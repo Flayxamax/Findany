@@ -90,13 +90,22 @@ public class ComentarioBO implements IComentarioBO {
      * respuestas.
      *
      * @param comentario el comentario a eliminar
-     * @throws NegocioException si ocurre un error al eliminar el
-     * comentario
+     * @throws NegocioException si ocurre un error al eliminar el comentario
      */
     @Override
     public void eliminarComentario(Comentario comentario) throws NegocioException {
         try {
             this.comentarioDAO.eliminarComentario(comentario);
+        } catch (PersistenciaException e) {
+            throw new NegocioException(e);
+        }
+    }
+
+    @Override
+    public Comentario buscarComentarioPorId(String comentarioId) throws NegocioException {
+        try {
+            Comentario comentario = this.comentarioDAO.buscarComentarioPorId(comentarioId);
+            return comentario;
         } catch (PersistenciaException e) {
             throw new NegocioException(e);
         }

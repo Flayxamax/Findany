@@ -19,7 +19,7 @@ window.onload = function () {
         postFechaCreacion.innerHTML = fechaCreacion;
         postContenido.innerHTML = contenido;
         if (fechaEdicion === undefined || fechaEdicion === null || fechaEdicion === "") {
-            
+
         } else {
             postFechaEdicion.innerHTML = fechaEdicion;
             const fechaEdicionTextito = "Fecha Edición: ";
@@ -27,7 +27,7 @@ window.onload = function () {
         }
     };
 
-    const cargarFeed = () => {
+    const cargarPost = () => {
 
         const urlParams = new URLSearchParams(window.location.search);
         const postId = urlParams.get('id');
@@ -49,5 +49,7 @@ window.onload = function () {
                 console.error(err);
             });
     };
-    cargarFeed();
+
+    cargarPost();
+
 };
