@@ -8,7 +8,6 @@ import com.mongodb.MongoException;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
-import static com.mongodb.client.model.Updates.set;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import org.bson.Document;
@@ -25,24 +24,11 @@ import org.hired.interfaces.IUsuarioDAO;
  * base de datos MongoDB para almacenar los datos de los usuarios. La clase
  * utiliza el patrón Singleton para garantizar una única instancia de la clase.
  *
- * @see IUsuarioDAO
  * @see FactoryPersistencia
  * @see Usuario
  * @see Municipio
  * @see ObjectId
- * @throws PersistenciaException si ocurre algún error en la interacción con la
- * base de datos
- * @throws NoSuchAlgorithmException si ocurre un error al encriptar la
- * contraseña utilizando el algoritmo SHA-256
- * @throws MongoException si ocurre un error en la operación con la base de
- * datos MongoDB
- * @throws MessageDigestException si ocurre un error al crear la instancia de
- * MessageDigest para el algoritmo SHA-256
- * @throws MongoException si ocurre un error en la operación con la base de
- * datos MongoDB
- * @throws PersistenciaException si ocurre algún error en la interacción con la
- * base de datos
- * @author Findany
+ * @author HIRED
  */
 public class UsuarioDAO implements IUsuarioDAO {
 

@@ -19,17 +19,31 @@ import org.hired.findanyobjetosnegocio.Post;
 import org.hired.interfaces.IPostDAO;
 
 /**
+ * La clase PostDAO implementa la interfaz IPostDAO y proporciona métodos para
+ * acceder y manipular los datos de los posts en la base de datos. Utiliza la
+ * base de datos MongoDB para almacenar los datos de los posts. La clase utiliza
+ * el patrón Singleton para garantizar una única instancia de la clase.
  *
- * @author wikit
+ * @see FactoryPersistencia
+ * @see Post
+ * @author HIRED
  */
 public class PostDAO implements IPostDAO {
 
     private static PostDAO instancia;
     private final String NOMBRE_COLECCION = "Post";
 
+    /**
+     * Crea una nueva instancia de PostDAO.
+     */
     public PostDAO() {
     }
 
+    /**
+     * Obtiene la instancia única de PostDAO utilizando el patrón Singleton.
+     *
+     * @return la instancia única de PostDAO
+     */
     public static PostDAO getInstancia() {
         if (instancia == null) {
             instancia = new PostDAO();
@@ -37,6 +51,14 @@ public class PostDAO implements IPostDAO {
         return instancia;
     }
 
+    /**
+     * Crea un nuevo post en la base de datos.
+     *
+     * @param post el post a crear
+     * @return el post creado
+     * @throws PersistenciaException si ocurre un error durante la operación de
+     * creación del post
+     */
     @Override
     public Post crearPost(Post post) throws PersistenciaException {
         try {
@@ -48,6 +70,14 @@ public class PostDAO implements IPostDAO {
         }
     }
 
+    /**
+     * Crea un nuevo post en la base de datos.
+     *
+     * @param post el post a crear
+     * @return el post creado
+     * @throws PersistenciaException si ocurre un error durante la operación de
+     * creación del post
+     */
     @Override
     public Post actualizarPost(Post post) throws PersistenciaException {
         try {
@@ -61,6 +91,13 @@ public class PostDAO implements IPostDAO {
         }
     }
 
+    /**
+     * Elimina un post de la base de datos.
+     *
+     * @param post el post a eliminar
+     * @throws PersistenciaException si ocurre un error durante la operación de
+     * eliminación del post
+     */
     @Override
     public void eliminarPost(Post post) throws PersistenciaException {
         try {
@@ -72,6 +109,15 @@ public class PostDAO implements IPostDAO {
         }
     }
 
+    /**
+     * Busca posts en la base de datos que coincidan con el criterio de
+     * búsqueda.
+     *
+     * @param busqueda el término de búsqueda
+     * @return una lista de posts que coinciden con el criterio de búsqueda
+     * @throws PersistenciaException si ocurre un error durante la operación de
+     * búsqueda de posts
+     */
     @Override
     public List<Post> buscarPost(String busqueda) throws PersistenciaException {
         try {
@@ -98,6 +144,15 @@ public class PostDAO implements IPostDAO {
         }
     }
 
+    /**
+     * Busca un post en la base de datos utilizando su ID.
+     *
+     * @param postId el ID del post a buscar
+     * @return el post encontrado o null si no se encuentra ningún post con el
+     * ID especificado
+     * @throws PersistenciaException si ocurre un error durante la operación de
+     * búsqueda del post
+     */
     @Override
     public Post buscarPorId(String postId) throws PersistenciaException {
         try {
@@ -112,6 +167,13 @@ public class PostDAO implements IPostDAO {
         }
     }
 
+    /**
+     * Busca todos los posts en la base de datos.
+     *
+     * @return una lista de todos los posts en la base de datos
+     * @throws PersistenciaException si ocurre un error durante la operación de
+     * búsqueda de los posts
+     */
     @Override
     public List<Post> buscarTodo() throws PersistenciaException {
         try {

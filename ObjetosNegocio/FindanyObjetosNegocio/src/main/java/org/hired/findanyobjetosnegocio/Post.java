@@ -13,6 +13,7 @@ import org.bson.types.ObjectId;
  * La clase Post representa un post en una plataforma. Contiene información como
  * el identificador, fecha y hora de creación, título, contenido, imagen, fecha
  * y hora de edición, usuario autor y tipo de post.
+ * @author HIRED
  */
 public class Post {
 

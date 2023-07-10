@@ -27,7 +27,7 @@
                             <a href="view-user.jsp">Ver perfil</a>
 
                             <form action="./auth?action=logout" method="POST" class="form-login">
-                                <a href="index.html">Cerrar sesión</a>
+                                <input type="submit" value="Cerrar sesión">
                             </form>
                         </div>
                     </button>
@@ -44,7 +44,7 @@
                     <div class="main-data">
                         <label for="titulo" class="titulo">Título</label>
                         <input type="text" id="titulo" name="titulo" class="titulo-text" placeholder="Un título interesante"
-                               required="required">
+                               required>
                         <!-- <label for="imagen" class="imagen">Imagen</label>
                         <input type="file" id="imagen" accept="image/png, image/jpeg"  onchange="previewImage(event)" class="titulo-text">-->
                         <label for="anclado">Anclado</label>
@@ -53,7 +53,7 @@
                     <div class="main-content">
                         <label for="contenido" class="titulo">Contenido</label>
                         <textarea id="contenido" class="textarea" name="contenido" placeholder="Tu contenido aquí" rows="20"
-                                  required="required"></textarea>
+                                  required></textarea>
                     </div>
                     <!-- <div class="main-img">
                         <img id="preview-image" src="assets/img/default.png" alt="Vista previa de la imagen" class="img-post">

@@ -4,9 +4,7 @@
  */
 package org.hired.interfaces;
 
-import org.bson.types.ObjectId;
 import org.hired.exception.PersistenciaException;
-import org.hired.findanyobjetosnegocio.Municipio;
 import org.hired.findanyobjetosnegocio.Usuario;
 
 /**
@@ -20,7 +18,6 @@ import org.hired.findanyobjetosnegocio.Usuario;
  * PersistenciaException si ocurre algún error durante la operación de
  * persistencia.
  *
- * @see UsuarioDAO
  */
 public interface IUsuarioDAO {
 

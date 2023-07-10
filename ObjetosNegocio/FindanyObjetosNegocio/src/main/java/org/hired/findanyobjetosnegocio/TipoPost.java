@@ -5,8 +5,10 @@
 package org.hired.findanyobjetosnegocio;
 
 /**
+ * El enum TipoPost representa los posibles tipos de post. Puede ser ANCLADO o
+ * COMÚN.
  *
- * @author ildex
+ * @author HIRED
  */
 public enum TipoPost {
     ANCLADO, COMUN

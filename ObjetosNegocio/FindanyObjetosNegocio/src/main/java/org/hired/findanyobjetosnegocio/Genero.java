@@ -7,6 +7,8 @@ package org.hired.findanyobjetosnegocio;
 /**
  * El enum Genero representa los posibles géneros. Puede ser MASCULINO o
  * FEMENINO.
+ * 
+ * @author HIRED
  */
 public enum Genero {
     MASCULINO, FEMENINO;

@@ -16,18 +16,34 @@ import org.hired.findanyobjetosnegocio.Municipio;
 import org.hired.interfaces.IMunicipioDAO;
 
 /**
+ * La clase MunicipioDAO implementa la interfaz IMunicipioDAO y proporciona
+ * métodos para acceder y manipular los datos de los municipios en la base de
+ * datos. Utiliza la base de datos MongoDB para almacenar los datos de los
+ * municipios. La clase utiliza el patrón Singleton para garantizar una única
+ * instancia de la clase.
  *
- * @author ildex
+ * @see FactoryPersistencia
+ * @see Municipio
+ * @author HIRED
  */
 public class MunicipioDAO implements IMunicipioDAO {
 
     private final String NOMBRE_COLECCION = "Municipio";
     private static MunicipioDAO instancia;
 
+    /**
+     * Crea una nueva instancia de MunicipioDAO.
+     */
     public MunicipioDAO() {
 
     }
 
+    /**
+     * Obtiene la instancia única de MunicipioDAO utilizando el patrón
+     * Singleton.
+     *
+     * @return la instancia única de MunicipioDAO
+     */
     public static MunicipioDAO getInstancia() {
         if (instancia == null) {
             instancia = new MunicipioDAO();
@@ -35,6 +51,13 @@ public class MunicipioDAO implements IMunicipioDAO {
         return instancia;
     }
 
+    /**
+     * Obtiene una lista de municipios por estado.
+     *
+     * @return una lista de municipios por estado
+     * @throws PersistenciaException si ocurre un error durante la operación de
+     * obtener los municipios por estado
+     */
     @Override
     public List<Municipio> obtenerMunicipiosPorEstado() throws PersistenciaException {
         try {
@@ -44,7 +67,15 @@ public class MunicipioDAO implements IMunicipioDAO {
             throw new PersistenciaException("Error al obtener los municipios por estado: " + e.getLocalizedMessage());
         }
     }
-    
+
+    /**
+     * Obtiene el nombre de un municipio por su ID.
+     *
+     * @param municipioId el ID del municipio
+     * @return el nombre del municipio
+     * @throws PersistenciaException si ocurre un error durante la operación de
+     * obtener el municipio por su ID
+     */
     @Override
     public String obtenerMunicipioPorId(String municipioId) throws PersistenciaException {
         try {
@@ -60,7 +91,15 @@ public class MunicipioDAO implements IMunicipioDAO {
             throw new PersistenciaException("Error al obtener el municipio: " + e.getLocalizedMessage());
         }
     }
-    
+
+    /**
+     * Obtiene el nombre del estado al que pertenece un municipio por su ID.
+     *
+     * @param municipioId el ID del municipio
+     * @return el nombre del estado al que pertenece el municipio
+     * @throws PersistenciaException si ocurre un error durante la operación de
+     * obtener el estado por el ID del municipio
+     */
     @Override
     public String obtenerEstadoPorIdMunicipio(String municipioId) throws PersistenciaException {
         try {

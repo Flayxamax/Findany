@@ -5,8 +5,10 @@
 package org.hired.findanyobjetosnegocio;
 
 /**
+ * El enum TipoUsuario representa los posibles tipos de usuarios. Puede ser
+ * ADMINISTRADOR o NORMAL.
  *
- * @author ildex
+ * @author HIRED
  */
 public enum TipoUsuario {
     ADMINISTRADOR, NORMAL

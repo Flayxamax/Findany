@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 /**
  * Clase utilizada para validar textos de entrada
  *
- * @author Findany
+ * @author HIRED
  */
 public class Validadores {
 
@@ -98,7 +98,15 @@ public class Validadores {
 
         return matcher.matches();
     }
-    
+
+    /**
+     * Verifica si una cadena de texto cumple con los requisitos de formato para
+     * un título.
+     *
+     * @param s la cadena de texto a verificar
+     * @return true si la cadena de texto cumple con los requisitos de formato
+     * para un título, false de lo contrario
+     */
     public boolean esTitulo(String s) {
         String patron = "^.{1,20}$";
 
@@ -108,7 +116,15 @@ public class Validadores {
 
         return matcher.matches();
     }
-    
+
+    /**
+     * Verifica si una cadena de texto cumple con los requisitos de formato para
+     * un contenido.
+     *
+     * @param s la cadena de texto a verificar
+     * @return true si la cadena de texto cumple con los requisitos de formato
+     * para un contenido, false de lo contrario
+     */
     public boolean esContenido(String s) {
         String patron = "^.{1,200}$";
 
@@ -118,7 +134,15 @@ public class Validadores {
 
         return matcher.matches();
     }
-    
+
+    /**
+     * Verifica si una cadena de texto cumple con los requisitos de formato para
+     * un contenido de comentario.
+     *
+     * @param s la cadena de texto a verificar
+     * @return true si la cadena de texto cumple con los requisitos de formato
+     * para un contenido de comentario, false de lo contrario
+     */
     public boolean esContenidoComentario(String s) {
         String patron = "^.{1,100}$";
 

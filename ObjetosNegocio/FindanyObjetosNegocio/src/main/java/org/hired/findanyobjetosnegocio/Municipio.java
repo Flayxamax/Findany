@@ -13,7 +13,7 @@ import org.bson.types.ObjectId;
  * identificador, nombre, lista de usuarios asociados y el estado al que
  * pertenece.
  *
- * @author Findany
+ * @author HIRED
  */
 public class Municipio {
 

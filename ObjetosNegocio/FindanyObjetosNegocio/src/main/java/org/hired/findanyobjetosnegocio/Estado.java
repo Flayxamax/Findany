@@ -12,7 +12,7 @@ import org.bson.types.ObjectId;
  * La clase {@code Estado} representa un estado. Contiene información como el
  * identificador, nombre y la lista de municipios asociados.
  *
- * @author Findany
+ * @author HIRED
  *
  */
 public class Estado {

@@ -14,7 +14,7 @@ import org.bson.types.ObjectId;
  * comentario, el comentario padre al que responde (si existe), y el usuario
  * autor del comentario.
  *
- * @author Findany
+ * @author HIRED
  */
 public class Comentario {
 

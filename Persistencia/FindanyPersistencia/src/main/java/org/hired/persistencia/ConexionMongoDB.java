@@ -14,8 +14,14 @@ import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 
 /**
+ * La clase ConexionMongoDB proporciona una conexión a la base de datos MongoDB y devuelve la instancia de la base de datos utilizada por la aplicación.
  *
- * @author ildex
+ * @see MongoClientSettings
+ * @see MongoClients
+ * @see MongoDatabase
+ * @see CodecRegistry
+ * @see PojoCodecProvider
+ * @author HIRED
  */
 public class ConexionMongoDB {
 
@@ -23,21 +29,32 @@ public class ConexionMongoDB {
     private final String BASE_DATOS = "Findany";
     private final MongoDatabase baseDatos;
 
+    /**
+     * Crea una nueva instancia de ConexionMongoDB y establece la conexión a la
+     * base de datos MongoDB.
+     */
     private ConexionMongoDB() {
-        //CONVIERTE CLASES POJO A DOCUMENTOS EN MONGODB
-        CodecRegistry pojoCodecRegistry = fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
+        // Convierte clases POJO a documentos en MongoDB
+        CodecRegistry pojoCodecRegistry = fromRegistries(
+                MongoClientSettings.getDefaultCodecRegistry(),
                 fromProviders(PojoCodecProvider.builder().automatic(true).build()));
 
-        //CONSTRUYE CONFIGURACIONES DEL MONGOCLIENT
+        // Construye configuraciones del MongoClient
         MongoClientSettings settings = MongoClientSettings.builder()
                 .codecRegistry(pojoCodecRegistry)
                 .build();
 
-        //CONEXIÓN A LA BASE DE DATOS
+        // Conexión a la base de datos
         MongoClient conexion = MongoClients.create(settings);
         baseDatos = conexion.getDatabase(BASE_DATOS);
     }
 
+    /**
+     * Obtiene la instancia única de ConexionMongoDB utilizando el patrón
+     * Singleton.
+     *
+     * @return la instancia única de ConexionMongoDB
+     */
     public static ConexionMongoDB getInstancia() {
         if (instancia == null) {
             instancia = new ConexionMongoDB();
@@ -45,7 +62,14 @@ public class ConexionMongoDB {
         return instancia;
     }
 
+    /**
+     * Obtiene la instancia de la base de datos MongoDB utilizada por la
+     * aplicación.
+     *
+     * @return la instancia de la base de datos MongoDB
+     */
     public MongoDatabase getBaseDatos() {
         return baseDatos;
     }
+
 }

@@ -132,7 +132,7 @@ public class PostServlet extends HttpServlet {
             out.println(serializadorJSON.toJson(ex.getMessage()));
         } catch (JsonSyntaxException | IOException | NegocioException ex) {
             response.setStatus(500);    // ERROR EN EL SERVER
-            out.println(serializadorJSON.toJson("Falló interno del servidor"));
+            out.println(serializadorJSON.toJson("Fallo interno del servidor"));
         }
     }
 

@@ -24,6 +24,7 @@ import org.hired.interfaces.IUsuarioDAO;
  * @see EstadoDAO
  * @see MunicipioDAO
  * @see ComentarioDAO
+ * @author HIRED
  */
 public class FactoryPersistencia {
 

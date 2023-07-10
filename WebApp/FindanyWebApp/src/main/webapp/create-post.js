@@ -35,7 +35,7 @@ window.onload = function () {
                             throw {errorType: "badRequest", message: data};
                         });
                     } else if (response.status === 500) {
-                        throw {errorType: "internalServerError", message: "Falló interno del servidor"};
+                        throw {errorType: "internalServerError", message: "Fallo interno del servidor"};
                     } else {
                         throw {errorType: "unknownError", message: "Error en la solicitud"};
                     }

@@ -23,7 +23,7 @@ import org.hired.interfaces.IUsuarioDAO;
  * Estado, Municipio y Comentario. Utiliza la fábrica de persistencia
  * (FactoryPersistencia) para obtener instancias de los DAO correspondientes.
  *
- * @author Findany
+ * @author HIRED
  */
 public class FacadePersistencia {
 
