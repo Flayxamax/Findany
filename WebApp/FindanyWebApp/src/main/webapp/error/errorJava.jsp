@@ -1,10 +1,11 @@
+<%String errorMessage = request.getParameter("message");%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
         <title>Findany</title>
-        <link rel="stylesheet" href="assets/css/index.css">
+        <link rel="stylesheet" href="../assets/css/error.css">
         <link rel="icon" type="image/png" href="assets/img/f.png">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,8 +22,9 @@
             </header>
 
             <div class="main">
-                <h1>Algo salio mal!</h1>
+                <h1>¡Algo salio mal!</h1>
                 <span>${error}</span>
+                <span><%= errorMessage%></span>
             </div>
 
             <footer>

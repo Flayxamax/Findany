@@ -1,5 +1,4 @@
 window.onload = function () {
-
     const esAnclado = () => {
         const checkAnclado = document.getElementById("anclado");
         return checkAnclado.checked;
@@ -17,7 +16,7 @@ window.onload = function () {
             titulo: titulo,
             contenido: contenido,
             tipo,
-            fechaHoraCreacion: fechaHoraCreacion
+            fechaHoraCreacion: fechaHoraCreacion,
         };
 
         console.log(JSON.stringify(post));
@@ -25,21 +24,37 @@ window.onload = function () {
             method: "POST",
             body: JSON.stringify(post),
             headers: {
-                "content-type": "application/json"
-            }
+                "content-type": "application/json",
+            },
         })
-                .then(response => {
-                    return response.json();
-                    console.log(response);
+                .then((response) => {
+                    if (response.ok) {
+                        return response.json();
+                    } else if (response.status === 400) {
+                        return response.json().then((data) => {
+                            throw {errorType: "badRequest", message: data};
+                        });
+                    } else if (response.status === 500) {
+                        throw {errorType: "internalServerError", message: "Falló interno del servidor"};
+                    } else {
+                        throw {errorType: "unknownError", message: "Error en la solicitud"};
+                    }
                 })
-                .then(post => {
+                .then((post) => {
                     alert("¡Post publicado!");
                     window.location.href = "feed.jsp";
                 })
-                .catch(err => {
-                    console.error(err);
+                .catch((error) => {
+                    if (error.errorType === "badRequest") {
+                        window.location.href = "./error/errorHttp.jsp?message=" + encodeURIComponent(error.message);
+                    } else if (error.errorType === "internalServerError") {
+                        window.location.href = "./error/errorJava.jsp?message=" + encodeURIComponent(error.message);
+                    } else {
+                        console.error(error);
+                    }
                 });
     };
+
 
     const btnGuardar = document.getElementById("btn-guardar");
     btnGuardar.onclick = guardarPost;

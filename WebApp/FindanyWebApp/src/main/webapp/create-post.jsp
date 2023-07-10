@@ -19,10 +19,6 @@
                     <img src="assets/img/findanylogo.svg" alt="logo" class="imagen-logo">
                 </div>
                 <div class="header-searchbar">
-                    <form action="results.html" method="GET" class="search">
-                        <input type="text" name="search" class="search" placeholder="Buscar...">
-                        <button type="submit" class="search">????</button>
-                    </form>
                 </div>
                 <div class="header-join">
                     <button class="menu-btn">${sessionScope.usuario.nombreCompleto}
