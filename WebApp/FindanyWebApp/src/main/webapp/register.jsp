@@ -39,7 +39,7 @@
                             </label>
                         </div>
                         <div class="main-form-group">
-                            <label>Telefono*
+                            <label>Telefono* (Incluir código país ejem. +52)
                                 <input type="text" name="tel" placeholder="Ingrese su telefono" required>
                             </label>
                         </div>
