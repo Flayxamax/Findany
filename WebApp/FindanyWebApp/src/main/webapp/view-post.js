@@ -15,7 +15,7 @@ window.onload = function () {
             editButton.classList.add('edit-button');
             editButton.innerHTML = "Editar";
             secEdit.appendChild(editButton);
-            
+
             const servletUrl = new URL("http://localhost:8080/AppWeb/edit-post.jsp");
             servletUrl.searchParams.append("id", post.id.toString());
             editButton.setAttribute('data-url', servletUrl.href);
@@ -82,6 +82,7 @@ window.onload = function () {
         buttonCrear.id = "btn-crear";
         buttonCrear.innerHTML = 'Crear';
         divButton.appendChild(buttonCrear);
+        buttonCrear.disabled = false;
 
         const guardarComentario = () => {
             const buttonCrear = document.getElementById("btn-crear");
@@ -141,14 +142,21 @@ window.onload = function () {
                 "content-type": "application/json",
             },
         })
-                .then((response) => response.json())
-                .then((data) => {
-                    // Aquí puedes realizar acciones adicionales después de eliminar el comentario
-                    alert("Comentario eliminado");
-                    cargarComentarios(); // Vuelve a cargar los comentarios actualizados
+                .then((response) => {
+                    console.log('Response:', response);
+                    if (!response.ok) {
+                        throw new Error('Error al eliminar el comentario');
+                    }
+                    if (response.status === 200) {
+                        alert("Comentario eliminado");
+                        cargarComentarios();
+                    } else {
+                        throw new Error('Error al eliminar el comentario');
+                    }
                 })
                 .catch((err) => {
                     console.error(err);
+                    alert("Hubo un error al eliminar el comentario");
                 });
     };
 
