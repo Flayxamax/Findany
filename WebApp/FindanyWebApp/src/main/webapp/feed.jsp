@@ -22,7 +22,7 @@
                     <img src="assets/img/findanylogo.svg" alt="logo" class="imagen-logo">
                 </div>
                 <div class="header-searchbar">
-                    <form class="search">
+                    <form class="search" onsubmit="return false;">
                         <input type="text" name="search" id="search" class="search" placeholder="Buscar...">
                         <button type="button" id="btn-buscar" class="search">🔍︎</button>
                     </form>
