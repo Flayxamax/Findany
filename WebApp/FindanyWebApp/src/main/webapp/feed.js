@@ -118,6 +118,7 @@ window.onload = function () {
     };
 
     const realizarBusqueda = (texto) => {
+        console.log(texto);
         const busqueda = {termino: texto};
 
         fetch("http://localhost:8080/AppWeb/post?action=search", {
@@ -142,7 +143,7 @@ window.onload = function () {
         if (searchTerm !== '') {
             realizarBusqueda(searchTerm);
         }
-    }
+    };
 
     btnBuscar.onclick = obtenerBusqueda;
     cargarFeed();
