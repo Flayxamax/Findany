@@ -41,7 +41,8 @@ public class AuthServlet extends HttpServlet {
         ILoginUsuarioBO loginUsuarioBO = new LoginUsuarioBO();
         try {
             if (!loginUsuarioBO.AuthUsuario(correo, contrasena)) {
-                response.sendRedirect(request.getContextPath() + "/login.html");
+                request.setAttribute("mensaje", "Credenciales inválidas. Por favor, inténtalo de nuevo.");
+                getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
                 return;
             }
             Usuario usuarioLogueado = loginUsuarioBO.busquedaUsuario(correo);
@@ -58,7 +59,7 @@ public class AuthServlet extends HttpServlet {
         HttpSession sesion = request.getSession();
         sesion.invalidate();
 
-        getServletContext().getRequestDispatcher("/login.html").forward(request, response);
+        getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -38,7 +38,7 @@
                 if (alertMessages.length > 0) {
                     alert(alertMessages.join('\n'));
                     // Redirige a la página de inicio de sesión después de cerrar la alerta
-                    window.location.href = "/AppWeb/login.html";
+                    window.location.href = "/AppWeb/login.jsp";
                 }
             };
         </script>
@@ -123,7 +123,7 @@
                 <div class="main-login">
                     <h3>Iniciar sesión</h3>
                     <hr>
-                    <p>¿Ya tienes una cuenta? <a href="login.html" title="Inicia sesión aqui">Inicia sesión aquí</a></p>
+                    <p>¿Ya tienes una cuenta? <a href="login.jsp" title="Inicia sesión aqui">Inicia sesión aquí</a></p>
                 </div>
             </div>
 
