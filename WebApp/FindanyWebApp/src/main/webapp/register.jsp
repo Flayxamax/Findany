@@ -16,6 +16,33 @@
     </head>
 
     <body>
+
+        <script>
+            // Función para obtener los mensajes de alerta del objeto request
+            function getAlertMessages() {
+                var messages = [];
+            <c:forEach var="entry" items="${requestScope}">
+                var key = "${entry.key}";
+                var value = "${entry.value}";
+                // Filtra los mensajes de alerta con la clave "mensaje"
+                if (key === "mensaje") {
+                    messages.push(value);
+                }
+            </c:forEach>
+                return messages;
+            }
+
+            // Muestra los mensajes de alerta si existen
+            window.onload = function () {
+                var alertMessages = getAlertMessages();
+                if (alertMessages.length > 0) {
+                    alert(alertMessages.join('\n'));
+                    // Redirige a la página de inicio de sesión después de cerrar la alerta
+                    window.location.href = "/AppWeb/login.html";
+                }
+            };
+        </script>
+
         <div class="container">
             <header>
                 <div class="header-logo">
@@ -50,12 +77,12 @@
                         </div>
                         <div class="main-form-group">
                             <div class="form-genero">
-                                <label>Género:</label>
+                                <label>Género*</label>
                                 <div class="radio-container">
                                     <label for="masculino"><input type="radio" name="genero" value="masculino"
-                                                                  id="masculino">Masculino</label>
+                                                                  id="masculino" required>Masculino</label>
                                     <label for="femenino"><input type="radio" name="genero" value="femenino"
-                                                                 id="femenino">Femenino</label>
+                                                                 id="femenino" required>Femenino</label>
                                 </div>
                             </div>
                         </div>

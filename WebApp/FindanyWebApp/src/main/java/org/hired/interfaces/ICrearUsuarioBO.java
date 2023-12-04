@@ -6,6 +6,7 @@ package org.hired.interfaces;
 
 import org.bson.types.ObjectId;
 import org.hired.exception.NegocioException;
+import org.hired.exception.PersistenciaException;
 import org.hired.findanyobjetosnegocio.Municipio;
 import org.hired.findanyobjetosnegocio.Usuario;
 
@@ -15,5 +16,5 @@ import org.hired.findanyobjetosnegocio.Usuario;
  */
 public interface ICrearUsuarioBO {
 
-    public Usuario crearUsuario(Usuario usuario) throws NegocioException;
+    public Usuario crearUsuario(Usuario usuario) throws PersistenciaException;
 }

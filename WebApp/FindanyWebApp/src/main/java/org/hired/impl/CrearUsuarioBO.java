@@ -26,12 +26,13 @@ public class CrearUsuarioBO implements ICrearUsuarioBO {
         this.persistencia = new FactoryPersistencia();
     }
 
-    public Usuario crearUsuario(Usuario usuario) throws NegocioException {
+    @Override
+    public Usuario crearUsuario(Usuario usuario) throws PersistenciaException {
         try {
             Usuario usuarioGuardado = this.usuarioDAO.registrarUsuario(usuario);
             return usuarioGuardado;
         } catch (PersistenciaException e) {
-            throw new NegocioException(e);
+            throw new PersistenciaException(e);
         }
     }
 }

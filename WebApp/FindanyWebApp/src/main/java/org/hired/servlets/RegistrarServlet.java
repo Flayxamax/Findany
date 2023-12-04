@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.hired.exception.NegocioException;
+import org.hired.exception.PersistenciaException;
 import org.hired.findanyobjetosnegocio.Estado;
 import org.hired.findanyobjetosnegocio.Genero;
 import org.hired.findanyobjetosnegocio.Municipio;
@@ -75,6 +76,8 @@ public class RegistrarServlet extends HttpServlet {
             this.processCreate(request, response);
             return;
         } catch (ParseException ex) {
+            Logger.getLogger(RegistrarServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (PersistenciaException ex) {
             Logger.getLogger(RegistrarServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -152,20 +155,22 @@ public class RegistrarServlet extends HttpServlet {
     }
 
     protected void processCreate(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ParseException {
+            throws ServletException, IOException, ParseException, PersistenciaException {
         Usuario usuario = this.obtenerDatosFormulario(request, response);
 
-        //APLICAR LOGICA DE NEGOCIO
+        // APLICAR LÓGICA DE NEGOCIO
         ICrearUsuarioBO crearUsuarioBO = new CrearUsuarioBO();
         try {
             Usuario usuarioGuardado = crearUsuarioBO.crearUsuario(usuario);
+            request.setAttribute("mensaje", "La cuenta se registró correctamente. ¡Ahora puedes iniciar sesión!");
             request.setAttribute("usuario", usuarioGuardado);
-        } catch (Exception e) {
-            request.setAttribute("error", e.getMessage());
-            getServletContext().getRequestDispatcher("/error/errorJava.jsp").forward(request, response);
+        } catch (PersistenciaException e) {
+            request.setAttribute("error", "El correo electrónico ya se encuentra registrado en el sistema");
+            getServletContext().getRequestDispatcher("/error/errorHttp.jsp").forward(request, response);
             return;
         }
-        getServletContext().getRequestDispatcher("/login.html").forward(request, response);
+        // Redirige a la misma página de registro
+        getServletContext().getRequestDispatcher("/register.jsp").forward(request, response);
     }
 
     protected void processObtenerEstadosMunicipios(HttpServletRequest request, HttpServletResponse response)
