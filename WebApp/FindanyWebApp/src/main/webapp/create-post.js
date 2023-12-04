@@ -46,9 +46,13 @@ window.onload = function () {
                 })
                 .catch((error) => {
                     if (error.errorType === "badRequest") {
-                        window.location.href = "./error/errorHttp.jsp?message=" + encodeURIComponent(error.message);
+                        //window.location.href = "./error/errorHttp.jsp?message=" + encodeURIComponent(error.message);
+                        window.alert(error.message+". \nSolo se pueden ingresar letras, caracteres de modificación (como acentos), y espacios en blanco. Debe tener una longitud entre 1 y 20 caracteres.");
+                        location.reload();
                     } else if (error.errorType === "internalServerError") {
-                        window.location.href = "./error/errorJava.jsp?message=" + encodeURIComponent(error.message);
+                        //window.location.href = "./error/errorJava.jsp?message=" + encodeURIComponent(error.message);
+                        window.alert(error.message+". \nSolo se pueden ingresar letras, caracteres de modificación (como acentos), y espacios en blanco. Debe tener una longitud entre 1 y 200 caracteres.");
+                        window.reload();
                     } else {
                         console.error(error);
                     }
