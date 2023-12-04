@@ -14,3 +14,19 @@ Array.from(dropdowns).forEach(dropdown => {
         }
     });
 });
+
+function formatearFecha(fechaString) {
+    const fecha = new Date(fechaString);
+    const dia = fecha.getDate();
+    const mes = fecha.getMonth() + 1;
+    const año = fecha.getFullYear();
+    return `${dia}/${mes}/${año}`;
+}
+
+const fechaNacimiento = document.getElementById('fechaNacimiento').textContent;
+if (fechaNacimiento) {
+    const fechaFormateada = formatearFecha(fechaNacimiento);
+    spanFecha = document.getElementById('fechaNacimiento');
+    spanFecha.innerHTML = fechaFormateada;
+}
+

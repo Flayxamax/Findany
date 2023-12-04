@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="es-en">
 
@@ -44,7 +45,7 @@
                         <p>Correo: ${sessionScope.usuario.correo}</p>
                         <p>Teléfono: ${sessionScope.usuario.telefono}</p>
                         <p>Dirección: ${sessionScope.usuario.ciudad}, ${municipio}, ${estado}.</p>
-                        <p>Fecha de nacimiento: ${sessionScope.usuario.fechaNacimiento}</p>
+                        <p>Fecha de nacimiento: <span id="fechaNacimiento">${sessionScope.usuario.fechaNacimiento}</span></p>
                         <p>Género: ${sessionScope.usuario.genero}</p>
                     </div>
                     <div class="main-submit">
