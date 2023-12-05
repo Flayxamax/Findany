@@ -52,7 +52,7 @@ window.onload = function () {
                     } else if (error.errorType === "internalServerError") {
                         //window.location.href = "./error/errorJava.jsp?message=" + encodeURIComponent(error.message);
                         window.alert(error.message+". \nSolo se pueden ingresar letras, caracteres de modificación (como acentos), y espacios en blanco. Debe tener una longitud entre 1 y 200 caracteres.");
-                        window.reload();
+                        location.reload();
                     } else {
                         console.error(error);
                     }
